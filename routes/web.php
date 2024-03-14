@@ -10,6 +10,11 @@ use App\Http\Controllers\Guru\ReferensiGuruController;
 use App\Http\Controllers\Guru\TugasGuruController;
 use App\Http\Controllers\Guru\TutorialGuruController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Siswa\KuisSiswaController;
+use App\Http\Controllers\Siswa\MateriSiswaController;
+use App\Http\Controllers\Siswa\ReferensiSiswaController;
+use App\Http\Controllers\Siswa\TugasSiswaController;
+use App\Http\Controllers\Siswa\TutorialSiswaController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -61,6 +66,13 @@ Route::group(['middleware' => 'role:siswa'], function () {
     Route::prefix('siswa')->group(function () {
         // Route Siswa Start Here
         Route::get('/dashboard', [DashboardController::class, 'siswa'])->name('dashbboard.siswa');
+        Route::resources([
+            'materi' => MateriSiswaController::class,
+            'tugas' => TugasSiswaController::class,
+            'kuis' => KuisSiswaController::class,
+            'tutorial' => TutorialSiswaController::class,
+            'referensi' => ReferensiSiswaController::class,
+        ]);
     });
 });
 
