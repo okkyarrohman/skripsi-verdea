@@ -38,6 +38,26 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+Route::get('/beranda', function () {
+    return Inertia::render(
+        'Home'
+    );
+});
+Route::get('/registrasi', function () {
+    return Inertia::render(
+        'Register'
+    );
+});
+Route::get('/masuk', function () {
+    return Inertia::render(
+        'Login'
+    );
+});
+Route::get('/guru', function () {
+    return Inertia::render(
+        'Guru/Tutorial/DetailTutorial'
+    );
+});
 
 // Route Guru after login
 Route::group(['middleware' => 'role:guru'], function () {
