@@ -58,6 +58,11 @@ Route::get('/guru', function () {
         'Guru/Tutorial/DetailTutorial'
     );
 });
+Route::get('/siswa', function () {
+    return Inertia::render(
+        'Siswa/Panduan/Panduan'
+    );
+});
 
 // Route Guru after login
 Route::group(['middleware' => 'role:guru'], function () {

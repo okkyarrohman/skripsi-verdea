@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { RxDashboard } from "react-icons/rx";
 import { LuBookOpen } from "react-icons/lu";
 import { LuBookMinus } from "react-icons/lu";
-import {
-    MdOutlineRoomPreferences,
-    MdQuestionAnswer,
-} from "react-icons/md";
+import { MdOutlineRoomPreferences, MdQuestionAnswer } from "react-icons/md";
 import { IoChevronDownSharp } from "react-icons/io5";
 import { MdOutlineCategory } from "react-icons/md";
 import { CgOptions } from "react-icons/cg";
@@ -39,28 +36,7 @@ const Sidebar = ({ isOpen }) => {
         {
             icon: <MdQuestionAnswer size={20} className="mr-4" />,
             text: "Kuis",
-            submenu: [
-                {
-                    text: "Kategori",
-                    url: "quiz/category",
-                    icon: <MdOutlineCategory size={20} className="mr-4" />,
-                },
-                {
-                    text: "Soal",
-                    url: "quiz/question",
-                    icon: <BsQuestionOctagon size={20} className="mr-4" />,
-                },
-                {
-                    text: "Opsi",
-                    url: "quiz/options",
-                    icon: <CgOptions size={20} className="mr-4" />,
-                },
-                {
-                    text: "Hasil",
-                    url: "quiz/results",
-                    icon: <FaChartLine size={20} className="mr-4" />,
-                },
-            ],
+            url: "task",
         },
         {
             icon: <MdOutlineRoomPreferences size={20} className="mr-4" />,
