@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Guru\Kuis;
 
 use App\Http\Controllers\Controller;
+use App\Models\Hasil;
+use App\Models\KategoriKuis as Kategori;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class HasilGuruController extends Controller
 {
@@ -12,7 +15,11 @@ class HasilGuruController extends Controller
      */
     public function index()
     {
-        //
+        $kategoris = Kategori::all();
+
+        return Inertia::render('', [
+            'kategoris' => $kategoris
+        ]);
     }
 
     /**
@@ -36,7 +43,11 @@ class HasilGuruController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $hasils = Hasil::where('kategori_kuis_id', $id)->with('kategoriKuis')->get();
+
+        return Inertia::render('', [
+            'hasils' => $hasils,
+        ]);
     }
 
     /**
