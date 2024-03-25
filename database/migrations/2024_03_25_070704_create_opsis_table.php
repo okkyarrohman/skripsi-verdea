@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('soal_id');
             $table->foreign('soal_id')->references('id')->on('soals');
             $table->string('opsi');
-            $table->integer('point');
+            $table->integer('point')->nullable();
             $table->timestamps();
         });
     }

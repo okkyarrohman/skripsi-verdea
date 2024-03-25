@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('soals', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('kategori_kuis_Id');
-            $table->foreign('kategori_kuis_Id')->references('id')->on('kategori_kuis');
+            $table->unsignedBigInteger('kategori_kuis_id');
+            $table->foreign('kategori_kuis_id')->references('id')->on('kategori_kuis');
             $table->longText('soal');
             $table->string('gambar')->nullable();
             $table->timestamps();

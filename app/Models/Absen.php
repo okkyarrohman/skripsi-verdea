@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Absen extends Model
 {
     use HasFactory;
+
+    protected $table = 'absens';
+
+    protected $fillable = [
+        'pertemuan',
+        'tanggal',
+    ];
+
+    public function absenUser()
+    {
+        return $this->hasMany(AbsenUser::class);
+    }
 }
