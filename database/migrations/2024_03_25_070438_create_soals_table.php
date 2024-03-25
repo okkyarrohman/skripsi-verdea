@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('kategori_kuis_Id');
             $table->foreign('kategori_kuis_Id')->references('id')->on('kategori_kuis');
             $table->longText('soal');
-            $table->sting('gambar')->nullable();
+            $table->string('gambar')->nullable();
             $table->timestamps();
         });
     }
