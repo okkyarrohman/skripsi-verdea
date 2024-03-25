@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Siswa;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tugas;
+use App\Models\TugasUser;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class TugasSiswaController extends Controller
 {
@@ -12,7 +15,11 @@ class TugasSiswaController extends Controller
      */
     public function index()
     {
-        //
+        $tugases = Tugas::all();
+
+        return Inertia::render('', [
+            'tugases' => $tugases
+        ]);
     }
 
     /**
@@ -20,7 +27,6 @@ class TugasSiswaController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -28,7 +34,22 @@ class TugasSiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Request column input type file
+        if ($request->hasFile('fileTugas')) {
+            $fileTugas = $request->file('fileTugas');
+            $extension = $fileTugas->getClientOriginalName();
+            $fileTugasName = date('YmdHis') . "." . $extension;
+            $fileTugas->move(storage_path('app/public/tugas/fileTugas/'), $fileTugasName);
+        }
+
+        TugasUser::create([
+            'tugas_id' => $request->input('tugas_id'),
+            'user_id' => auth()->user()->id,
+            'fileTugas' => $fileTugasName,
+            'waktu_submit' => now()->format('Y-m-d H:i:s'),
+        ]);
+
+        return redirect()->route('tugas.index');
     }
 
     /**
@@ -44,7 +65,11 @@ class TugasSiswaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $tugasUser = TugasUser::where('tugas_id', $id)->with('tugas')->get();
+
+        return Inertia::render('', [
+            'tugasUser' => $tugasUser
+        ]);
     }
 
     /**
