@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Guru\Kuis;
 
 use App\Http\Controllers\Controller;
+use App\Models\Opsi;
+use App\Models\Soal;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class OpsiGuruController extends Controller
 {
@@ -12,7 +15,11 @@ class OpsiGuruController extends Controller
      */
     public function index()
     {
-        //
+        $opsis = Opsi::all();
+
+        return Inertia::render('', [
+            'opsis' => $opsis
+        ]);
     }
 
     /**
@@ -20,7 +27,10 @@ class OpsiGuruController extends Controller
      */
     public function create()
     {
-        //
+
+        return Inertia::render('', [
+            'soals' => Soal::all(),
+        ]);
     }
 
     /**
@@ -28,7 +38,13 @@ class OpsiGuruController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Opsi::create([
+            'soal_id' => $request->input('soal_id'),
+            'opsi' => $request->input('opsi'),
+            'point' => $request->input('point'),
+        ]);
+
+        return redirect()->route('opsi.index');
     }
 
     /**
@@ -36,7 +52,11 @@ class OpsiGuruController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $opsis = Opsi::where('id', $id)->first();
+
+        return Inertia::render('', [
+            'opsis' => $opsis
+        ]);
     }
 
     /**
@@ -44,15 +64,26 @@ class OpsiGuruController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $opsis = Opsi::where('id', $id)->first();
+
+        return Inertia::render('', [
+            'opsis' => $opsis,
+            'soals' => Soal::all(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $opsi = Opsi::find($request->id);
+        $opsi->soal_id = $request->soal_id;
+        $opsi->opsi = $request->opsi;
+        $opsi->point = $request->point;
+        $opsi->save();
+
+        return redirect()->route('opsi.index');
     }
 
     /**
@@ -60,6 +91,9 @@ class OpsiGuruController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $opsi = Opsi::find($id);
+        $opsi->delete();
+
+        return redirect()->route('opsi.index');
     }
 }

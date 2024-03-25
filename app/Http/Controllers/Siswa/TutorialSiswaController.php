@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Siswa;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tutorial;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class TutorialSiswaController extends Controller
 {
@@ -12,7 +14,11 @@ class TutorialSiswaController extends Controller
      */
     public function index()
     {
-        //
+        $tutorials = Tutorial::all();
+
+        return Inertia::render('', [
+            'tutorials' => $tutorials
+        ]);
     }
 
     /**
@@ -36,7 +42,11 @@ class TutorialSiswaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $tutorials = Tutorial::where('id', $id)->first();
+
+        return Inertia::render('', [
+            'tutorials' => $tutorials
+        ]);
     }
 
     /**

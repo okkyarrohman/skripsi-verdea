@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tutorial;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+
 
 class TutorialGuruController extends Controller
 {
@@ -12,7 +15,11 @@ class TutorialGuruController extends Controller
      */
     public function index()
     {
-        //
+        $tutorials = Tutorial::all();
+
+        return Inertia::render('', [
+            'tutorials' => $tutorials
+        ]);
     }
 
     /**
@@ -20,7 +27,7 @@ class TutorialGuruController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('');
     }
 
     /**
@@ -28,7 +35,13 @@ class TutorialGuruController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Tutorial::create([
+            'judul' => $request->input('judul'),
+            'deskripsi' => $request->input('deskripsi'),
+            'link' => $request->input('link'),
+        ]);
+
+        return redirect()->route('tutorial-guru.index');
     }
 
     /**
@@ -36,7 +49,11 @@ class TutorialGuruController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $tutorials = Tutorial::where('id', $id)->first();
+
+        return Inertia::render('', [
+            'tutorials' => $tutorials
+        ]);
     }
 
     /**
@@ -44,7 +61,11 @@ class TutorialGuruController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $tutorials = Tutorial::where('id', $id)->first();
+
+        return Inertia::render('', [
+            'tutorials' => $tutorials
+        ]);
     }
 
     /**
@@ -52,7 +73,13 @@ class TutorialGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $tutorial = Tutorial::find($request->id);
+        $tutorial->judul = $request->judul;
+        $tutorial->deskripsi = $request->deskripsi;
+        $tutorial->link = $request->link;
+        $tutorial->save();
+
+        return redirect()->route('tutorial-guru.index');
     }
 
     /**
@@ -60,6 +87,9 @@ class TutorialGuruController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $tutorial = Tutorial::find($id);
+        $tutorial->delete();
+
+        return redirect()->route('tutorial-guru.index');
     }
 }

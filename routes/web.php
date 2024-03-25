@@ -50,6 +50,7 @@ Route::group(['middleware' => 'role:guru'], function () {
             'referensi-guru' => ReferensiGuruController::class,
             'tutorial-guru' => TutorialGuruController::class,
         ]);
+        Route::post('/nilai-tugas', [TugasGuruController::class, 'updateNilai'])->name('update.nilai');
         Route::prefix('kuis')->group(function () {
             Route::resources([
                 'kategori' => KategoriGuruController::class,
@@ -66,6 +67,9 @@ Route::group(['middleware' => 'role:siswa'], function () {
     Route::prefix('siswa')->group(function () {
         // Route Siswa Start Here
         Route::get('/dashboard', [DashboardController::class, 'siswa'])->name('dashbboard.siswa');
+        Route::post('/dashboard/hadirAbsen', [DashboardController::class, 'hadirAbsen'])->name('hadirAbsen.dahsboard');
+        Route::post('/absen', [DashboardController::class, 'absen'])->name('absen.dahsboard');
+
         Route::resources([
             'materi' => MateriSiswaController::class,
             'tugas' => TugasSiswaController::class,
@@ -73,20 +77,15 @@ Route::group(['middleware' => 'role:siswa'], function () {
             'tutorial' => TutorialSiswaController::class,
             'referensi' => ReferensiSiswaController::class,
         ]);
+        Route::prefix('profile')->group(function () {
+            Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
+            Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
+            Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        });
     });
 });
 
 
 
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
 require __DIR__ . '/auth.php';
