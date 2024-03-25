@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Tutorial;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Storage;
+
 
 class TutorialGuruController extends Controller
 {
@@ -77,6 +77,7 @@ class TutorialGuruController extends Controller
         $tutorial->judul = $request->judul;
         $tutorial->deskripsi = $request->deskripsi;
         $tutorial->link = $request->link;
+        $tutorial->save();
 
         return redirect()->route('tutorial-guru.index');
     }

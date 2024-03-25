@@ -92,6 +92,7 @@ class ReferensiGuruController extends Controller
             $pdf->move(storage_path('app/public/referensi/pdf/'), $pdfName);
             $referensi->pdf = $pdfName;
         }
+        $referensi->save();
 
         return redirect()->route('referensi-guru.index');
     }

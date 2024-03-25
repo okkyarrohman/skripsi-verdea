@@ -93,6 +93,7 @@ class MateriGuruController extends Controller
             $pdf->move(storage_path('app/public/materi/pdf/'), $pdfName);
             $materi->pdf = $pdfName;
         }
+        $materi->save();
 
         return redirect()->route('materi-guru.index');
     }

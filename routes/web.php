@@ -50,6 +50,7 @@ Route::group(['middleware' => 'role:guru'], function () {
             'referensi-guru' => ReferensiGuruController::class,
             'tutorial-guru' => TutorialGuruController::class,
         ]);
+        Route::post('/nilai-tugas', [TugasGuruController::class, 'updateNilai'])->name('update.nilai');
         Route::prefix('kuis')->group(function () {
             Route::resources([
                 'kategori' => KategoriGuruController::class,
