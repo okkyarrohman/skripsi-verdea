@@ -49,10 +49,13 @@ const DetailTugasSelesai = () => {
                     </div>
                     <div className="my-5 flex flex-col gap-y-2">
                         <p className="font-semibold text-lg">Tugas Siswa</p>
-                        <button className="flex justify-start items-center gap-x-2 bg-[#FB8A3C] px-8 w-44 text-white font-semibold rounded-lg py-2.5">
-                            <FiDownload size={20} />
-                            <p>Unduh FIle</p>
-                        </button>
+                        <div className="flex items-center gap-x-2">
+                            <button className="flex justify-start items-center gap-x-2 bg-[#FB8A3C] px-8 w-44 text-white font-semibold rounded-lg py-2.5">
+                                <FiDownload size={20} />
+                                <p>Unduh FIle</p>
+                            </button>
+                            <p>Nama_File.pdf</p>
+                        </div>
                     </div>
                     <div className="my-5 flex flex-col gap-y-2">
                         <p className="font-semibold text-lg">Nilai</p>

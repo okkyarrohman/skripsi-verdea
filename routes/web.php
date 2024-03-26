@@ -55,12 +55,17 @@ Route::get('/masuk', function () {
 });
 Route::get('/guru', function () {
     return Inertia::render(
-        'Guru/Tutorial/DetailTutorial'
+        'Guru/Tugas/DetailJawaban'
     );
 });
 Route::get('/siswa', function () {
     return Inertia::render(
-        'Siswa/Panduan/Panduan'
+        'Siswa/Profile/EditProfile'
+    );
+});
+Route::get('/sis', function () {
+    return Inertia::render(
+        'Siswa/Profile/Profile'
     );
 });
 
