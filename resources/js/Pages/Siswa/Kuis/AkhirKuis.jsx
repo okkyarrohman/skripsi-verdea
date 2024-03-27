@@ -1,10 +1,18 @@
 import { useState } from "react";
 import SiswaLayout from "@/Layouts/SiswaLayout";
 import { Link } from "@inertiajs/react";
+import FinishKuis from "@/Components/Siswa/Kuis/FinishKuis";
 
 const AkhirKuis = () => {
-    // State untuk melacak opsi yang dipilih
     const [selectedOption, setSelectedOption] = useState(null);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const handleFinishQuiz = () => {
+        // Tambahkan logika untuk menyelesaikan kuis di sini
+        console.log("Menyelesaikan kuis...");
+        // Setelah menyelesaikan kuis, buka modal
+        setModalIsOpen(true);
+    };
 
     return (
         <>
@@ -109,12 +117,19 @@ const AkhirKuis = () => {
                             </div>
                         </div>
                         <div className="flex justify-end my-8">
-                            <Link className="bg-[#FB8A3C] px-5 py-2 text-white rounded-lg">
+                            <button
+                                className="bg-[#FB8A3C] px-5 py-2 text-white rounded-lg"
+                                onClick={handleFinishQuiz}
+                            >
                                 Selesai
-                            </Link>
+                            </button>
                         </div>
                     </div>
                 </div>
+                <FinishKuis
+                    isOpen={modalIsOpen}
+                    onClose={() => setModalIsOpen(false)}
+                />
             </SiswaLayout>
         </>
     );

@@ -5,8 +5,12 @@ import { FiEdit } from "react-icons/fi";
 import { LuEye } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { IoImageOutline } from "react-icons/io5";
+import { useState } from "react";
+import DeleteModal from "@/Components/Guru/Kuis/Opsi/DeleteModal";
 
 const Opsi = () => {
+     const [modalIsOpen, setModalIsOpen] = useState(false);
+     const [deleteItemId, setDeleteItemId] = useState(null);
     const dataabsen = [
         {
             pertanyaan: "Apa Itu RPL",
@@ -32,7 +36,7 @@ const Opsi = () => {
             name: "Point",
             selector: (row) => row.point,
         },
-       
+
         {
             name: "Aksi",
             cell: (row) => (
@@ -43,16 +47,23 @@ const Opsi = () => {
                     >
                         <FiEdit size={17} />
                     </Link>
-                    <Link
-                        href={`/delete-materi/${row.id}`}
+                    <button
                         className="text-[#FB8A3C] bg-white border border-[#FB8A3C] p-2 rounded-md"
+                        onClick={() => {
+                            setDeleteItemId(row.id);
+                            setModalIsOpen(true);
+                        }}
                     >
                         <RiDeleteBinLine size={17} />
-                    </Link>
+                    </button>
                 </div>
             ),
         },
     ];
+     const handleDelete = () => {
+         console.log("Menghapus item dengan ID:", deleteItemId);
+         setModalIsOpen(false);
+     };
 
     return (
         <GuruLayout>
@@ -72,6 +83,11 @@ const Opsi = () => {
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                 <DataTable columns={columns} data={dataabsen} />
             </div>
+            <DeleteModal
+                isOpen={modalIsOpen}
+                onClose={() => setModalIsOpen(false)}
+                handleDelete={handleDelete}
+            />
         </GuruLayout>
     );
 };

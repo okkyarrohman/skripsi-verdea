@@ -1,8 +1,19 @@
+import StartKuis from "@/Components/Siswa/Kuis/StartKuis";
 import SiswaLayout from "@/Layouts/SiswaLayout";
 import { Link } from "@inertiajs/react";
+import { useState } from "react";
 import { MdQuestionAnswer } from "react-icons/md";
 
 const Kuis = () => {
+        const [modalIsOpen, setModalIsOpen] = useState(false);
+
+        const handleQuizStart = () => {
+            // Tambahkan logika untuk memulai kuis di sini
+            console.log("Memulai kuis...");
+            // Setelah memulai kuis, buka modal
+            setModalIsOpen(true);
+        };
+
     return (
         <SiswaLayout>
             <div className="p-4 border-2 border-gray-200 flex items-center rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
@@ -38,12 +49,12 @@ const Kuis = () => {
                             <p>Nilai : 100</p>
                         </div>
                     </div>
-                    <Link
-                        href="#"
+                    <button
                         className="w-full bg-[#F97316] text-center py-2 text-white tracking-wide rounded-lg inline-flex items-center justify-center mt-auto"
+                        onClick={handleQuizStart}
                     >
                         Kerjakan
-                    </Link>
+                    </button>
                 </div>
 
                 <div className="max-w-sm bg-white rounded-2xl shadow p-5 flex flex-col justify-between">
@@ -93,6 +104,10 @@ const Kuis = () => {
                     </Link>
                 </div>
             </div>
+            <StartKuis
+                isOpen={modalIsOpen}
+                onClose={() => setModalIsOpen(false)}
+            />
         </SiswaLayout>
     );
 };

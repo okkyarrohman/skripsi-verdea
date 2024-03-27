@@ -55,12 +55,12 @@ Route::get('/masuk', function () {
 });
 Route::get('/guru', function () {
     return Inertia::render(
-        'Guru/Tugas/DetailJawaban'
+        'Guru/Tutorial/Tutorial'
     );
 });
 Route::get('/siswa', function () {
     return Inertia::render(
-        'Siswa/Profile/EditProfile'
+        'Siswa/Kuis/AkhirKuis'
     );
 });
 Route::get('/sis', function () {
