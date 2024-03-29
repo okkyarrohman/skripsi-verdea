@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Siswa;
 
 use App\Http\Controllers\Controller;
+use App\Models\Materi;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class MateriSiswaController extends Controller
 {
@@ -12,7 +14,11 @@ class MateriSiswaController extends Controller
      */
     public function index()
     {
-        //
+        $materis = Materi::all();
+
+        return Inertia::render('', [
+            'materis' => $materis
+        ]);
     }
 
     /**
@@ -36,7 +42,11 @@ class MateriSiswaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $materis = Materi::where('id', $id)->first();
+
+        return Inertia::render('', [
+            'materis' => $materis
+        ]);
     }
 
     /**

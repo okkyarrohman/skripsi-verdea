@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Siswa;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\KategoriKuis;
+use App\Models\Hasil;
+use App\Models\Opsi;
+use Inertia\Inertia;
 
 class KuisSiswaController extends Controller
 {
@@ -12,8 +16,27 @@ class KuisSiswaController extends Controller
      */
     public function index()
     {
-        //
+        $categories = KategoriKuis::with(['soal' => function ($query) {
+            $query->inRandomOrder()
+                ->with(['opsi' => function ($query) {
+                    $query->inRandomOrder();
+                }]);
+        }])
+            ->whereHas('soal')
+            ->get();
+
+
+        $hasilKuis = Hasil::with('kategoriKuis')->where([
+            'user_id' => auth()->user()->id
+        ])->get();
+
+        return Inertia::render('', [
+            'kategori' => $categories,
+            'hasilKuis' => $hasilKuis
+        ]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -28,7 +51,26 @@ class KuisSiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $opsi = Opsi::find(array_values($request->input('soal')));
+
+        $hasilSeluruh = new Hasil();
+        $hasilSeluruh->user_id = auth()->user()->id;
+        $hasilSeluruh->kategori_kuis_id = $request->kategori_kuis_id;
+        $hasilSeluruh->total_points = $opsi->sum('point');
+        $hasilSeluruh->save();
+
+        $soal = $opsi->mapWithKeys(function ($option) {
+            return [
+                $option->soal_id => [
+                    'opsi_id' => $option->id,
+                    'point' => $option->point
+                ],
+            ];
+        })->toArray();
+
+        $hasilSeluruh->soal()->sync($soal);
+
+        return redirect()->route('kuis.index');
     }
 
     /**
@@ -36,7 +78,18 @@ class KuisSiswaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $categories = KategoriKuis::where('id', $id)->with(['soal' => function ($query) {
+            $query->inRandomOrder()
+                ->with(['opsi' => function ($query) {
+                    $query->inRandomOrder();
+                }]);
+        }])
+            ->whereHas('soal')
+            ->get();
+
+        return Inertia::render('Siswa/SoalKuisSiswa', [
+            'kategori' => $categories
+        ]);
     }
 
     /**
