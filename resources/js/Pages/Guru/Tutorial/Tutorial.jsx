@@ -6,8 +6,10 @@ import DataTable from "react-data-table-component";
 import { FiEdit } from "react-icons/fi";
 import { LuEye } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
+import { Inertia } from "@inertiajs/inertia";
 
-const Tutorial = () => {
+const Tutorial = (props) => {
+    console.log(props.tutorials);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [deleteItemId, setDeleteItemId] = useState(null);
     const dataabsen = [
@@ -32,20 +34,26 @@ const Tutorial = () => {
         },
         {
             name: "Waktu Upload",
-            selector: (row) => row.waktu,
+            selector: (row) => {
+                const uploadDate = new Date(row.created_at);
+                const formattedDate = `${uploadDate.getDate()}/${
+                    uploadDate.getMonth() + 1
+                }/${uploadDate.getFullYear()}`;
+                return formattedDate;
+            },
         },
         {
             name: "Aksi",
             cell: (row) => (
                 <div className="flex space-x-2">
                     <Link
-                        href={`/edit-materi/${row.id}`}
+                        href={route("tutorial-guru.edit", { id: row.id })}
                         className="text-white bg-[#FB8A3C] p-2 rounded-md"
                     >
                         <FiEdit />
                     </Link>
                     <Link
-                        href={`/view-materi/${row.id}`}
+                        href={route("tutorial-guru.show", { id: row.id })}
                         className="text-[#FB8A3C] bg-white border border-[#FB8A3C] p-2 rounded-md"
                     >
                         <LuEye />
@@ -64,8 +72,15 @@ const Tutorial = () => {
         },
     ];
     const handleDelete = () => {
-        console.log("Menghapus item dengan ID:", deleteItemId);
-        setModalIsOpen(false);
+        Inertia.delete(route("tutorial-guru.destroy", deleteItemId))
+            .then(() => {
+                setModalIsOpen(false);
+                setDeleteItemId(null);
+                console.log("Menghapus item dengan ID:", deleteItemId);
+            })
+            .catch((error) => {
+                console.error("Error deleting tutorial:", error);
+            });
     };
 
     return (
@@ -78,14 +93,33 @@ const Tutorial = () => {
                     </p>
                 </div>
                 <div className="w-1/2 flex justify-end">
-                    <Link className="py-2.5 px-8 font-semibold text-white bg-[#F97316] rounded-lg">
+                    <Link
+                        href={route("tutorial-guru.create")}
+                        className="py-2.5 px-8 font-semibold text-white bg-[#F97316] rounded-lg"
+                    >
                         Tambah Tutorial +
                     </Link>
                 </div>
             </div>
-            <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
-                <DataTable columns={columns} data={dataabsen} />
-            </div>
+
+            {props.tutorials && props.tutorials.length === 0 && (
+                <div className="flex flex-col items-center justify-center  mt-14">
+                    <img src="/notfoundabsen.svg" alt="" />
+                    <div className="text-center w-96 mt-6">
+                        <h2 className="text-2xl font-bold tracking-wide">
+                            Belum Terdapat Tutorial!
+                        </h2>
+                        <p className="text-lg text-[#64748B] w-4/5 text-center mx-auto mt-3">
+                            Tambahkan Tutorial Segera
+                        </p>
+                    </div>
+                </div>
+            )}
+            {props.tutorials.length > 0 && (
+                <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
+                    <DataTable columns={columns} data={props.tutorials} />
+                </div>
+            )}
             <DeleteModal
                 isOpen={modalIsOpen}
                 onClose={() => setModalIsOpen(false)}
