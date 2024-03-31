@@ -3,6 +3,8 @@ import { Link } from "@inertiajs/react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 const DetailRefrensi = (props) => {
+    const UrlBase = "http://localhost:8000";
+
     return (
         <GuruLayout>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
@@ -22,7 +24,7 @@ const DetailRefrensi = (props) => {
                 <p className="justify-center">{props.referensis.deskripsi}</p>
                 <div className="mt-5">
                     <embed
-                        src={props.referensis.pdf}
+                        src={`${UrlBase}/storage/referensi/pdf/${props.referensis.pdf}`}
                         type="application/pdf"
                         width="100%"
                         height="500px"

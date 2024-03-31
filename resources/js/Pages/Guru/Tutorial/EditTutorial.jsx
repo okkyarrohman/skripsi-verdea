@@ -1,21 +1,21 @@
 import GuruLayout from "@/Layouts/GuruLayout";
-import { Link } from "@inertiajs/react";
-import { useState } from "react";
-import { Inertia } from "@inertiajs/inertia";
+import { useForm } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 const EditTutorial = (props) => {
-    const [judul, setJudul] = useState(props.tutorials.judul);
-    const [link, setLink] = useState(props.tutorials.link);
-    const [deskripsi, setDeskripsi] = useState(props.tutorials.deskripsi);
+    const { data, setData, put } = useForm({
+        id: props.tutorials.id,
+        judul: props.tutorials.judul,
+        link: props.tutorials.link,
+        deskripsi: props.tutorials.deskripsi,
+    });
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        Inertia.put(route("tutorial-guru.update", { id: props.tutorials.id }), {
-            judul,
-            link,
-            deskripsi,
+        put(route("tutorial-guru.update", { id: props.tutorials.id }), {
+            data,
         });
     };
 
@@ -43,8 +43,9 @@ const EditTutorial = (props) => {
                         <input
                             id="judul"
                             type="text"
-                            value={judul}
-                            onChange={(e) => setJudul(e.target.value)}
+                            value={data.judul}
+                            name="judul"
+                            onChange={(e) => setData("judul", e.target.value)}
                             placeholder="Masukkan Judul Tutorial"
                             className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg"
                         />
@@ -56,8 +57,9 @@ const EditTutorial = (props) => {
                         <input
                             id="link"
                             type="text"
-                            value={link}
-                            onChange={(e) => setLink(e.target.value)}
+                            value={data.link}
+                            name="link"
+                            onChange={(e) => setData("link", e.target.value)}
                             placeholder="Masukkan Link Tutorial"
                             className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg"
                         />
@@ -71,8 +73,11 @@ const EditTutorial = (props) => {
                         </label>
                         <textarea
                             id="deskripsi"
-                            value={deskripsi}
-                            onChange={(e) => setDeskripsi(e.target.value)}
+                            value={data.deskripsi}
+                            name="deskripsi"
+                            onChange={(e) =>
+                                setData("deskripsi", e.target.value)
+                            }
                             placeholder="Masukkan Deskripsi Tutorial"
                             className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg h-36"
                         ></textarea>

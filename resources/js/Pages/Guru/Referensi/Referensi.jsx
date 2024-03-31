@@ -1,5 +1,6 @@
 import DeleteModal from "@/Components/Guru/Referensi/DeleteModal";
 import GuruLayout from "@/Layouts/GuruLayout";
+import { Inertia } from "@inertiajs/inertia";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import DataTable from "react-data-table-component";
@@ -70,8 +71,15 @@ const Referensi = (props) => {
         },
     ];
     const handleDelete = () => {
-        console.log("Menghapus item dengan ID:", deleteItemId);
-        setModalIsOpen(false);
+        Inertia.delete(route("referensi-guru.destroy", deleteItemId))
+            .then(() => {
+                setModalIsOpen(false);
+                setDeleteItemId(null);
+                console.log("Menghapus item dengan ID:", deleteItemId);
+            })
+            .catch((error) => {
+                console.error("Error deleting referensi:", error);
+            });
     };
 
     return (

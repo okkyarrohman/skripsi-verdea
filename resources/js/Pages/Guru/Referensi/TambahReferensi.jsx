@@ -1,8 +1,29 @@
 import GuruLayout from "@/Layouts/GuruLayout";
 import { Link } from "@inertiajs/react";
+import { useState } from "react";
+import { Inertia } from "@inertiajs/inertia";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 const TambahReferensi = () => {
+    const [judul, setJudul] = useState("");
+    const [pdf, setPdf] = useState(null);
+    const [deskripsi, setDeskripsi] = useState("");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append("judul", judul);
+        formData.append("pdf", pdf);
+        formData.append("deskripsi", deskripsi);
+
+        Inertia.post(route("referensi-guru.store"), formData);
+    };
+
+    const handlePdfChange = (e) => {
+        setPdf(e.target.files[0]);
+    };
+
     return (
         <GuruLayout>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
@@ -16,7 +37,11 @@ const TambahReferensi = () => {
                 <h1 className="text-xl font-bold mb-3">Tambah Referensi</h1>
             </div>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
-                <form action="" className="my-6">
+                <form
+                    onSubmit={handleSubmit}
+                    className="my-6"
+                    encType="multipart/form-data"
+                >
                     <div className="my-5 flex flex-col gap-y-2">
                         <label
                             htmlFor="judul"
@@ -27,8 +52,23 @@ const TambahReferensi = () => {
                         <input
                             id="judul"
                             type="text"
+                            value={judul}
+                            onChange={(e) => setJudul(e.target.value)}
                             placeholder="Masukkan Judul Referensi"
                             className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg"
+                        />
+                    </div>
+                    <div className="my-5 flex flex-col gap-y-2">
+                        <label htmlFor="pdf" className="font-semibold text-lg">
+                            File (PDF)
+                        </label>
+                        <input
+                            id="pdf"
+                            type="file"
+                            accept=".pdf"
+                            onChange={handlePdfChange}
+                            className="border-2 border-[#D8DBDF] p-2 bg-[#FBFBFB] rounded-lg"
+                            placeholder="Upload File"
                         />
                     </div>
                     <div className="my-5 flex flex-col gap-y-2">
@@ -40,6 +80,8 @@ const TambahReferensi = () => {
                         </label>
                         <textarea
                             id="deskripsi"
+                            value={deskripsi}
+                            onChange={(e) => setDeskripsi(e.target.value)}
                             placeholder="Masukkan Deskripsi Referensi"
                             className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg h-36"
                         ></textarea>
@@ -63,4 +105,5 @@ const TambahReferensi = () => {
         </GuruLayout>
     );
 };
+
 export default TambahReferensi;
