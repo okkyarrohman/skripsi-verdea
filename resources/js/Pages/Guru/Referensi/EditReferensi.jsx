@@ -31,8 +31,13 @@ const EditReferensi = (props) => {
                 <h1 className="text-xl font-bold mb-3">Edit Referensi</h1>
             </div>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
-                <form action="" className="my-6" onSubmit={handleSubmit}>
-                    <div className="my-5 flex flex-col gap-y-2" encType="multipart/form-data">
+                <form
+                    action=""
+                    className="my-6"
+                    onSubmit={handleSubmit}
+                    encType="multipart/form-data"
+                >
+                    <div className="my-5 flex flex-col gap-y-2">
                         <label
                             htmlFor="judul"
                             className="font-semibold text-lg"

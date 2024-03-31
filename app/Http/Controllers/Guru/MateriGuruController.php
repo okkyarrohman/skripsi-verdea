@@ -17,7 +17,7 @@ class MateriGuruController extends Controller
     {
         $materis = Materi::all();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Materi/Materi', [
             'materis' => $materis
         ]);
     }
@@ -27,7 +27,7 @@ class MateriGuruController extends Controller
      */
     public function create()
     {
-        return Inertia::render('');
+        return Inertia::render('Guru/Materi/TambahMateri');
     }
 
     /**
@@ -59,7 +59,7 @@ class MateriGuruController extends Controller
     {
         $materis = Materi::where('id', $id)->first();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Materi/DetailMateri', [
             'materis' => $materis
         ]);
     }
@@ -71,7 +71,7 @@ class MateriGuruController extends Controller
     {
         $materis = Materi::where('id', $id)->first();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Materi/EditMateri', [
             'materis' => $materis
         ]);
     }
