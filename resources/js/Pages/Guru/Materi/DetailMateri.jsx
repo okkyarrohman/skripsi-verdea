@@ -8,7 +8,7 @@ const DetailMateri = (props) => {
         <GuruLayout>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                 <div className="flex gap-x-2 items-center text-[#64748B] my-3">
-                    <Link href="/">Materi</Link>
+                    <Link href={route("materi-guru.index")}>Materi</Link>
                     <MdKeyboardArrowRight size={25} />
                     <Link href="" className="text-[#F97316]">
                         Detail Materi
