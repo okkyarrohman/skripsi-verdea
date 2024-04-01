@@ -97,9 +97,24 @@ const Soal = (props) => {
                     </Link>
                 </div>
             </div>
-            <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
-                <DataTable columns={columns} data={props.soals} />
-            </div>
+            {props.soals && props.soals.length === 0 && (
+                <div className="flex flex-col items-center justify-center  mt-14">
+                    <img src="/notfoundabsen.svg" alt="" />
+                    <div className="text-center w-96 mt-6">
+                        <h2 className="text-2xl font-bold tracking-wide">
+                            Belum Terdapat Soal!
+                        </h2>
+                        <p className="text-lg text-[#64748B] w-4/5 text-center mx-auto mt-3">
+                            Tambahkan Soal Untuk Kategori Kuis Segera
+                        </p>
+                    </div>
+                </div>
+            )}
+            {props.soals.length > 0 && (
+                <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
+                    <DataTable columns={columns} data={props.soals} />
+                </div>
+            )}
             <DeleteModal
                 isOpen={modalIsOpen}
                 onClose={() => setModalIsOpen(false)}

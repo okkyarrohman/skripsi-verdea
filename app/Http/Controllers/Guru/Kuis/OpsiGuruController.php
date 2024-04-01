@@ -15,9 +15,9 @@ class OpsiGuruController extends Controller
      */
     public function index()
     {
-        $opsis = Opsi::all();
+        $opsis = Opsi::with('soal')->get();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Kuis/Opsi/Opsi', [
             'opsis' => $opsis
         ]);
     }
@@ -28,7 +28,7 @@ class OpsiGuruController extends Controller
     public function create()
     {
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Kuis/Opsi/TambahOpsi', [
             'soals' => Soal::all(),
         ]);
     }
@@ -66,7 +66,7 @@ class OpsiGuruController extends Controller
     {
         $opsis = Opsi::where('id', $id)->first();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Kuis/Opsi/EditOpsi', [
             'opsis' => $opsis,
             'soals' => Soal::all(),
         ]);
