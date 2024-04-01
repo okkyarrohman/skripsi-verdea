@@ -7,10 +7,12 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { IoImageOutline } from "react-icons/io5";
 import { useState } from "react";
 import DeleteModal from "@/Components/Guru/Kuis/Soal/DeleteModal";
+import { Inertia } from "@inertiajs/inertia";
 
-const Soal = () => {
+const Soal = (props) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [deleteItemId, setDeleteItemId] = useState(null);
+    console.log(props.soals);
     const dataabsen = [
         {
             kategori: "Matematika",
@@ -26,11 +28,11 @@ const Soal = () => {
         },
         {
             name: "Kategori",
-            selector: (row) => row.kategori,
+            selector: (row) => row.kategori_kuis.nama,
         },
         {
             name: "Pertanyaan",
-            selector: (row) => row.pertanyaan,
+            selector: (row) => row.soal,
         },
         {
             name: "Gambar",
@@ -46,7 +48,7 @@ const Soal = () => {
             cell: (row) => (
                 <div className="flex space-x-2">
                     <Link
-                        href={`/edit-materi/${row.id}`}
+                        href={route("soal.edit", { id: row.id })}
                         className="text-white bg-[#FB8A3C] p-2 rounded-md"
                     >
                         <FiEdit size={17} />
@@ -66,8 +68,15 @@ const Soal = () => {
     ];
 
     const handleDelete = () => {
-        console.log("Menghapus item dengan ID:", deleteItemId);
-        setModalIsOpen(false);
+        Inertia.delete(route("soal.destroy", deleteItemId))
+            .then(() => {
+                setModalIsOpen(false);
+                setDeleteItemId(null);
+                console.log("Menghapus item dengan ID:", deleteItemId);
+            })
+            .catch((error) => {
+                console.error("Error deleting soal:", error);
+            });
     };
 
     return (
@@ -80,13 +89,16 @@ const Soal = () => {
                     </p>
                 </div>
                 <div className="w-1/2 flex justify-end">
-                    <Link className="py-2.5 px-8 font-semibold text-white bg-[#F97316] rounded-lg">
+                    <Link
+                        href={route("soal.create")}
+                        className="py-2.5 px-8 font-semibold text-white bg-[#F97316] rounded-lg"
+                    >
                         Tambah Soal +
                     </Link>
                 </div>
             </div>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
-                <DataTable columns={columns} data={dataabsen} />
+                <DataTable columns={columns} data={props.soals} />
             </div>
             <DeleteModal
                 isOpen={modalIsOpen}

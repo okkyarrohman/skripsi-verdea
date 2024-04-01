@@ -16,9 +16,9 @@ class SoalGuruController extends Controller
      */
     public function index()
     {
-        $soals = Soal::all();
+        $soals = Soal::with('kategoriKuis')->get();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Kuis/Soal/Soal', [
             'soals' => $soals
         ]);
     }
@@ -30,7 +30,7 @@ class SoalGuruController extends Controller
     {
         $kategoris = KategoriKuis::all();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Kuis/Soal/TambahSoal', [
             'kategoris' => $kategoris
         ]);
     }
@@ -77,7 +77,7 @@ class SoalGuruController extends Controller
         $kategoris = KategoriKuis::all();
         $soals = Soal::where('id', $id)->first();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Kuis/Soal/EditSoal', [
             'soals' => $soals,
             'kategoris' => $kategoris
         ]);

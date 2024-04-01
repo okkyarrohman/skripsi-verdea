@@ -16,7 +16,7 @@ class KategoriGuruController extends Controller
     {
         $kategoris = Kategori::all();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Kuis/Kategori/Kategori', [
             'kategoris' => $kategoris
         ]);
     }
@@ -26,7 +26,7 @@ class KategoriGuruController extends Controller
      */
     public function create()
     {
-        return Inertia::render('');
+        return Inertia::render('Guru/Kuis/Kategori/TambahKategori');
     }
 
     /**
@@ -62,7 +62,7 @@ class KategoriGuruController extends Controller
     {
         $kategoris = Kategori::where('id', $id)->first();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Kuis/Kategori/EditKategori', [
             'kategoris' => $kategoris
         ]);
     }
