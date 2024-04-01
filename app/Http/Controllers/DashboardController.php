@@ -19,7 +19,7 @@ class DashboardController extends Controller
         $tugases = Tugas::latest()->get();
         $dataSiswa = User::role('siswa')->get();
 
-        return Inertia::render('Guru/Dashboard', [
+        return Inertia::render('Guru/Dashboard/Beranda', [
             'absens' => $absens,
             'tugases' => $tugases,
             'dataSiswa' => $dataSiswa,

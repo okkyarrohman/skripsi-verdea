@@ -4,7 +4,11 @@ import { RiBook2Line } from "react-icons/ri";
 import { RiArrowRightLine } from "react-icons/ri";
 import GuruLayout from "@/Layouts/GuruLayout";
 
-const Beranda = () => {
+const Beranda = (props) => {
+    const dataSiswa = props.dataSiswa;
+    const absens = props.absens;
+    const tugass = props.tugases;
+    console.log(tugass);
     const columnabsen = [
         {
             name: "Pertemuan",
@@ -66,7 +70,6 @@ const Beranda = () => {
         return kehadiran.hadir;
     };
 
-    // Fungsi untuk mendapatkan angka alpha
     const getAlphaNumber = (kehadiran) => {
         return kehadiran.alpha;
     };
@@ -74,7 +77,7 @@ const Beranda = () => {
     const columnsiswa = [
         {
             name: "No",
-            selector: (row) => row.no,
+            selector: (row, index) => index + 1,
         },
         {
             name: "Nama Siswa",
@@ -85,52 +88,25 @@ const Beranda = () => {
             selector: (row) => (
                 <span
                     className={`inline-flex items-center ${
-                        row.status === "Login"
+                        row.session_login_at !== null
                             ? "bg-green-100 text-green-800 border border-green-600"
                             : "bg-gray-100 text-gray-800 border border-gray-600"
                     } text-xs font-medium px-5 py-1 rounded-full`}
                 >
                     <span
                         className={`h-2 w-2 rounded-full mr-2 ${
-                            row.status === "Login"
+                            row.session_login_at !== null
                                 ? "bg-green-500"
                                 : "bg-gray-500"
                         }`}
                     ></span>
-                    {row.status}
+                    {row.session_login_at !== null ? "Login" : "Logout"}
                 </span>
             ),
         },
         {
             name: "Waktu Login",
-            selector: (row) => row.waktu,
-        },
-    ];
-
-    const datasiswa = [
-        {
-            no: 1,
-            name: "Mohammad Ilham",
-            status: "Login",
-            waktu: "12 Menit 30 detik",
-        },
-        {
-            no: 1,
-            name: "Mohammad Ilham",
-            status: "Logout",
-            waktu: "12 Menit 30 detik",
-        },
-        {
-            no: 1,
-            name: "Mohammad Ilham",
-            status: "Login",
-            waktu: "12 Menit 30 detik",
-        },
-        {
-            no: 1,
-            name: "Mohammad Ilham",
-            status: "Login",
-            waktu: "12 Menit 30 detik",
+            selector: (row) => row.total_login_time,
         },
     ];
 
@@ -148,7 +124,11 @@ const Beranda = () => {
                         </p>
                     </div>
                     <div className="w-1/2">
-                        <img src="dsguru1.svg" alt="" className="float-right" />
+                        <img
+                            src="/dsguru1.svg"
+                            alt=""
+                            className="float-right"
+                        />
                     </div>
                 </div>
                 <div className="grid grid-cols-2  gap-4 mb-4 mt-5">
@@ -208,7 +188,7 @@ const Beranda = () => {
                     <div>
                         <DataTable
                             columns={columnsiswa}
-                            data={datasiswa}
+                            data={dataSiswa}
                         ></DataTable>
                     </div>
                 </div>
