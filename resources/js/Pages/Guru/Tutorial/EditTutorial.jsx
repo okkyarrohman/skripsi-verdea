@@ -4,7 +4,8 @@ import { Link, router } from "@inertiajs/react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 const EditTutorial = (props) => {
-    const { data, setData, put } = useForm({
+    const { data, setData, post } = useForm({
+        _method: "patch",
         id: props.tutorials.id,
         judul: props.tutorials.judul,
         link: props.tutorials.link,
@@ -14,7 +15,7 @@ const EditTutorial = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        put(route("tutorial-guru.update", { id: props.tutorials.id }), {
+        post(route("tutorial-guru.update", { id: props.tutorials.id }), {
             data,
         });
     };

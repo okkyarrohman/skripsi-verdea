@@ -90,7 +90,7 @@ class SoalGuruController extends Controller
     {
         $soal = Soal::find($request->id);
         $soal->kategori_kuis_id = $request->kategori_kuis_id;
-        $soal->soal  = $request->server;
+        $soal->soal  = $request->soal;
 
         // Request column input type file
         if ($request->hasFile('gambar')) {

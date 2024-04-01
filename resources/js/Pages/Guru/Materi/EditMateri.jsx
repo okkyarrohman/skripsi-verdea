@@ -3,7 +3,8 @@ import { Link, useForm } from "@inertiajs/react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 const EditMateri = (props) => {
-    const { data, setData, put } = useForm({
+    const { data, setData, post } = useForm({
+        _method: "patch",
         id: props.materis.id,
         judul: props.materis.judul,
         pdf: props.materis.pdf,
@@ -13,7 +14,7 @@ const EditMateri = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        put(route("materi-guru.update", { id: props.materis.id }), {
+        post(route("materi-guru.update", { id: props.materis.id }), {
             data,
         });
     };
@@ -61,6 +62,7 @@ const EditMateri = (props) => {
                             id="pdf"
                             type="file"
                             accept=".pdf"
+                            name="pdf"
                             className="border-2 border-[#D8DBDF] p-2 bg-[#FBFBFB] rounded-lg"
                             placeholder="Upload File"
                             onChange={(e) => setData("pdf", e.target.files[0])}

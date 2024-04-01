@@ -3,7 +3,8 @@ import { Link, useForm } from "@inertiajs/react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 const EditReferensi = (props) => {
-    const { data, setData, put } = useForm({
+    const { data, setData, post } = useForm({
+        _method: "patch",
         id: props.referensis.id,
         judul: props.referensis.judul,
         pdf: props.referensis.pdf,
@@ -13,7 +14,7 @@ const EditReferensi = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        put(route("referensi-guru.update", { id: props.referensis.id }), {
+        post(route("referensi-guru.update", { id: props.referensis.id }), {
             data,
         });
     };
