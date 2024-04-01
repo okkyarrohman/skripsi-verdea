@@ -5,7 +5,8 @@ import SiswaLayout from "@/Layouts/SiswaLayout";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaChevronRight } from "react-icons/fa";
 
-const Beranda = () => {
+const Beranda = (props) => {
+    console.log(props)
     const columnabsen = [
         {
             name: "Pertemuan",
@@ -82,7 +83,7 @@ const Beranda = () => {
                 <div className="p-4 border-2 border-gray-200 flex items-center rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                     <div className="text-start w-1/2">
                         <h1 className="text-4xl font-bold">
-                            Hi, Selamat Datang Oky Anugrah 👋🏻
+                            Hi, Selamat Datang {props.auth.user.name} 👋🏻
                         </h1>
                         <p className="mt-3 mb-7 text-lg">
                             Ayo tingkatkan belajarmu dengan pembelajaran yang
@@ -90,7 +91,7 @@ const Beranda = () => {
                         </p>
                     </div>
                     <div className="w-1/2">
-                        <img src="dsguru1.svg" alt="" className="float-right" />
+                        <img src="/dsguru1.svg" alt="" className="float-right" />
                     </div>
                 </div>
                 <div className="grid grid-cols-2  gap-4 mb-4 mt-5">

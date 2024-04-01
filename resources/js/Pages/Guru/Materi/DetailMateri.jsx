@@ -3,7 +3,7 @@ import { Link } from "@inertiajs/react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 const DetailMateri = (props) => {
-     const UrlBase = "http://localhost:8000";
+    const UrlBase = "http://localhost:8000";
     return (
         <GuruLayout>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">

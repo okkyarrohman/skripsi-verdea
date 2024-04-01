@@ -2,7 +2,18 @@ import SiswaLayout from "@/Layouts/SiswaLayout";
 import { Link } from "@inertiajs/react";
 import { MdOutlineRoomPreferences } from "react-icons/md";
 
-const Referensi = () => {
+const Referensi = (props) => {
+    console.log(props.referensis);
+
+    
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear().toString();
+        return `${day}/${month}/${year}`;
+    };
+
     return (
         <SiswaLayout>
             <div className="p-4 border-2 border-gray-200 flex items-center rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
@@ -15,88 +26,47 @@ const Referensi = () => {
                     </p>
                 </div>
                 <div className="w-1/2">
-                    <img src="referensi1.svg" alt="" className="float-right w-96" />
+                    <img
+                        src="/referensi1.svg"
+                        alt=""
+                        className="float-right w-96"
+                    />
                 </div>
             </div>
             <div className="grid grid-cols-3 gap-4 mt-7">
-                <div className="max-w-sm bg-white rounded-2xl shadow p-5 flex flex-col justify-between">
-                    <h3 className="text-[#F97316] text-lg font-semibold tracking-wide flex items-center space-x-2">
-                        <MdOutlineRoomPreferences
-                            className="text-lg"
-                            size={23}
-                        />
-                        <span>Referensi</span>
-                    </h3>
-                    <div className="">
-                        <Link href="#">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                                Nama refrensi ada disini ya teman teman Nama
-                                refrensi ada disini ya teman teman
-                            </h5>
-                        </Link>
-                        <div className="mt-3 text-gray-700 mb-5 flex flex-col gap-y-2 text-lg">
-                            <p>Diupload : 12/02/2025</p>
-                        </div>
-                    </div>
-                    <Link
-                        href="#"
-                        className="w-full bg-[#F97316] text-center py-2 text-white tracking-wide rounded-lg inline-flex items-center justify-center mt-auto"
+                {props.referensis.map((referensi, index) => (
+                    <div
+                        key={index}
+                        className="max-w-sm bg-white rounded-2xl shadow p-5 flex flex-col justify-between"
                     >
-                        Lihat Referensi
-                    </Link>
-                </div>
-                <div className="max-w-sm bg-white rounded-2xl shadow p-5 flex flex-col justify-between">
-                    <h3 className="text-[#F97316] text-lg font-semibold tracking-wide flex items-center space-x-2">
-                        <MdOutlineRoomPreferences
-                            className="text-lg"
-                            size={23}
-                        />
-                        <span>Referensi</span>
-                    </h3>
-                    <div className="">
-                        <Link href="#">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                                Nama refrensi ada disini ya teman teman Nama
-                                refrensi ada disini ya teman teman
-                            </h5>
-                        </Link>
-                        <div className="mt-3 text-gray-700 mb-5 flex flex-col gap-y-2 text-lg">
-                            <p>Diupload : 12/02/2025</p>
+                        <h3 className="text-[#F97316] text-lg font-semibold tracking-wide flex items-center space-x-2">
+                            <MdOutlineRoomPreferences
+                                className="text-lg"
+                                size={23}
+                            />
+                            <span>Referensi</span>
+                        </h3>
+                        <div className="">
+                            <div href="#">
+                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                                    {referensi.judul}
+                                </h5>
+                            </div>
+                            <div className="mt-3 text-gray-700 mb-5 flex flex-col gap-y-2 text-lg">
+                                <p>
+                                    Diupload :{" "}
+                                    {formatDate(referensi.created_at)}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <Link
-                        href="#"
-                        className="w-full bg-[#F97316] text-center py-2 text-white tracking-wide rounded-lg inline-flex items-center justify-center mt-auto"
-                    >
-                        Lihat Referensi
-                    </Link>
-                </div>
-                <div className="max-w-sm bg-white rounded-2xl shadow p-5 flex flex-col justify-between">
-                    <h3 className="text-[#F97316] text-lg font-semibold tracking-wide flex items-center space-x-2">
-                        <MdOutlineRoomPreferences
-                            className="text-lg"
-                            size={23}
-                        />
-                        <span>Referensi</span>
-                    </h3>
-                    <div className="">
-                        <Link href="#">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                                Nama refrensi ada disini ya teman teman Nama
-                                refrensi ada disini ya teman teman
-                            </h5>
+                        <Link
+                            href={route("referensi.show", referensi.id)}
+                            className="w-full bg-[#F97316] text-center py-2 text-white tracking-wide rounded-lg inline-flex items-center justify-center mt-auto"
+                        >
+                            Lihat Referensi
                         </Link>
-                        <div className="mt-3 text-gray-700 mb-5 flex flex-col gap-y-2 text-lg">
-                            <p>Diupload : 12/02/2025</p>
-                        </div>
                     </div>
-                    <Link
-                        href="#"
-                        className="w-full bg-[#F97316] text-center py-2 text-white tracking-wide rounded-lg inline-flex items-center justify-center mt-auto"
-                    >
-                        Lihat Referensi
-                    </Link>
-                </div>
+                ))}
             </div>
         </SiswaLayout>
     );

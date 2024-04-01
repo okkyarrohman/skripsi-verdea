@@ -1,7 +1,17 @@
 import SiswaLayout from "@/Layouts/SiswaLayout";
 import { Link } from "@inertiajs/react";
 
-const Materi = () => {
+const Materi = (props) => {
+    console.log(props.materis);
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear().toString();
+        return `${day}/${month}/${year}`;
+    };
+
     return (
         <>
             <SiswaLayout>
@@ -20,7 +30,7 @@ const Materi = () => {
                     </div>
                     <div className="w-1/2">
                         <img
-                            src="sismateri.svg"
+                            src="/sismateri.svg"
                             alt=""
                             className="float-right w-96"
                         />
@@ -28,78 +38,41 @@ const Materi = () => {
                 </div>
 
                 <div className="grid grid-cols-3 gap-4 mt-7">
-                    <div className="max-w-sm bg-white rounded-2xl shadow p-5">
-                        <Link href="#">
-                            <img
-                                className="rounded-t-xl w-full"
-                                src="materi.png"
-                                alt=""
-                            />
-                        </Link>
-                        <div className="p-5">
-                            <Link href="#">
-                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                                    Nama Materi ada disini ya teman teman
-                                </h5>
-                            </Link>
-                            <p className="mb-3 font-normal text-gray-700 ">
-                                Some quick example text to build on the card
-                                title and make up the of.
-                            </p>
-                            <div className="mt-3 text-gray-700">
-                                <p>Diupload : 12/02/2024</p>
+                    {props.materis.map((materi, index) => (
+                        <Link
+                            href={route("materi.show", materi.id)}
+                            key={index}
+                            className="max-w-sm bg-white rounded-2xl shadow p-5"
+                        >
+                            <div>
+                                <img
+                                    className="rounded-t-xl w-full"
+                                    src="/materi.png"
+                                    alt={materi.judul}
+                                />
                             </div>
-                        </div>
-                    </div>
-                    <div className="max-w-sm bg-white rounded-2xl shadow p-5">
-                        <Link href="#">
-                            <img
-                                className="rounded-t-xl w-full"
-                                src="materi.png"
-                                alt=""
-                            />
-                        </Link>
-                        <div className="p-5">
-                            <Link href="#">
-                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                                    Nama Materi ada disini ya teman teman
-                                </h5>
-                            </Link>
-                            <p className="mb-3 font-normal text-gray-700 ">
-                                Some quick example text to build on the card
-                                title and make up the of.
-                            </p>
-                            <div className="mt-3 text-gray-700">
-                                <p>Diupload : 12/02/2024</p>
+                            <div className="p-5">
+                                <div>
+                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 overflow-hidden whitespace-nowrap overflow-ellipsis">
+                                        {materi.judul}
+                                    </h5>
+                                </div>
+                                <p className="mb-3 font-normal text-gray-700 line-clamp-2">
+                                    {materi.deskripsi}
+                                </p>
+                                <div className="mt-3 text-gray-700">
+                                    <p>
+                                        Diupload :{" "}
+                                        {formatDate(materi.created_at)}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className="max-w-sm bg-white rounded-2xl shadow p-5">
-                        <Link href="#">
-                            <img
-                                className="rounded-t-xl w-full"
-                                src="materi.png"
-                                alt=""
-                            />
                         </Link>
-                        <div className="p-5">
-                            <Link href="#">
-                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                                    Nama Materi ada disini ya teman teman
-                                </h5>
-                            </Link>
-                            <p className="mb-3 font-normal text-gray-700 ">
-                                Some quick example text to build on the card
-                                title and make up the of.
-                            </p>
-                            <div className="mt-3 text-gray-700">
-                                <p>Diupload : 12/02/2024</p>
-                            </div>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </SiswaLayout>
         </>
     );
 };
+
 export default Materi;

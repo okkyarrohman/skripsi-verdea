@@ -1,7 +1,15 @@
 import SiswaLayout from "@/Layouts/SiswaLayout";
 import { Link } from "@inertiajs/react";
 
-const Tutorial = () => {
+const Tutorial = (props) => {
+    console.log(props);
+     const formatDate = (dateString) => {
+         const date = new Date(dateString);
+         const day = date.getDate();
+         const month = date.getMonth() + 1;
+         const year = date.getFullYear().toString();
+         return `${day}/${month}/${year}`;
+     };
     return (
         <>
             <SiswaLayout>
@@ -20,7 +28,7 @@ const Tutorial = () => {
                     </div>
                     <div className="w-1/2">
                         <img
-                            src="tutor1.svg"
+                            src="/tutor1.svg"
                             alt=""
                             className="float-right w-60"
                         />
@@ -28,67 +36,34 @@ const Tutorial = () => {
                 </div>
 
                 <div className="grid grid-cols-3 gap-4 mt-7">
-                    <div className="max-w-sm bg-white rounded-2xl shadow p-5">
-                        <Link href="#">
-                            <img
-                                className="rounded-t-xl w-full"
-                                src="materi.png"
-                                alt=""
-                            />
-                        </Link>
-                        <div className="p-5">
-                            <Link href="#">
-                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                                    Nama Tutorial ada disini ya teman teman
-                                </h5>
-                            </Link>
-                           
-                            <div className="mt-3 text-gray-700">
-                                <p>Diupload : 12/02/2024</p>
+                    {props.tutorials.map((tutorial, index) => (
+                        <Link
+                            href={route("tutorial.show", tutorial.id)}
+                             className="max-w-sm bg-white rounded-2xl shadow p-5"
+                        >
+                            <div>
+                                <img
+                                    className="rounded-t-xl w-full"
+                                    src="/materi.png"
+                                    alt=""
+                                />
                             </div>
-                        </div>
-                    </div>
-                    <div className="max-w-sm bg-white rounded-2xl shadow p-5">
-                        <Link href="#">
-                            <img
-                                className="rounded-t-xl w-full"
-                                src="materi.png"
-                                alt=""
-                            />
-                        </Link>
-                        <div className="p-5">
-                            <Link href="#">
-                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                                    Nama Tutorial ada disini ya teman teman
-                                </h5>
-                            </Link>
-                           
-                            <div className="mt-3 text-gray-700">
-                                <p>Diupload : 12/02/2024</p>
+                            <div className="p-5">
+                                <div>
+                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                                        {tutorial.judul}
+                                    </h5>
+                                </div>
+
+                                <div className="mt-3 text-gray-700">
+                                    <p>
+                                        Diupload :{" "}
+                                        {formatDate(tutorial.created_at)}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className="max-w-sm bg-white rounded-2xl shadow p-5">
-                        <Link href="#">
-                            <img
-                                className="rounded-t-xl w-full"
-                                src="materi.png"
-                                alt=""
-                            />
                         </Link>
-                        <div className="p-5">
-                            <Link href="#">
-                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                                    Nama Tutorial ada disini ya teman teman
-                                </h5>
-                            </Link>
-                           
-                            <div className="mt-3 text-gray-700">
-                                <p>Diupload : 12/02/2024</p>
-                            </div>
-                        </div>
-                    </div>
-                    
+                    ))}
                 </div>
             </SiswaLayout>
         </>

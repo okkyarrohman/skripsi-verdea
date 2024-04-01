@@ -32,7 +32,7 @@ class DashboardController extends Controller
         $absensTerakhir = Absen::latest()->get();
         $absenLampau = Absen::latest()->take(3)->get();
 
-        return Inertia::render('Siswa/Dashboard', [
+        return Inertia::render('Siswa/Dashboard/Beranda', [
             'materis' => $materis,
             'absensTerakhir' => $absensTerakhir,
             'absenLampau' => $absenLampau
