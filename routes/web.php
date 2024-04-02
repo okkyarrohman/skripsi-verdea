@@ -53,7 +53,7 @@ Route::get('/masuk', function () {
 });
 Route::get('/guru', function () {
     return Inertia::render(
-        'Guru/Tutorial/Tutorial'
+        'Guru/Tugas/EditTugas'
     );
 });
 Route::get('/siswa', function () {

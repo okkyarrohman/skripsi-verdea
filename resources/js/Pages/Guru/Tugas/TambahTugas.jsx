@@ -32,19 +32,6 @@ const TambahTugas = () => {
                     </div>
                     <div className="my-5 flex flex-col gap-y-2">
                         <label
-                            htmlFor="deskripsi"
-                            className="font-semibold text-lg"
-                        >
-                            Deskripsi Tugas
-                        </label>
-                        <textarea
-                            id="deskripsi"
-                            placeholder="Masukkan Deskripsi Tugas"
-                            className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg h-36"
-                        ></textarea>
-                    </div>
-                    <div className="my-5 flex flex-col gap-y-2">
-                        <label
                             htmlFor="tenggat"
                             className="font-semibold text-lg"
                         >
@@ -55,14 +42,95 @@ const TambahTugas = () => {
                             type="date"
                             placeholder="Masukkan Tenggat Tugas"
                             className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg"
-                            min={today} // Set minimum date to today
+                            min={today}
                         />
+                    </div>
+                    <div className="my-5 flex flex-col gap-y-2">
+                        <label
+                            htmlFor="soalpertama"
+                            className="font-semibold text-lg"
+                        >
+                            Soal Pertama
+                        </label>
+                        <textarea
+                            id="soalpertama"
+                            placeholder="Masukkan Soal"
+                            className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg h-36"
+                        ></textarea>
+                    </div>
+                    <div className="my-5 flex flex-col gap-y-2">
+                        <label
+                            htmlFor="soalkedua"
+                            className="font-semibold text-lg"
+                        >
+                            Soal Kedua
+                        </label>
+                        <textarea
+                            id="soalkedua"
+                            placeholder="Masukkan Soal"
+                            className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg h-36"
+                        ></textarea>
+                    </div>
+                    <div className="my-5 flex flex-col gap-y-2">
+                        <label
+                            htmlFor="soalketiga"
+                            className="font-semibold text-lg"
+                        >
+                            Soal Ketiga
+                        </label>
+                        <textarea
+                            id="soalketiga"
+                            placeholder="Masukkan Soal"
+                            className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg h-36"
+                        ></textarea>
+                    </div>
+                    <div className="my-5 flex flex-col gap-y-2">
+                        <label
+                            htmlFor="soalkeempat"
+                            className="font-semibold text-lg"
+                        >
+                            Soal Keempat
+                        </label>
+                        <textarea
+                            id="soalkeempat"
+                            placeholder="Masukkan Soal"
+                            className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg h-36"
+                        ></textarea>
+                    </div>
+                    <div className="my-5 flex flex-col gap-y-2">
+                        <label
+                            htmlFor="soalkelima"
+                            className="font-semibold text-lg"
+                        >
+                            Soal Kelima
+                        </label>
+                        <textarea
+                            id="soalkelima"
+                            placeholder="Masukkan Soal"
+                            className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg h-36"
+                        ></textarea>
+                    </div>
+                    <div className="my-5 flex flex-col gap-y-2">
+                        <label
+                            htmlFor="soalkeenam"
+                            className="font-semibold text-lg"
+                        >
+                            Soal Keenam
+                        </label>
+                        <textarea
+                            id="soalkeenam"
+                            placeholder="Masukkan Soal"
+                            className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg h-36"
+                        ></textarea>
                     </div>
                     <div className="flex justify-end mt-6 gap-x-4">
                         <button className="bg-white px-8 py-2.5 rounded-lg text-[#F97316] border-2 border-[#F97316] font-semibold">
                             Batal
                         </button>
-                        <button type="submit" className="bg-[#F97316] px-8 py-2.5 rounded-lg text-white font-semibold">
+                        <button
+                            type="submit"
+                            className="bg-[#F97316] px-8 py-2.5 rounded-lg text-white font-semibold"
+                        >
                             Tambah Tugas
                         </button>
                     </div>
