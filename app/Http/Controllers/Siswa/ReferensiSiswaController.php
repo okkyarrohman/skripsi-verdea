@@ -16,7 +16,7 @@ class ReferensiSiswaController extends Controller
     {
         $referensis = Referensi::all();
 
-        return Inertia::render('', [
+        return Inertia::render('Siswa/Referensi/Referensi', [
             'referensis' => $referensis
         ]);
     }
@@ -44,7 +44,7 @@ class ReferensiSiswaController extends Controller
     {
         $referensis = Referensi::where('id', $id)->first();
 
-        return Inertia::render('', [
+        return Inertia::render('Siswa/Referensi/DetailReferensi', [
             'referensis' => $referensis
         ]);
     }

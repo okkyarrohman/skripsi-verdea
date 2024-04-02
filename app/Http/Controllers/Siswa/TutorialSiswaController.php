@@ -16,7 +16,7 @@ class TutorialSiswaController extends Controller
     {
         $tutorials = Tutorial::all();
 
-        return Inertia::render('', [
+        return Inertia::render('Siswa/Tutorial/Tutorial', [
             'tutorials' => $tutorials
         ]);
     }
@@ -44,7 +44,7 @@ class TutorialSiswaController extends Controller
     {
         $tutorials = Tutorial::where('id', $id)->first();
 
-        return Inertia::render('', [
+        return Inertia::render('Siswa/Tutorial/DetailTutorial', [
             'tutorials' => $tutorials
         ]);
     }

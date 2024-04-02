@@ -17,7 +17,7 @@ class ReferensiGuruController extends Controller
     {
         $referensis = Referensi::all();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Referensi/Referensi', [
             'referensis' => $referensis
         ]);
     }
@@ -27,7 +27,7 @@ class ReferensiGuruController extends Controller
      */
     public function create()
     {
-        return Inertia::render('');
+        return Inertia::render('Guru/Referensi/TambahReferensi');
     }
 
     /**
@@ -59,7 +59,7 @@ class ReferensiGuruController extends Controller
     {
         $referensis = Referensi::where('id', $id)->first();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Referensi/DetailReferensi', [
             'referensis' => $referensis
         ]);
     }
@@ -71,7 +71,7 @@ class ReferensiGuruController extends Controller
     {
         $referensis = Referensi::where('id', $id)->first();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Referensi/EditReferensi', [
             'referensis' => $referensis
         ]);
     }

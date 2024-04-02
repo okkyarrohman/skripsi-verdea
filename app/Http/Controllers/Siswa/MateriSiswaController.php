@@ -16,7 +16,7 @@ class MateriSiswaController extends Controller
     {
         $materis = Materi::all();
 
-        return Inertia::render('', [
+        return Inertia::render('Siswa/Materi/Materi', [
             'materis' => $materis
         ]);
     }
@@ -44,7 +44,7 @@ class MateriSiswaController extends Controller
     {
         $materis = Materi::where('id', $id)->first();
 
-        return Inertia::render('', [
+        return Inertia::render('Siswa/Materi/DetailMateri', [
             'materis' => $materis
         ]);
     }

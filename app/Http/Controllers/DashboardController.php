@@ -19,7 +19,7 @@ class DashboardController extends Controller
         $tugases = Tugas::latest()->get();
         $dataSiswa = User::role('siswa')->get();
 
-        return Inertia::render('Guru/Dashboard', [
+        return Inertia::render('Guru/Dashboard/Beranda', [
             'absens' => $absens,
             'tugases' => $tugases,
             'dataSiswa' => $dataSiswa,
@@ -32,7 +32,7 @@ class DashboardController extends Controller
         $absensTerakhir = Absen::latest()->get();
         $absenLampau = Absen::latest()->take(3)->get();
 
-        return Inertia::render('Siswa/Dashboard', [
+        return Inertia::render('Siswa/Dashboard/Beranda', [
             'materis' => $materis,
             'absensTerakhir' => $absensTerakhir,
             'absenLampau' => $absenLampau

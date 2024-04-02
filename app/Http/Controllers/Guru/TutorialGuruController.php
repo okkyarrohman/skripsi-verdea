@@ -17,7 +17,7 @@ class TutorialGuruController extends Controller
     {
         $tutorials = Tutorial::all();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Tutorial/Tutorial', [
             'tutorials' => $tutorials
         ]);
     }
@@ -27,7 +27,7 @@ class TutorialGuruController extends Controller
      */
     public function create()
     {
-        return Inertia::render('');
+        return Inertia::render('Guru/Tutorial/TambahTutorial');
     }
 
     /**
@@ -51,7 +51,7 @@ class TutorialGuruController extends Controller
     {
         $tutorials = Tutorial::where('id', $id)->first();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Tutorial/DetailTutorial', [
             'tutorials' => $tutorials
         ]);
     }
@@ -63,7 +63,7 @@ class TutorialGuruController extends Controller
     {
         $tutorials = Tutorial::where('id', $id)->first();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Tutorial/EditTutorial', [
             'tutorials' => $tutorials
         ]);
     }

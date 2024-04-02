@@ -31,19 +31,47 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    // return Inertia::render('Welcome', [
+    //     'canLogin' => Route::has('login'),
+    //     'canRegister' => Route::has('register'),
+    //     'laravelVersion' => Application::VERSION,
+    //     'phpVersion' => PHP_VERSION,
+    // ]);
+    return Inertia::render(
+        'Home'
+    );
+});
+Route::get('/registrasi', function () {
+    return Inertia::render(
+        'Register'
+    );
+});
+Route::get('/masuk', function () {
+    return Inertia::render(
+        'Login'
+    );
+});
+Route::get('/guru', function () {
+    return Inertia::render(
+        'Guru/Tugas/EditTugas'
+    );
+});
+Route::get('/siswa', function () {
+    return Inertia::render(
+        'Siswa/Kuis/AkhirKuis'
+    );
+});
+Route::get('/sis', function () {
+    return Inertia::render(
+        'Siswa/Profile/Profile'
+    );
 });
 
 // Route Guru after login
 Route::group(['middleware' => 'role:guru'], function () {
     Route::prefix('guru')->group(function () {
         // Route Guru Start Here
-        Route::get('/dashboard', [DashboardController::class, 'guru'])->name('dashbboard.siswa');
+        Route::get('/dashboard', [DashboardController::class, 'guru'])->name('dashbboard.guru');
         Route::resources([
             'tugas-guru' => TugasGuruController::class,
             'materi-guru' => MateriGuruController::class,
