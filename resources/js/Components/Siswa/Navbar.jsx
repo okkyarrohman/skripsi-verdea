@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
+import { Link } from "@inertiajs/react";
 
 const Navbar = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -96,40 +97,24 @@ const Navbar = () => {
                                         </div>
                                         <ul className="py-1" role="none">
                                             <li>
-                                                <a
-                                                    href="#"
+                                                <Link
+                                                    href={route("profile.edit")}
                                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                     role="menuitem"
                                                 >
-                                                    Dashboard
-                                                </a>
+                                                    Profile
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a
-                                                    href="#"
-                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                                    role="menuitem"
-                                                >
-                                                    Settings
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href="#"
-                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                                    role="menuitem"
-                                                >
-                                                    Earnings
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href="#"
+                                                <Link
+                                                    method="post"
+                                                    href={route("logout")}
+                                                    as="button"
                                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                     role="menuitem"
                                                 >
                                                     Sign out
-                                                </a>
+                                                </Link>
                                             </li>
                                         </ul>
                                     </div>

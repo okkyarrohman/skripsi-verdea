@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
+import { Link } from "@inertiajs/react";
 
 const Navbar = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -42,7 +43,7 @@ const Navbar = () => {
                                     ></path>
                                 </svg>
                             </button>
-                            <a
+                            <Link
                                 href="https://flowbite.com"
                                 className="flex ms-2 md:me-24"
                             >
@@ -54,7 +55,7 @@ const Navbar = () => {
                                 <span className=" text-[#F97316] self-center text-xl font-extrabold sm:text-2xl whitespace-nowrap">
                                     Eduhouse
                                 </span>
-                            </a>
+                            </Link>
                         </div>
                         <div className="flex items-center">
                             <div className="flex items-center ms-3">
@@ -96,40 +97,24 @@ const Navbar = () => {
                                         </div>
                                         <ul className="py-1" role="none">
                                             <li>
-                                                <a
+                                                <Link
                                                     href="#"
                                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                     role="menuitem"
                                                 >
-                                                    Dashboard
-                                                </a>
+                                                    Profile
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a
-                                                    href="#"
+                                                <Link
+                                                    method="post"
+                                                    href={route("logout")}
+                                                    as="button"
                                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                     role="menuitem"
                                                 >
-                                                    Settings
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href="#"
-                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                                    role="menuitem"
-                                                >
-                                                    Earnings
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href="#"
-                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                                    role="menuitem"
-                                                >
-                                                    Sign out
-                                                </a>
+                                                    Log out
+                                                </Link>
                                             </li>
                                         </ul>
                                     </div>

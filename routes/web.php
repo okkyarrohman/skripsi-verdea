@@ -31,14 +31,12 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
-Route::get('/beranda', function () {
+    // return Inertia::render('Welcome', [
+    //     'canLogin' => Route::has('login'),
+    //     'canRegister' => Route::has('register'),
+    //     'laravelVersion' => Application::VERSION,
+    //     'phpVersion' => PHP_VERSION,
+    // ]);
     return Inertia::render(
         'Home'
     );
@@ -73,7 +71,7 @@ Route::get('/sis', function () {
 Route::group(['middleware' => 'role:guru'], function () {
     Route::prefix('guru')->group(function () {
         // Route Guru Start Here
-        Route::get('/dashboard', [DashboardController::class, 'guru'])->name('dashbboard.siswa');
+        Route::get('/dashboard', [DashboardController::class, 'guru'])->name('dashbboard.guru');
         Route::resources([
             'tugas-guru' => TugasGuruController::class,
             'materi-guru' => MateriGuruController::class,

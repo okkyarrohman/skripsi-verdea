@@ -9,6 +9,7 @@ import { CgOptions } from "react-icons/cg";
 import { BsQuestionOctagon } from "react-icons/bs";
 import { FaChartLine } from "react-icons/fa6";
 import { MdOutlineVideoSettings } from "react-icons/md";
+import { Link } from "@inertiajs/react";
 
 const Sidebar = ({ isOpen }) => {
     const [activeMenuIndex, setActiveMenuIndex] = useState(null);
@@ -21,32 +22,32 @@ const Sidebar = ({ isOpen }) => {
         {
             icon: <RxDashboard size={20} className="mr-4" />,
             text: "Dashboard",
-            url: "dashboard",
+            url: route("dashbboard.siswa"),
         },
         {
             icon: <LuBookOpen size={20} className="mr-4" />,
             text: "Materi",
-            url: "category",
+            url: route("materi.index"),
         },
         {
             icon: <LuBookMinus size={20} className="mr-4" />,
             text: "Tugas",
-            url: "research",
+            url: route("tugas.index"),
         },
         {
             icon: <MdQuestionAnswer size={20} className="mr-4" />,
             text: "Kuis",
-            url: "task",
+            url: route("kuis.index"),
         },
         {
             icon: <MdOutlineRoomPreferences size={20} className="mr-4" />,
             text: "Referensi",
-            url: "task",
+            url: route("referensi.index"),
         },
         {
             icon: <MdOutlineVideoSettings size={20} className="mr-4" />,
             text: "Tutorial",
-            url: "tuorial",
+            url: route("tutorial.index"),
         },
     ];
 
@@ -68,7 +69,7 @@ const Sidebar = ({ isOpen }) => {
                                     index === activeMenuIndex ? "z-50" : ""
                                 }`}
                             >
-                                <a
+                                <Link
                                     href={menuItem.url}
                                     className="flex items-center p-2 text-[#64748B] rounded-lg hover:bg-gray-100 group"
                                     onClick={() =>
@@ -89,7 +90,7 @@ const Sidebar = ({ isOpen }) => {
                                             }`}
                                         />
                                     )}
-                                </a>
+                                </Link>
                                 {menuItem.submenu &&
                                     index === activeMenuIndex && (
                                         <ul className="pl-10">
@@ -99,7 +100,7 @@ const Sidebar = ({ isOpen }) => {
                                                         key={subIndex}
                                                         className="relative"
                                                     >
-                                                        <a
+                                                        <Link
                                                             href={
                                                                 subMenuItem.url
                                                             }
@@ -111,7 +112,7 @@ const Sidebar = ({ isOpen }) => {
                                                                     subMenuItem.text
                                                                 }
                                                             </span>
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                 )
                                             )}

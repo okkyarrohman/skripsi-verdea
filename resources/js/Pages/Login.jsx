@@ -2,9 +2,27 @@ import { VscAccount } from "react-icons/vsc";
 import { PiStudentLight } from "react-icons/pi";
 import { TfiEmail } from "react-icons/tfi";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { Link } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
+import { useEffect } from "react";
 
 const Login = () => {
+    const { data, setData, post, processing, errors, reset } = useForm({
+        email: "",
+        password: "",
+        remember: false,
+    });
+
+    useEffect(() => {
+        return () => {
+            reset("password");
+        };
+    }, []);
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        post(route("login"));
+    };
     return (
         <>
             <div className="flex justify-center min-h-screen items-center">
@@ -28,7 +46,7 @@ const Login = () => {
                             Masuk untuk melanjutkan pembelajaran
                         </p>
 
-                        <form action="" className="px-12">
+                        <form action="" className="px-12" onSubmit={submit}>
                             <div className="flex flex-col my-4 relative w-full">
                                 {" "}
                                 <label
@@ -46,6 +64,10 @@ const Login = () => {
                                         type="email"
                                         id="email"
                                         placeholder="Masukkan email anda"
+                                        value={data.email}
+                                        onChange={(e) =>
+                                            setData("email", e.target.value)
+                                        }
                                         className="rounded-md border-2 border-[#D8DBDF] bg-[#FBFBFB] focus:border-gray-300 pl-10 pr-2 h-8 xl:h-10 w-full"
                                     />
                                 </div>
@@ -67,16 +89,27 @@ const Login = () => {
                                         type="password"
                                         id="password"
                                         placeholder="*********"
+                                        value={data.password}
+                                        autoComplete="current-password"
+                                        onChange={(e) =>
+                                            setData("password", e.target.value)
+                                        }
                                         className="rounded-md border-2 border-[#D8DBDF] bg-[#FBFBFB] focus:border-gray-300 pl-10 pr-2 h-8 xl:h-10 w-full"
                                     />
                                 </div>
                             </div>
-                            <button className="py-2.5 mx-auto text-center w-full my-4 bg-[#F97316] rounded-lg text-white">
+                            <button
+                                type="submit"
+                                className="py-2.5 mx-auto text-center w-full my-4 bg-[#F97316] rounded-lg text-white"
+                            >
                                 Login
                             </button>
                             <p className="text-lg tracking-wide text-center text-[#5B616E]">
                                 Belum memiliki akun?{" "}
-                                <Link href="/registrasi" className="text-[#F97316]">
+                                <Link
+                                    href="/registrasi"
+                                    className="text-[#F97316]"
+                                >
                                     Registrasi
                                 </Link>
                             </p>

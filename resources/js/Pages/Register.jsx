@@ -2,9 +2,28 @@ import { VscAccount } from "react-icons/vsc";
 import { PiStudentLight } from "react-icons/pi";
 import { TfiEmail } from "react-icons/tfi";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { Link } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
+import { useEffect } from "react";
 
 const Register = () => {
+    const { data, setData, post, processing, errors, reset } = useForm({
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+    });
+
+    useEffect(() => {
+        return () => {
+            reset("password", "password_confirmation");
+        };
+    }, []);
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        post(route("register"));
+    };
     return (
         <>
             <div className="flex justify-center min-h-screen items-center">
@@ -28,7 +47,7 @@ const Register = () => {
                             Daftar untuk memulai pembelajaran
                         </p>
 
-                        <form action="" className="px-12">
+                        <form action="" className="px-12" onSubmit={submit}>
                             <div className="flex flex-col my-4 relative w-full">
                                 {" "}
                                 <label
@@ -44,9 +63,15 @@ const Register = () => {
                                     />
                                     <input
                                         type="text"
-                                        id="nama"
+                                        id="name"
                                         placeholder="Masukkan nama anda"
+                                        name="name"
+                                        value={data.name}
                                         className="rounded-md border-2 border-[#D8DBDF] bg-[#FBFBFB] focus:border-gray-300 pl-10 pr-2 h-8 xl:h-10 w-full"
+                                        onChange={(e) =>
+                                            setData("name", e.target.value)
+                                        }
+                                        required
                                     />
                                 </div>
                             </div>
@@ -109,6 +134,12 @@ const Register = () => {
                                         type="email"
                                         id="email"
                                         placeholder="Masukkan email anda"
+                                        name="email"
+                                        value={data.email}
+                                        onChange={(e) =>
+                                            setData("email", e.target.value)
+                                        }
+                                        required
                                         className="rounded-md border-2 border-[#D8DBDF] bg-[#FBFBFB] focus:border-gray-300 pl-10 pr-2 h-8 xl:h-10 w-full"
                                     />
                                 </div>
@@ -130,20 +161,29 @@ const Register = () => {
                                         type="password"
                                         id="password"
                                         placeholder="*********"
+                                        value={data.password}
+                                        onChange={(e) =>
+                                            setData("password", e.target.value)
+                                        }
+                                        required
                                         className="rounded-md border-2 border-[#D8DBDF] bg-[#FBFBFB] focus:border-gray-300 pl-10 pr-2 h-8 xl:h-10 w-full"
                                     />
                                 </div>
                             </div>
-                            <button className="py-2.5 mx-auto text-center w-full my-4 bg-[#F97316] rounded-lg text-white">
+                            <button
+                                type="submit"
+                                // disabled={processing}
+                                className="py-2.5 mx-auto text-center w-full my-4 bg-[#F97316] rounded-lg text-white"
+                            >
                                 Registrasi
                             </button>
-                            <p className="text-lg tracking-wide text-center text-[#5B616E]">
-                                Sudah memiliki akun?{" "}
-                                <Link href="/masuk" className="text-[#F97316]">
-                                    Login
-                                </Link>
-                            </p>
                         </form>
+                        <p className="text-lg tracking-wide text-center text-[#5B616E]">
+                            Sudah memiliki akun?{" "}
+                            <Link href="/masuk" className="text-[#F97316]">
+                                Login
+                            </Link>
+                        </p>
                     </div>
                 </div>
             </div>
