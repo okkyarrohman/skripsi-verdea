@@ -38,7 +38,7 @@ class AuthenticatedSessionController extends Controller
         $siswa =  $request->user()->hasRole('siswa');
 
         if ($guru) {
-            return redirect()->route('dashboard.guru');
+            return redirect()->route('dashbboard.guru');
         } else if ($siswa) {
             // User berhasil login
             $user = Auth::user();
@@ -47,7 +47,7 @@ class AuthenticatedSessionController extends Controller
             $user->session_login_at = Carbon::now();
             $user->save();
 
-            return redirect()->route('dashboard.siswa');
+            return redirect()->route('dashbboard.siswa');
         }
     }
 
