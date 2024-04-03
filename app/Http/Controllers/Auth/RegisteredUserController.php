@@ -36,7 +36,8 @@ class RegisteredUserController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->password),
-
+            'kelas' => $request->input('kelas'),
+            'absen' => $request->input('absen'),
         ]);
         $user->assignRole('siswa');
 
