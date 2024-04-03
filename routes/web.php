@@ -46,6 +46,8 @@ Route::get('/registrasi', function () {
         'Register'
     );
 });
+
+
 Route::get('/masuk', function () {
     return Inertia::render(
         'Login'
