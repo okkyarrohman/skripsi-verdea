@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('pertemuan');
             $table->string('tanggal');
+            $table->timestamp('tenggat')->nullable();
             $table->timestamps();
         });
     }

@@ -14,8 +14,13 @@ return new class extends Migration
         Schema::create('tugas', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->longText('deskripsi');
             $table->string('tenggat');
+            $table->longText('soal1');
+            $table->longText('soal2');
+            $table->longText('soal3');
+            $table->longText('soal4');
+            $table->longText('soal5');
+            $table->longText('soal6');
             $table->timestamps();
         });
     }

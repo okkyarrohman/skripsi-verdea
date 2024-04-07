@@ -14,9 +14,19 @@ class TugasUser extends Model
     protected $fillable = [
         'tugas_id',
         'user_id',
-        'fileTugas',
+        'tugas1',
+        'waktu_submit1',
+        'tugas2',
+        'waktu_submit2',
+        'tugas3',
+        'waktu_submit3',
+        'tugas4',
+        'waktu_submit4',
+        'tugas5',
+        'waktu_submit5',
+        'tugas6',
+        'waktu_submit6',
         'nilai',
-        'waktu_submit',
         'feedback'
     ];
 

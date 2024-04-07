@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Absen;
+use App\Models\Hasil;
 use App\Models\KategoriKuis;
 use App\Models\Materi;
 use App\Models\Opsi;
@@ -31,5 +32,6 @@ class DatabaseSeeder extends Seeder
         KategoriKuis::factory(2)->create();
         Soal::factory(10)->create();
         Opsi::factory(50)->create();
+        Hasil::factory(10)->create();
     }
 }
