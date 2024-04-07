@@ -17,7 +17,7 @@ class HasilGuruController extends Controller
     {
         $kategoris = Kategori::all();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Kuis/Hasil/Hasil', [
             'kategoris' => $kategoris
         ]);
     }

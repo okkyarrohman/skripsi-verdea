@@ -5,7 +5,7 @@ import { FiEdit } from "react-icons/fi";
 import { LuEye } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
 
-const Hasil = () => {
+const Hasil = (props) => {
     const dataabsen = [
         {
             kuis: "Kuis RPL 01",

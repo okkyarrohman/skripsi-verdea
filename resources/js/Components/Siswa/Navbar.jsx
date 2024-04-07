@@ -48,7 +48,7 @@ const Navbar = () => {
                                 className="flex ms-2 md:me-24"
                             >
                                 <img
-                                    src="logo.png"
+                                    src="/logo.png"
                                     alt=""
                                     className="w-16 mr-2"
                                 />
