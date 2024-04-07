@@ -18,8 +18,13 @@ class TugasFactory extends Factory
     {
         return [
             'nama' => $this->faker->sentence(),
-            'deskripsi' => $this->faker->paragraph(),
-            'tenggat' => $this->faker->dateTime(now())
+            'tenggat' => $this->faker->dateTime(now()),
+            'soal1' => $this->faker->paragraph(),
+            'soal2' => $this->faker->paragraph(),
+            'soal3' => $this->faker->paragraph(),
+            'soal4' => $this->faker->paragraph(),
+            'soal5' => $this->faker->paragraph(),
+            'soal6' => $this->faker->paragraph(),
         ];
     }
 }
