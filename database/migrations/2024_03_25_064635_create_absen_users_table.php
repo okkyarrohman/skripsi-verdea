@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('absen_id')->references('id')->on('absens');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->string('waktu')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });
