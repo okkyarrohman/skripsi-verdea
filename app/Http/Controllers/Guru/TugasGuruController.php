@@ -38,8 +38,13 @@ class TugasGuruController extends Controller
     {
         Tugas::create([
             'nama' => $request->input('nama'),
-            'deskripsi' => $request->input('deskripsi'),
             'tenggat' => $request->input('tenggat'),
+            'soal1' => $request->input('soal1'),
+            'soal2' => $request->input('soal2'),
+            'soal3' => $request->input('soal3'),
+            'soal4' => $request->input('soal4'),
+            'soal5' => $request->input('soal5'),
+            'soal6' => $request->input('soal6'),
         ]);
 
         return redirect()->route('tugas-guru.index');
@@ -76,8 +81,13 @@ class TugasGuruController extends Controller
     {
         $tugas = Tugas::find($request->id);
         $tugas->nama = $request->nama;
-        $tugas->deskripsi = $request->deskripsi;
         $tugas->tenggat = $request->tenggat;
+        $tugas->soal1 = $request->soal1;
+        $tugas->soal2 = $request->soal2;
+        $tugas->soal3 = $request->soal3;
+        $tugas->soal4 = $request->soal4;
+        $tugas->soal5 = $request->soal5;
+        $tugas->soal6 = $request->soal6;
         $tugas->save();
 
         return redirect()->route('tugas-guru.index');
