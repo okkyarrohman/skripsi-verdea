@@ -17,8 +17,25 @@ return new class extends Migration
             $table->foreign('tugas_id')->references('id')->on('tugas');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('fileTugas')->nullable();
-            $table->string('waktu_submit')->nullable();
+
+            $table->string('tugas1')->nullable();
+            $table->string('waktu_submit1')->nullable();
+
+            $table->string('tugas2')->nullable();
+            $table->string('waktu_submit2')->nullable();
+
+            $table->string('tugas3')->nullable();
+            $table->string('waktu_submit3')->nullable();
+
+            $table->string('tugas4')->nullable();
+            $table->string('waktu_submit4')->nullable();
+
+            $table->string('tugas5')->nullable();
+            $table->string('waktu_submit5')->nullable();
+
+            $table->string('tugas6')->nullable();
+            $table->string('waktu_submit6')->nullable();
+
             $table->integer('nilai')->nullable();
             $table->string('feedback')->nullable();
             $table->timestamps();

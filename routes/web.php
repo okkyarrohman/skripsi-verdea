@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Guru\AbsenGuruController;
 use App\Http\Controllers\Guru\Kuis\HasilGuruController;
 use App\Http\Controllers\Guru\Kuis\KategoriGuruController;
 use App\Http\Controllers\Guru\Kuis\OpsiGuruController;
@@ -79,6 +80,7 @@ Route::group(['middleware' => 'role:guru'], function () {
             'materi-guru' => MateriGuruController::class,
             'referensi-guru' => ReferensiGuruController::class,
             'tutorial-guru' => TutorialGuruController::class,
+            'absen-guru' => AbsenGuruController::class,
         ]);
         Route::post('/nilai-tugas', [TugasGuruController::class, 'updateNilai'])->name('update.nilai');
         Route::prefix('kuis')->group(function () {

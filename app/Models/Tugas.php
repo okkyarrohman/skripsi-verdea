@@ -13,8 +13,13 @@ class Tugas extends Model
 
     protected $fillable = [
         'nama',
-        'deskripsi',
-        'tenggat'
+        'tenggat',
+        'soal1',
+        'soal2',
+        'soal3',
+        'soal4',
+        'soal5',
+        'soal6',
     ];
 
     public function tugasUser()

@@ -18,7 +18,8 @@ class AbsenFactory extends Factory
     {
         return [
             'pertemuan' => $this->faker->numberBetween(1, 5),
-            'tanggal' => $this->faker->dateTime(now())
+            'tenggat' => $this->faker->dateTime(now()),
+            'tanggal' => $this->faker->dateTime(now()),
         ];
     }
 }

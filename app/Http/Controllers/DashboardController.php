@@ -7,6 +7,7 @@ use App\Models\AbsenUser;
 use App\Models\Materi;
 use App\Models\Tugas;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -44,6 +45,7 @@ class DashboardController extends Controller
         AbsenUser::create([
             'user_id' => auth()->user()->id,
             'absen_id' => $request->input('absen_id'),
+            'waktu' => Carbon::now()->format('Y-m-d (H:i:s)'),
             'status' => "Hadir"
         ]);
 
