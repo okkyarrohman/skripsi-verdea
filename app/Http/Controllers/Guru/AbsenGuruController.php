@@ -38,7 +38,7 @@ class AbsenGuruController extends Controller
     {
         Absen::create([
             'pertemuan' => $request->input('pertemuan'),
-            'tanggal' => $request->input('tanggal'),
+            'tanggal' => $request->input('tanggal')->format('d/m/Y'),
             'tenggat' => Carbon::now()->subDays(1),
         ]);
 
