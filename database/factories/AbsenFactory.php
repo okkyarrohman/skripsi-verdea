@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,8 +19,8 @@ class AbsenFactory extends Factory
     {
         return [
             'pertemuan' => $this->faker->numberBetween(1, 5),
-            'tenggat' => $this->faker->dateTime(now()),
-            'tanggal' => $this->faker->dateTime(now()),
+            'tenggat' => Carbon::now()->addDay(),
+            'tanggal' => Carbon::now()->format('d/m/Y H:i:s'),
         ];
     }
 }
