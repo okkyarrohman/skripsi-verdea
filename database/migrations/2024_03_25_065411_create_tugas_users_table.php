@@ -36,8 +36,10 @@ return new class extends Migration
             $table->string('tugas6')->nullable();
             $table->string('waktu_submit6')->nullable();
 
+            $table->string('status')->nullable();
+
             $table->integer('nilai')->nullable();
-            $table->string('feedback')->nullable();
+            $table->longText('feedback')->nullable();
             $table->timestamps();
         });
     }

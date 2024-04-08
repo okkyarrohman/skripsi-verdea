@@ -6,6 +6,7 @@ use App\Models\Absen;
 use App\Models\AbsenUser;
 use App\Models\Materi;
 use App\Models\Tugas;
+use App\Models\TugasUser;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,13 +18,20 @@ class DashboardController extends Controller
     public function guru()
     {
         $absens = Absen::latest()->take(3)->get();
-        $tugases = Tugas::latest()->get();
         $dataSiswa = User::role('siswa')->get();
+
+        $tugases = Tugas::latest()->get(); // Mengambil Tugas Terakhir dari column created_at
+        $tugasesId = $tugases->pluck('id')->toArray();
+        $totalAssign = TugasUser::where('tugas_id', $tugasesId)->with('tugas')->count(); // Mendapatkan Nilai berapa banyak siswa yang mengumpulkan tugas terbaru
+        $progressMentah =  100 / $totalAssign; // memaskkan nilai dalam progress bar
+        $outputProgressbar = round($progressMentah, 2);
+
 
         return Inertia::render('Guru/Dashboard/Beranda', [
             'absens' => $absens,
             'tugases' => $tugases,
             'dataSiswa' => $dataSiswa,
+            'outputProgressbar' => $outputProgressbar
         ]);
     }
 

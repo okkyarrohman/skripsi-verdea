@@ -12,6 +12,7 @@ use App\Models\Opsi;
 use App\Models\Referensi;
 use App\Models\Soal;
 use App\Models\Tugas;
+use App\Models\TugasUser;
 use App\Models\Tutorial;
 
 class DatabaseSeeder extends Seeder
@@ -33,5 +34,6 @@ class DatabaseSeeder extends Seeder
         Soal::factory(10)->create();
         Opsi::factory(50)->create();
         Hasil::factory(10)->create();
+        TugasUser::factory(30)->create();
     }
 }
