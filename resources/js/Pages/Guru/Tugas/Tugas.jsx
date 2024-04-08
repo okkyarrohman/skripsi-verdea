@@ -6,7 +6,8 @@ import { FiEdit } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import DeleteModal from "@/Components/Guru/Tugas/DeleteModal";
 
-const Tugas = () => {
+const Tugas = (props) => {
+    console.log(props);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [deleteItemId, setDeleteItemId] = useState(null);
 
@@ -26,11 +27,17 @@ const Tugas = () => {
         },
         {
             name: "Judul Tugas",
-            selector: (row) => row.judul,
+            selector: (row) => row.nama,
         },
         {
             name: "Tenggat Waktu",
-            selector: (row) => row.waktu,
+            selector: (row) => {
+                const uploadDate = new Date(row.tenggat);
+                const formattedDate = `${uploadDate.getDate()}/${
+                    uploadDate.getMonth() + 1
+                }/${uploadDate.getFullYear()}`;
+                return formattedDate;
+            },
         },
         {
             name: "Siswa Mengumpulkan",
@@ -40,7 +47,7 @@ const Tugas = () => {
             name: "Hasil",
             selector: (row) => (
                 <Link
-                    href={`/detail-absensi/${row.id}`}
+                    href={route("tugas-guru.show",row.id)}
                     className="block  bg-[#F97316] text-white px-5 py-2 rounded-lg font-semibold"
                 >
                     Lihat Hasil
@@ -52,7 +59,7 @@ const Tugas = () => {
             cell: (row) => (
                 <div className="flex space-x-2">
                     <Link
-                        href={`/edit-materi/${row.id}`}
+                        href={route("tugas-guru.edit",row.id)}
                         className="text-white bg-[#FB8A3C] p-2 rounded-md"
                     >
                         <FiEdit size={17} />
@@ -86,13 +93,16 @@ const Tugas = () => {
                     </p>
                 </div>
                 <div className="w-1/2 flex justify-end">
-                    <Link className="py-2.5 px-8 font-semibold text-white bg-[#F97316] rounded-lg">
+                    <Link
+                        href={route("tugas-guru.create")}
+                        className="py-2.5 px-8 font-semibold text-white bg-[#F97316] rounded-lg"
+                    >
                         Tambah Tugas +
                     </Link>
                 </div>
             </div>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
-                <DataTable columns={columns} data={dataabsen} />
+                <DataTable columns={columns} data={props.tugases} />
             </div>
 
             <DeleteModal

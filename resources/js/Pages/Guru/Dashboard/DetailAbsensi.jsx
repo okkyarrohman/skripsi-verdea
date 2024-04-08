@@ -3,37 +3,44 @@ import { Link } from "@inertiajs/react";
 import DataTable from "react-data-table-component";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
-const DetailAbsensi = () => {
+const DetailAbsensi = (props) => {
+    console.log(props)
     const columnabsen = [
         {
             name: "Pertemuan",
-            selector: (row) => row.pertemuan,
+            selector: (row) => "Pertemuan " + row.pertemuan,
         },
         {
             name: "Tanggal",
-            selector: (row) => row.tanggal,
+            selector: (row) => {
+                const uploadDate = new Date(row.tanggal);
+                const formattedDate = `${uploadDate.getDate()}/${
+                    uploadDate.getMonth() + 1
+                }/${uploadDate.getFullYear()}`;
+                return formattedDate;
+            },
         },
-        {
-            name: "Kehadiran",
-            selector: (row) => row.kehadiran,
-            cell: (row) => (
-                <div>
-                    <div className="flex items-center">
-                        <span className="h-2 w-2 rounded-full bg-green-500 mr-2"></span>
-                        {getAttendanceNumber(row.kehadiran)} Siswa Hadir
-                    </div>
-                    <div className="flex items-center">
-                        <span className="h-2 w-2 rounded-full bg-red-500 mr-2"></span>
-                        {getAlphaNumber(row.kehadiran)} Siswa Alpha
-                    </div>
-                </div>
-            ),
-        },
+        // {
+        //     name: "Kehadiran",
+        //     selector: (row) => row.kehadiran,
+        //     cell: (row) => (
+        //         <div>
+        //             <div className="flex items-center">
+        //                 <span className="h-2 w-2 rounded-full bg-green-500 mr-2"></span>
+        //                 {getAttendanceNumber(row.kehadiran)} Siswa Hadir
+        //             </div>
+        //             <div className="flex items-center">
+        //                 <span className="h-2 w-2 rounded-full bg-red-500 mr-2"></span>
+        //                 {getAlphaNumber(row.kehadiran)} Siswa Alpha
+        //             </div>
+        //         </div>
+        //     ),
+        // },
         {
             name: "Aksi",
             selector: (row) => (
                 <Link
-                    href={`/detail-absensi/${row.id}`}
+                    href={route("absen-guru.show", { id: row.id })}
                     className="block  bg-[#F97316] text-white px-5 py-2 rounded-lg font-semibold"
                 >
                     Lihat Detail
@@ -84,7 +91,7 @@ const DetailAbsensi = () => {
         <GuruLayout>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                 <div className="flex gap-x-2 items-center text-[#64748B] my-3">
-                    <Link href="/">Dashboard</Link>
+                    <Link href={route("dashbboard.guru")}>Dashboard</Link>
                     <MdKeyboardArrowRight size={25} />
                     <p className="text-[#F97316]">Absensi</p>
                 </div>
@@ -97,14 +104,14 @@ const DetailAbsensi = () => {
                     </h2>
                     <Link
                         className="bg-[#F97316] text-white px-5 py-3 rounded-lg font-semibold"
-                        href="/tambah-absensi"
+                        href={route("absen-guru.create")}
                     >
                         Tambah Absensi
                     </Link>
                 </div>
                 <DataTable
                     columns={columnabsen}
-                    data={dataabsen}
+                    data={props.absens}
                     className="mt-5"
                     center
                 />

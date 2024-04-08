@@ -17,7 +17,7 @@ class DashboardController extends Controller
     public function guru()
     {
         $absens = Absen::latest()->take(3)->get();
-        $tugases = Tugas::latest()->get();
+        $tugases = Tugas::latest()->take(1)->get();
         $dataSiswa = User::role('siswa')->get();
 
         return Inertia::render('Guru/Dashboard/Beranda', [

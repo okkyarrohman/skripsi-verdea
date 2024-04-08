@@ -18,7 +18,7 @@ class TugasGuruController extends Controller
     {
         $tugases = Tugas::all();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Tugas/Tugas', [
             'tugases' => $tugases
         ]);
     }
@@ -28,7 +28,7 @@ class TugasGuruController extends Controller
      */
     public function create()
     {
-        return Inertia::render('');
+        return Inertia::render('Guru/Tugas/TambahTugas');
     }
 
     /**
@@ -57,7 +57,7 @@ class TugasGuruController extends Controller
     {
         $tugasUser = TugasUser::where('tugas_id', $id)->with('tugas')->get();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Tugas/HasilTugas', [
             'tugasUser' => $tugasUser,
         ]);
     }
@@ -69,7 +69,7 @@ class TugasGuruController extends Controller
     {
         $tugases = Tugas::where('id', $id)->first();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Tugas/EditTugas', [
             'tugases' => $tugases,
         ]);
     }

@@ -8,7 +8,7 @@ const Beranda = (props) => {
     const dataSiswa = props.dataSiswa;
     const absens = props.absens;
     const tugass = props.tugases;
-    console.log(tugass);
+    console.log(props);
     const columnabsen = [
         {
             name: "Pertemuan",
@@ -35,6 +35,15 @@ const Beranda = (props) => {
             ),
         },
     ];
+      const formatTenggat = (tenggat) => {
+          const date = new Date(tenggat);
+          const day = date.getDate().toString().padStart(2, "0");
+          const month = (date.getMonth() + 1).toString().padStart(2, "0");
+          const year = date.getFullYear().toString();
+          const hours = date.getHours().toString().padStart(2, "0");
+          const minutes = date.getMinutes().toString().padStart(2, "0");
+          return `${day}/${month}/${year} | ${hours}.${minutes}`;
+      };
 
     const dataabsen = [
         {
@@ -137,7 +146,7 @@ const Beranda = (props) => {
                             <h2 className="text-2xl font-bold tracking-wide">
                                 Absensi
                             </h2>
-                            <Link className="bg-[#F97316] text-white px-5 py-3 rounded-lg font-semibold">
+                            <Link href={route("absen-guru.index")} className="bg-[#F97316] text-white px-5 py-3 rounded-lg font-semibold">
                                 Detail Absensi
                             </Link>
                         </div>
@@ -155,11 +164,11 @@ const Beranda = (props) => {
                             <RiBook2Line size={23} />
                             <p className="font-semibold">Tugas</p>
                         </div>
-                        <p className="text-lg font-bold">
-                            Nama Tugas ada disini ya teman teman
-                        </p>
+                        <p className="text-lg font-bold">{tugass[0].nama}</p>
                         <div className=" text-[#64748B] mt-3">
-                            <h3>Tenggat : 12/02/2024 | 16.00</h3>
+                            <h3>
+                                Tenggat : {formatTenggat(tugass[0].tenggat)}
+                            </h3>
                             <h3>Status : Belum Selesai</h3>
                             <h3>Pengumpulan : </h3>
 
