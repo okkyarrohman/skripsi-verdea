@@ -4,15 +4,17 @@ import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import { MdQuestionAnswer } from "react-icons/md";
 
-const Kuis = () => {
-        const [modalIsOpen, setModalIsOpen] = useState(false);
+const Kuis = (props) => {
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
-        const handleQuizStart = () => {
-            // Tambahkan logika untuk memulai kuis di sini
-            console.log("Memulai kuis...");
-            // Setelah memulai kuis, buka modal
-            setModalIsOpen(true);
-        };
+    console.log(props);
+
+    const handleQuizStart = () => {
+        // Tambahkan logika untuk memulai kuis di sini
+        console.log("Memulai kuis...");
+        // Setelah memulai kuis, buka modal
+        setModalIsOpen(true);
+    };
 
     return (
         <SiswaLayout>
@@ -28,82 +30,55 @@ const Kuis = () => {
                     </p>
                 </div>
                 <div className="w-1/2">
-                    <img src="kuis1.svg" alt="" className="float-right w-80" />
+                    <img src="/kuis1.svg" alt="" className="float-right w-80" />
                 </div>
             </div>
-            <div className="grid grid-cols-3 gap-4 mt-7">
-                <div className="max-w-sm bg-white rounded-2xl shadow p-5 flex flex-col justify-between">
-                    <h3 className="text-[#F97316] text-lg font-semibold tracking-wide flex items-center space-x-2">
-                        <MdQuestionAnswer className="text-lg" />
-                        <span>Kuis</span>
-                    </h3>
-                    <div className="">
-                        <Link href="#">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                                Kuis 01-RPL
-                            </h5>
-                        </Link>
-                        <div className="mt-3 text-gray-700 mb-5 flex flex-col gap-y-2 text-lg">
-                            <p>Soal : 30</p>
-                            <p>Waktu : 60 Menit</p>
-                            <p>Nilai : 100</p>
+            {props.kategori.length > 0 && (
+                <div className="grid grid-cols-3 gap-4 mt-7">
+                    {props.kategori.map((category, index) => (
+                        <div
+                            key={index}
+                            className="max-w-sm bg-white rounded-2xl shadow p-5 flex flex-col justify-between"
+                        >
+                            <h3 className="text-[#F97316] text-lg font-semibold tracking-wide flex items-center space-x-2">
+                                <MdQuestionAnswer className="text-lg" />
+                                <span>Kuis</span>
+                            </h3>
+                            <div className="">
+                                <Link href="#">
+                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                                        {category.nama}
+                                    </h5>
+                                </Link>
+                                <div className="mt-3 text-gray-700 mb-5 flex flex-col gap-y-2 text-lg">
+                                    <p>Soal : {category.soal.length}</p>
+                                    <p>Waktu : {category.durasi} Menit</p>
+                                    <p>Nilai : 100</p>
+                                </div>
+                            </div>
+                            <button
+                                className="w-full bg-[#F97316] text-center py-2 text-white tracking-wide rounded-lg inline-flex items-center justify-center mt-auto"
+                                onClick={handleQuizStart}
+                            >
+                                Kerjakan
+                            </button>
                         </div>
-                    </div>
-                    <button
-                        className="w-full bg-[#F97316] text-center py-2 text-white tracking-wide rounded-lg inline-flex items-center justify-center mt-auto"
-                        onClick={handleQuizStart}
-                    >
-                        Kerjakan
-                    </button>
+                    ))}
                 </div>
-
-                <div className="max-w-sm bg-white rounded-2xl shadow p-5 flex flex-col justify-between">
-                    <h3 className="text-[#F97316] text-lg font-semibold tracking-wide flex items-center space-x-2">
-                        <MdQuestionAnswer className="text-lg" />
-                        <span>Kuis</span>
-                    </h3>
-                    <div className="">
-                        <Link href="#">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                                Kuis 01-RPL
-                            </h5>
-                        </Link>
-                        <div className="mt-3 text-gray-700 mb-5 flex flex-col gap-y-2 text-lg">
-                            <p>Soal : 30</p>
-                            <p>Waktu : 60 Menit</p>
-                        </div>
+            )}
+            {props.kategori && props.kategori.length === 0 && (
+                <div className="flex flex-col items-center justify-center  mt-14">
+                    <img src="/notfoundabsen.svg" alt="" />
+                    <div className="text-center w-96 mt-6">
+                        <h2 className="text-2xl font-bold tracking-wide">
+                            Belum Terdapat Kuis!
+                        </h2>
+                        <p className="text-lg text-[#64748B] w-4/5 text-center mx-auto mt-3">
+                            Cek selalu Kuis dan jangan sampai terlewatkan
+                        </p>
                     </div>
-                    <Link
-                        href="#"
-                        className="w-full bg-[#F97316] text-center py-2 text-white tracking-wide rounded-lg inline-flex items-center justify-center mt-auto"
-                    >
-                        Kerjakan
-                    </Link>
                 </div>
-                <div className="max-w-sm bg-white rounded-2xl shadow p-5 flex flex-col justify-between">
-                    <h3 className="text-[#F97316] text-lg font-semibold tracking-wide flex items-center space-x-2">
-                        <MdQuestionAnswer className="text-lg" />
-                        <span>Kuis</span>
-                    </h3>
-                    <div className="">
-                        <Link href="#">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-                                Kuis 01-RPL
-                            </h5>
-                        </Link>
-                        <div className="mt-3 text-gray-700 mb-5 flex flex-col gap-y-2 text-lg">
-                            <p>Soal : 30</p>
-                            <p>Waktu : 60 Menit</p>
-                        </div>
-                    </div>
-                    <Link
-                        href="#"
-                        className="w-full bg-[#F97316] text-center py-2 text-white tracking-wide rounded-lg inline-flex items-center justify-center mt-auto"
-                    >
-                        Kerjakan
-                    </Link>
-                </div>
-            </div>
+            )}
             <StartKuis
                 isOpen={modalIsOpen}
                 onClose={() => setModalIsOpen(false)}

@@ -52,19 +52,21 @@ const Referensi = (props) => {
                                     {referensi.judul}
                                 </h5>
                             </div>
+                        </div>
+                        <div>
                             <div className="mt-3 text-gray-700 mb-5 flex flex-col gap-y-2 text-lg">
                                 <p>
                                     Diupload :{" "}
                                     {formatDate(referensi.created_at)}
                                 </p>
                             </div>
+                            <Link
+                                href={route("referensi.show", referensi.id)}
+                                className="w-full bg-[#F97316] text-center py-2 text-white tracking-wide rounded-lg inline-flex items-center justify-center mt-auto"
+                            >
+                                Lihat Referensi
+                            </Link>
                         </div>
-                        <Link
-                            href={route("referensi.show", referensi.id)}
-                            className="w-full bg-[#F97316] text-center py-2 text-white tracking-wide rounded-lg inline-flex items-center justify-center mt-auto"
-                        >
-                            Lihat Referensi
-                        </Link>
                     </div>
                 ))}
             </div>

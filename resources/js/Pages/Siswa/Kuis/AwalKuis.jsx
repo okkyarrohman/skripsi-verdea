@@ -2,8 +2,8 @@ import { useState } from "react";
 import SiswaLayout from "@/Layouts/SiswaLayout";
 import { Link } from "@inertiajs/react";
 
-const AwalKuis = () => {
-    // State untuk melacak opsi yang dipilih
+const AwalKuis = (props) => {
+    console.log(props)
     const [selectedOption, setSelectedOption] = useState(null);
 
     return (

@@ -30,7 +30,7 @@ class KuisSiswaController extends Controller
             'user_id' => auth()->user()->id
         ])->get();
 
-        return Inertia::render('', [
+        return Inertia::render('Siswa/Kuis/Kuis', [
             'kategori' => $categories,
             'hasilKuis' => $hasilKuis
         ]);
@@ -87,7 +87,7 @@ class KuisSiswaController extends Controller
             ->whereHas('soal')
             ->get();
 
-        return Inertia::render('Siswa/SoalKuisSiswa', [
+        return Inertia::render('Siswa/Kuis/AwalKuis', [
             'kategori' => $categories
         ]);
     }
