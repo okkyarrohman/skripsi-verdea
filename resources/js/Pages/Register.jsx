@@ -10,12 +10,14 @@ const Register = () => {
         name: "",
         email: "",
         password: "",
-        password_confirmation: "",
+        kelas: "",
+        absen: "",
+     
     });
 
     useEffect(() => {
         return () => {
-            reset("password", "password_confirmation");
+            reset("password");
         };
     }, []);
 
@@ -92,6 +94,9 @@ const Register = () => {
                                             type="number"
                                             id="no"
                                             placeholder="Masukkan absen"
+                                            onChange={(e) =>
+                                                setData("absen", e.target.value)
+                                            }
                                             className="rounded-md border-2 border-[#D8DBDF] bg-[#FBFBFB] focus:border-gray-300 pl-10 pr-2 h-8 xl:h-10 w-full"
                                         />
                                     </div>
@@ -112,6 +117,9 @@ const Register = () => {
                                             type="text"
                                             id="kelas"
                                             placeholder="Masukkan kelas anda"
+                                            onChange={(e) =>
+                                                setData("kelas", e.target.value)
+                                            }
                                             className="rounded-md border-2 border-[#D8DBDF] bg-[#FBFBFB] focus:border-gray-300 pl-10 pr-2 h-8 xl:h-10 w-full"
                                         />
                                     </div>
@@ -172,7 +180,7 @@ const Register = () => {
                             </div>
                             <button
                                 type="submit"
-                                // disabled={processing}
+                                disabled={processing}
                                 className="py-2.5 mx-auto text-center w-full my-4 bg-[#F97316] rounded-lg text-white"
                             >
                                 Registrasi

@@ -18,7 +18,7 @@ class AbsenGuruController extends Controller
     {
         $absens = Absen::all();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Dashboard/DetailAbsensi', [
             'absens' => $absens
         ]);
     }
@@ -28,7 +28,7 @@ class AbsenGuruController extends Controller
      */
     public function create()
     {
-        return Inertia::render('');
+        return Inertia::render('Guru/Dashboard/TambahAbsensi');
     }
 
     /**
@@ -52,7 +52,7 @@ class AbsenGuruController extends Controller
     {
         $absens = AbsenUser::where('absen_id', $id)->with('absen')->get();
 
-        return Inertia::render('', [
+        return Inertia::render('Guru/Dashboard/DetailAbsensiPerhari', [
             'absens' => $absens
         ]);
     }

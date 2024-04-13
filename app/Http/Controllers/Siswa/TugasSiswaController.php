@@ -17,7 +17,7 @@ class TugasSiswaController extends Controller
     {
         $tugases = Tugas::with('tugasUser')->get();
 
-        return Inertia::render('', [
+        return Inertia::render('Siswa/Tugas/Tugas', [
             'tugases' => $tugases
         ]);
     }

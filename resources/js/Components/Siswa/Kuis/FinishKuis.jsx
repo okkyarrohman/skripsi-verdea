@@ -24,7 +24,7 @@ const FinishKuis = ({ isOpen, onClose }) => {
                             color="#6B7280"
                         />
                         <img
-                            src="deletemodal1.svg"
+                            src="/deletemodal1.svg"
                             alt=""
                             className="mx-auto mb-4"
                         />
