@@ -3,7 +3,8 @@ import { Link } from "@inertiajs/react";
 import DataTable from "react-data-table-component";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
-const DetailAbsensiPerhari = () => {
+const DetailAbsensiPerhari = (props) => {
+    console.log(props)
     const columnabsen = [
         {
             name: "Nama",

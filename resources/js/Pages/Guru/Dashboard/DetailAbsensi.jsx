@@ -13,13 +13,16 @@ const DetailAbsensi = (props) => {
         {
             name: "Tanggal",
             selector: (row) => {
-                const uploadDate = new Date(row.tanggal);
-                const formattedDate = `${uploadDate.getDate()}/${
-                    uploadDate.getMonth() + 1
-                }/${uploadDate.getFullYear()}`;
+                const parts = row.tanggal.split("/"); 
+                const day = parseInt(parts[0], 10); 
+                const month = parseInt(parts[1], 10);
+                const year = parseInt(parts[2], 10); 
+                const uploadDate = new Date(year, month - 1, day);
+                const formattedDate = `${day}/${month}/${year}`;
                 return formattedDate;
             },
         },
+
         // {
         //     name: "Kehadiran",
         //     selector: (row) => row.kehadiran,

@@ -35,15 +35,15 @@ const Beranda = (props) => {
             ),
         },
     ];
-      const formatTenggat = (tenggat) => {
-          const date = new Date(tenggat);
-          const day = date.getDate().toString().padStart(2, "0");
-          const month = (date.getMonth() + 1).toString().padStart(2, "0");
-          const year = date.getFullYear().toString();
-          const hours = date.getHours().toString().padStart(2, "0");
-          const minutes = date.getMinutes().toString().padStart(2, "0");
-          return `${day}/${month}/${year} | ${hours}.${minutes}`;
-      };
+    const formatTenggat = (tenggat) => {
+        const date = new Date(tenggat);
+        const day = date.getDate().toString().padStart(2, "0");
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const year = date.getFullYear().toString();
+        const hours = date.getHours().toString().padStart(2, "0");
+        const minutes = date.getMinutes().toString().padStart(2, "0");
+        return `${day}/${month}/${year} | ${hours}.${minutes}`;
+    };
 
     const dataabsen = [
         {
@@ -90,7 +90,7 @@ const Beranda = (props) => {
         },
         {
             name: "Nama Siswa",
-            selector: (row) => row.name,
+            selector: (row) => row.firstname + " " + row.lastname,
         },
         {
             name: "Status",
@@ -115,7 +115,8 @@ const Beranda = (props) => {
         },
         {
             name: "Waktu Login",
-            selector: (row) => row.total_login_time,
+            selector: (row) =>
+                row.total_login_time ? row.total_login_time : "-",
         },
     ];
 
@@ -146,7 +147,10 @@ const Beranda = (props) => {
                             <h2 className="text-2xl font-bold tracking-wide">
                                 Absensi
                             </h2>
-                            <Link href={route("absen-guru.index")} className="bg-[#F97316] text-white px-5 py-3 rounded-lg font-semibold">
+                            <Link
+                                href={route("absen-guru.index")}
+                                className="bg-[#F97316] text-white px-5 py-3 rounded-lg font-semibold"
+                            >
                                 Detail Absensi
                             </Link>
                         </div>

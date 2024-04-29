@@ -1,8 +1,24 @@
 import GuruLayout from "@/Layouts/GuruLayout";
 import { Link } from "@inertiajs/react";
+import { useState } from "react";
+import { Inertia } from "@inertiajs/inertia";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 const TambahAbsensi = () => {
+    const [pertemuan, setPertemuan] = useState("");
+    const [tanggal, setTanggal] = useState(null);
+    const [tenggat, setTenggat] = useState("");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append("pertemuan", pertemuan);
+        formData.append("tanggal", tanggal);
+        formData.append("tenggat", tenggat);
+
+        Inertia.post(route("absen-guru.store"), formData);
+    };
     return (
         <GuruLayout>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
@@ -18,7 +34,7 @@ const TambahAbsensi = () => {
                 <h1 className="text-xl font-bold mb-3">Tambah Absensi</h1>
             </div>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
-                <form action="" className="my-6">
+                <form action="" className="my-6" onSubmit={handleSubmit}>
                     <div className="my-5 flex flex-col gap-y-2">
                         <label
                             htmlFor="pertemuan"
@@ -31,6 +47,8 @@ const TambahAbsensi = () => {
                             type="number"
                             min={1}
                             placeholder="Masukkan pertemuan ke berapa"
+                            value={pertemuan}
+                            onChange={(e) => setPertemuan(e.target.value)}
                             className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg"
                         />
                     </div>
@@ -44,7 +62,24 @@ const TambahAbsensi = () => {
                         <input
                             id="tanggal"
                             type="date"
-                            min={1}
+                            value={tanggal}
+                            onChange={(e) => setTanggal(e.target.value)}
+                            placeholder="Masukkan pertemuan ke berapa"
+                            className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg"
+                        />
+                    </div>
+                    <div className="my-5 flex flex-col gap-y-2">
+                        <label
+                            htmlFor="tanggal"
+                            className="font-semibold text-lg"
+                        >
+                            Tenggat
+                        </label>
+                        <input
+                            id="tanggal"
+                            type="date"
+                            value={tenggat}
+                            onChange={(e) => setTenggat(e.target.value)}
                             placeholder="Masukkan pertemuan ke berapa"
                             className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg"
                         />
