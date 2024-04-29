@@ -91,7 +91,11 @@ const Beranda = (props) => {
                         </p>
                     </div>
                     <div className="w-1/2">
-                        <img src="/dsguru1.svg" alt="" className="float-right" />
+                        <img
+                            src="/dsguru1.svg"
+                            alt=""
+                            className="float-right"
+                        />
                     </div>
                 </div>
                 <div className="grid grid-cols-2  gap-4 mb-4 mt-5">
@@ -122,54 +126,27 @@ const Beranda = (props) => {
                             Materi Terbaru
                         </h3>
                         <div className="mt-6 flex flex-col gap-y-5">
-                            <Link className="hover:bg-gray-50 rounded-lg p-2">
-                                <div className="flex gap-x-3 text-[#64748B] items-center text-lg">
-                                    {" "}
-                                    <LuBookOpen size={23} />
-                                    <p>Materi</p>
-                                </div>
-                                <div className="flex items-center justify-between">
-                                    <h2 className="font-bold text-xl">
-                                        Nama Materi ada disini ya teman teman
-                                    </h2>
-                                    <FaChevronRight
-                                        size={17}
-                                        className="text-[#64748B]"
-                                    />
-                                </div>
-                            </Link>
-                            <Link className="hover:bg-gray-50 rounded-lg p-2">
-                                <div className="flex gap-x-3 text-[#64748B] items-center text-lg">
-                                    {" "}
-                                    <LuBookOpen size={23} />
-                                    <p>Materi</p>
-                                </div>
-                                <div className="flex items-center justify-between">
-                                    <h2 className="font-bold text-xl">
-                                        Nama Materi ada disini ya teman teman
-                                    </h2>
-                                    <FaChevronRight
-                                        size={17}
-                                        className="text-[#64748B]"
-                                    />
-                                </div>
-                            </Link>
-                            <Link className="hover:bg-gray-50 rounded-lg p-2">
-                                <div className="flex gap-x-3 text-[#64748B] items-center text-lg">
-                                    {" "}
-                                    <LuBookOpen size={23} />
-                                    <p>Materi</p>
-                                </div>
-                                <div className="flex items-center justify-between">
-                                    <h2 className="font-bold text-xl">
-                                        Nama Materi ada disini ya teman teman
-                                    </h2>
-                                    <FaChevronRight
-                                        size={17}
-                                        className="text-[#64748B]"
-                                    />
-                                </div>
-                            </Link>
+                            {props.materis.map((materi, index) => (
+                                <Link
+                                    key={index}
+                                    className="hover:bg-gray-50 rounded-lg p-2"
+                                >
+                                    <div className="flex gap-x-3 text-[#64748B] items-center text-lg">
+                                        <LuBookOpen size={23} />
+                                        <p>Materi</p>
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                        <h2 className="font-bold text-xl truncate">
+                                            {materi.judul}
+                                        </h2>
+                                        <FaChevronRight
+                                            size={17}
+                                            className="text-[#64748B]"
+                                        />
+                                    </div>
+                                </Link>
+                            ))}
+
                             <div className="flex justify-center mt-4">
                                 <Link className="bg-[#F97316] text-white px-5 py-2.5 rounded-lg font-semibold flex items-center">
                                     Lihat Semua Materi
