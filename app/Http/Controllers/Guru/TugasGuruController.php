@@ -125,6 +125,21 @@ class TugasGuruController extends Controller
 
     public function detailJawaban($tugas_id, $tugas_user_id)
     {
+        $statusTugas = [
+            'Step1 Diterima',
+            'Step2 Diterima',
+            'Step3 Diterima',
+            'Step4 Diterima',
+            'Step5 Diterima',
+            'Step6 Diterima',
+            'Step1 Ditolak',
+            'Step2 Ditolak',
+            'Step3 Ditolak',
+            'Step4 Ditolak',
+            'Step5 Ditolak',
+            'Step6 Ditolak',
+            'Selesai'
+        ];
         // Mengambil informasi tugas
         $tugas = Tugas::findOrFail($tugas_id);
 
@@ -133,7 +148,8 @@ class TugasGuruController extends Controller
 
         return Inertia::render('Guru/Tugas/DetailJawaban', [
             'tugas' => $tugas,
-            'jawaban' => $jawaban
+            'jawaban' => $jawaban,
+            'statusTugas' => $statusTugas,
         ]);
     }
 
