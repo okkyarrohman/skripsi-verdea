@@ -16,12 +16,31 @@ class TugasGuruController extends Controller
      */
     public function index()
     {
+        // Mengambil semua data tugas
         $tugases = Tugas::all();
 
+        $infoTugas = [];
+
+        // Loop melalui setiap tugas
+        foreach ($tugases as $tugas) {
+            // Mengambil semua data tugas yang telah diumpulkan oleh siswa untuk tugas saat ini
+            $tugasUser = TugasUser::where('tugas_id', $tugas->id)->get();
+
+            // Menghitung total siswa yang telah mengumpulkan tugas saat ini
+            $totalMengumpulkan = $tugasUser->unique('user_id')->count();
+
+            // Menambahkan informasi jumlah siswa yang mengumpulkan tugas saat ini ke dalam array
+            $infoTugas[] = [
+                'tugas' => $tugas,
+                'totalMengumpulkan' => $totalMengumpulkan
+            ];
+        }
+
         return Inertia::render('Guru/Tugas/Tugas', [
-            'tugases' => $tugases
+            'tugases' => $infoTugas
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -103,6 +122,30 @@ class TugasGuruController extends Controller
 
         return redirect()->route('tugas-guru.index');
     }
+
+    public function detailJawaban($tugas_id, $tugas_user_id)
+    {
+        // Mengambil informasi tugas
+        $tugas = Tugas::findOrFail($tugas_id);
+
+        // Mengambil informasi jawaban siswa tertentu untuk tugas tertentu
+        $jawaban = TugasUser::findOrFail($tugas_user_id);
+
+        return Inertia::render('Guru/Tugas/DetailJawaban', [
+            'tugas' => $tugas,
+            'jawaban' => $jawaban
+        ]);
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $tugasUser = TugasUser::find($request->id);
+        $tugasUser->status = $request->status;
+        $tugasUser->save();
+
+        return redirect()->route('tugas-guru.index');
+    }
+
 
 
     public function updateNilai(Request $request)
