@@ -5,6 +5,7 @@ import DataTable from "react-data-table-component";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import DeleteModal from "@/Components/Guru/Tugas/DeleteModal";
+import { Inertia } from "@inertiajs/inertia";
 
 const Tugas = (props) => {
     console.log(props);
@@ -79,10 +80,16 @@ const Tugas = (props) => {
     ];
 
     const handleDelete = () => {
-        console.log("Menghapus item dengan ID:", deleteItemId);
-        setModalIsOpen(false);
+        Inertia.delete(route("tugas-guru.destroy", deleteItemId))
+            .then(() => {
+                setModalIsOpen(false);
+                setDeleteItemId(null);
+                console.log("Menghapus item dengan ID:", deleteItemId);
+            })
+            .catch((error) => {
+                console.error("Error deleting materi:", error);
+            });
     };
-
     return (
         <GuruLayout auth={props.auth}>
             <div className="p-4 border-2 border-gray-200 flex items-center rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
