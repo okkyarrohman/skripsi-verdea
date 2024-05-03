@@ -38,7 +38,7 @@ class TugasUserFactory extends Factory
             'waktu_submit5'  => Carbon::now()->format('Y-m-d H:i:s'),
             'tugas6' => $this->faker->slug(),
             'waktu_submit6'  => Carbon::now()->format('Y-m-d H:i:s'),
-            'status' => $this->faker->randomElement(['Step1 Diterima', 'Step2 Diterima', 'Step3 Diterima', 'Step4 Diterima', 'Step5 Diterima', 'Step6 Diterima']),
+            'status' => $this->faker->randomElement(['Step1 Diterima', 'Step2 Diterima', 'Step3 Diterima', 'Step4 Diterima', 'Step5 Diterima', 'Step6 Diterima', 'Selesai']),
             'nilai' => $this->faker->numberBetween(70, 100),
             'feedback' => $this->faker->paragraph()
         ];

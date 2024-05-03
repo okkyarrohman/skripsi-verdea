@@ -17,33 +17,57 @@ class DashboardController extends Controller
 
     public function guru()
     {
+        // Mengambil data siswa
         $dataSiswa = User::role('siswa')->get();
 
+        // Mengambil 3 data absensi terbaru
         $absens = Absen::latest()->take(3)->get();
-        $hadirAbsen = AbsenUser::where([
-            'absen_id' => $absens->pluck('id')->toArray(),
-            'status' => 'Hadir'
-        ])->with('absen')->count();
 
-        $totalSiswa = $dataSiswa->pluck('id')->count(); // Menghitung Jumlah siswa
-        $belumAbsen = $totalSiswa - $hadirAbsen; // Menhitung Absen siswa yang belum hadir
+        // Inisialisasi array untuk menyimpan informasi absensi setiap pertemuan
+        $infoPertemuan = [];
 
-        $tugases = Tugas::latest()->get(); // Mengambil Tugas Terakhir dari column created_at
+        // Loop melalui setiap data absensi
+        foreach ($absens as $absen) {
+            // Inisialisasi counter untuk setiap status absensi pada setiap pertemuan
+            $counterHadir = AbsenUser::where([
+                'absen_id' => $absen->id,
+                'status' => 'Hadir'
+            ])->count();
+            $counterAlpha = AbsenUser::where([
+                'absen_id' => $absen->id,
+                'status' => 'Alpha'
+            ])->count();
+
+            // Tambahkan informasi absensi pertemuan saat ini ke dalam array
+            $infoPertemuan[] = [
+                'pertemuan' => $absen->pertemuan,
+                'hadir' => $counterHadir,
+                'alpha' => $counterAlpha
+            ];
+        }
+
+
+
+        // Mengambil data tugas terbaru
+        $tugases = Tugas::latest()->get();
         $tugasesId = $tugases->pluck('id')->toArray();
-        $totalAssign = TugasUser::where('tugas_id', $tugasesId)->with('tugas')->count(); // Mendapatkan Nilai berapa banyak siswa yang mengumpulkan tugas terbaru
-        $progressMentah =  100 / $totalAssign; // memasukkan nilai dalam progress bar
-        $outputProgressbar = round($progressMentah, 2);
 
+        // Menghitung berapa banyak siswa yang mengumpulkan tugas terbaru
+        $totalAssign = TugasUser::whereIn('tugas_id', $tugasesId)->count();
+
+        // Memasukkan nilai dalam progress bar
+        $progressMentah = 100 / $totalAssign;
+        $outputProgressbar = round($progressMentah, 2);
 
         return Inertia::render('Guru/Dashboard/Beranda', [
             'absens' => $absens,
-            'hadirAbsen' => $hadirAbsen,
-            'belumAbsen' => $belumAbsen,
+            'infoPertemuan' => $infoPertemuan,
             'tugases' => $tugases,
             'dataSiswa' => $dataSiswa,
             'outputProgressbar' => $outputProgressbar
         ]);
     }
+
 
     public function siswa()
     {
