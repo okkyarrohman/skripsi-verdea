@@ -37,7 +37,7 @@ class TugasGuruController extends Controller
         }
 
         return Inertia::render('Guru/Tugas/Tugas', [
-            'infoTugas' => $infoTugas
+            'tugases' => $infoTugas
         ]);
     }
 
