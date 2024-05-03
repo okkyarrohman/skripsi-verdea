@@ -1,10 +1,10 @@
 import SiswaLayout from "@/Layouts/SiswaLayout";
 import { Link } from "@inertiajs/react";
 import { MdKeyboardArrowRight } from "react-icons/md";
-const Profile = () => {
+const Profile = (props) => {
     return (
         <>
-            <SiswaLayout>
+            <SiswaLayout auth={props.auth}>
                 <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                     <div className="flex gap-x-2 items-center text-[#64748B] my-3">
                         <Link href="/">Dashboard</Link>
@@ -16,7 +16,7 @@ const Profile = () => {
                     <h1 className="text-xl font-bold mb-3">Data Diri Siswa</h1>
                 </div>
                 <div className="py-9 border-2 flex items-start gap-x-10 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
-                    <img src="profile.svg" alt="" className="w-1/6" />
+                    <img src="/profile.svg" alt="" className="w-1/6" />
                     <div className="w-full">
                         <div className="my-5 flex flex-col gap-y-2">
                             <p className="font-semibold text-lg">Nama Depan</p>
@@ -41,7 +41,9 @@ const Profile = () => {
                             <p className=" text-justify">dono@gmail.com</p>
                         </div>
                         <div className="flex justify-end mt-7">
-                            <Link className="text-white rounded-lg bg-[#F97316] px-5 py-2">Perbarui Data</Link>
+                            <Link className="text-white rounded-lg bg-[#F97316] px-5 py-2">
+                                Perbarui Data
+                            </Link>
                         </div>
                     </div>
                 </div>

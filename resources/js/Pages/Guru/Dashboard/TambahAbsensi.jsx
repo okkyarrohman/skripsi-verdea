@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Inertia } from "@inertiajs/inertia";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
-const TambahAbsensi = () => {
+const TambahAbsensi = (props) => {
     const [pertemuan, setPertemuan] = useState("");
     const [tanggal, setTanggal] = useState(null);
     const [tenggat, setTenggat] = useState("");
@@ -20,7 +20,7 @@ const TambahAbsensi = () => {
         Inertia.post(route("absen-guru.store"), formData);
     };
     return (
-        <GuruLayout>
+        <GuruLayout auth={props.auth}>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                 <div className="flex gap-x-2 items-center text-[#64748B] my-3">
                     <Link href={route("dashbboard.guru")}>Dashboard</Link>

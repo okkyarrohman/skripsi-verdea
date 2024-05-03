@@ -4,7 +4,7 @@ import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
-const TambahTugas = () => {
+const TambahTugas = (props) => {
     const today = new Date().toISOString().split("T")[0];
     const [nama, setNama] = useState("");
     const [tenggat, setTenggat] = useState("");
@@ -31,7 +31,7 @@ const TambahTugas = () => {
     };
 
     return (
-        <GuruLayout>
+        <GuruLayout auth={props.auth}>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                 <div className="flex gap-x-2 items-center text-[#64748B] my-3">
                     <Link href={route("tugas-guru.index")}>Tugas</Link>

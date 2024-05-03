@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import { Link } from "@inertiajs/react";
 
-const Navbar = () => {
+const Navbar = (props) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -86,13 +86,15 @@ const Navbar = () => {
                                                 className="text-sm text-gray-900"
                                                 role="none"
                                             >
-                                                Neil Sims
+                                                {props.auth.user.firstname +
+                                                    " " +
+                                                    props.auth.user.lastname}
                                             </p>
                                             <p
                                                 className="text-sm font-medium text-gray-900 truncate"
                                                 role="none"
                                             >
-                                                neil.sims@flowbite.com
+                                                {props.auth.user.email}
                                             </p>
                                         </div>
                                         <ul className="py-1" role="none">

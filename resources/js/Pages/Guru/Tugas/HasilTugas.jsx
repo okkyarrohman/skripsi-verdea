@@ -3,7 +3,7 @@ import { Link } from "@inertiajs/react";
 import DataTable from "react-data-table-component";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
-const HasilTugas = () => {
+const HasilTugas = (props) => {
       const dataabsen = [
           {
               nama: "Agung Setia Abadi",
@@ -42,7 +42,7 @@ const HasilTugas = () => {
           },
       ];
     return (
-        <GuruLayout>
+        <GuruLayout auth={props.auth}>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                 <div className="flex gap-x-2 items-center text-[#64748B] my-3">
                     <Link href={route("tugas-guru.index")}>Tugas</Link>

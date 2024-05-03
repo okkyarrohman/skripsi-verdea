@@ -14,11 +14,15 @@ const Materi = (props) => {
 
     return (
         <>
-            <SiswaLayout>
+            <SiswaLayout auth={props.auth}>
                 <div className="p-4 border-2 border-gray-200 flex items-center rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                     <div className="text-start w-1/2">
                         <h1 className="text-4xl font-bold">
-                            Hi, Oky Anugrah 👋🏻
+                            Hi,{" "}
+                            {props.auth.user.firstname +
+                                " " +
+                                props.auth.user.lastname}
+                            👋🏻
                         </h1>
                         <h1 className="text-4xl font-bold">
                             Jangan Lupa Membaca{" "}
