@@ -20,11 +20,17 @@ const HasilTugas = (props) => {
         },
         {
             name: "Nama Siswa",
-            selector: (row) => row.nama,
+            selector: (row) => row.user.firstname + " " + row.user.lastname,
         },
         {
             name: "Waktu Pengumpulan",
-            selector: (row) => row.waktu,
+            selector: (row) => {
+                const uploadDate = new Date(row.waktu_submit6);
+                const formattedDate = `${uploadDate.getDate()}/${
+                    uploadDate.getMonth() + 1
+                }/${uploadDate.getFullYear()}`;
+                return formattedDate;
+            },
         },
         {
             name: "Nilai",
@@ -34,8 +40,11 @@ const HasilTugas = (props) => {
             name: "Hasil",
             selector: (row) => (
                 <Link
-                    href={`/detail-absensi/${row.id}`}
-                    className="block  bg-[#F97316] text-white px-5 py-2 rounded-lg font-semibold"
+                    href={route("detail-jawaban.guru", {
+                        tugas_id: row.tugas.id,
+                        tugas_user_id: row.user_id,
+                    })}
+                    className="block bg-[#F97316] text-white px-5 py-2 rounded-lg font-semibold"
                 >
                     Detail Jawaban
                 </Link>
@@ -53,11 +62,15 @@ const HasilTugas = (props) => {
                     </Link>
                 </div>
                 <h1 className="text-xl font-bold mb-3">
-                    Detail Hasil Tugas Membuat Candi
+                    Detail Hasil Tugas {props.tugasUser[0].tugas.nama}
                 </h1>
             </div>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
-                <DataTable columns={columns} data={dataabsen} />
+                <DataTable
+                    columns={columns}
+                    data={props.tugasUser}
+                    pagination
+                />
             </div>
         </GuruLayout>
     );

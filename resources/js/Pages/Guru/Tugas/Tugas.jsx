@@ -28,12 +28,12 @@ const Tugas = (props) => {
         },
         {
             name: "Judul Tugas",
-            selector: (row) => row.nama,
+            selector: (row) => row.tugas.nama,
         },
         {
             name: "Tenggat Waktu",
             selector: (row) => {
-                const uploadDate = new Date(row.tenggat);
+                const uploadDate = new Date(row.tugas.tenggat);
                 const formattedDate = `${uploadDate.getDate()}/${
                     uploadDate.getMonth() + 1
                 }/${uploadDate.getFullYear()}`;
@@ -42,13 +42,13 @@ const Tugas = (props) => {
         },
         {
             name: "Siswa Mengumpulkan",
-            selector: (row) => row.total,
+            selector: (row) => row.totalMengumpulkan,
         },
         {
             name: "Hasil",
             selector: (row) => (
                 <Link
-                    href={route("tugas-guru.show", row.id)}
+                    href={route("tugas-guru.show", row.tugas.id)}
                     className="block  bg-[#F97316] text-white px-5 py-2 rounded-lg font-semibold"
                 >
                     Lihat Hasil
@@ -60,7 +60,7 @@ const Tugas = (props) => {
             cell: (row) => (
                 <div className="flex space-x-2">
                     <Link
-                        href={route("tugas-guru.edit", row.id)}
+                        href={route("tugas-guru.edit", row.tugas.id)}
                         className="text-white bg-[#FB8A3C] p-2 rounded-md"
                     >
                         <FiEdit size={17} />

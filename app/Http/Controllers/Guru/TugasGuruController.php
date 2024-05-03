@@ -36,6 +36,7 @@ class TugasGuruController extends Controller
             ];
         }
 
+        // dd($infoTugas);
         return Inertia::render('Guru/Tugas/Tugas', [
             'tugases' => $infoTugas
         ]);
@@ -74,7 +75,7 @@ class TugasGuruController extends Controller
      */
     public function show(string $id)
     {
-        $tugasUser = TugasUser::where('tugas_id', $id)->with('tugas')->get();
+        $tugasUser = TugasUser::where('tugas_id', $id)->with('tugas','user')->get();
 
         return Inertia::render('Guru/Tugas/HasilTugas', [
             'tugasUser' => $tugasUser,

@@ -115,7 +115,7 @@ class TugasSiswaController extends Controller
     {
         $tugasUser = TugasUser::where('tugas_id', $id)->with('tugas')->first();
 
-        return Inertia::render('', [
+        return Inertia::render('Siswa/Tugas/DetailTugas', [
             'tugasUser' => $tugasUser
         ]);
     }

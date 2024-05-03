@@ -4,13 +4,14 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { FiDownload } from "react-icons/fi";
 
 const DetailJawaban = (props) => {
+    console.log(props)
     return (
         <GuruLayout auth={props.auth}>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                 <div className="flex gap-x-2 items-center text-[#64748B] my-3">
-                    <Link href="/">Detail</Link>
+                    <Link href={route("tugas-guru.index")}>Tugas</Link>
                     <MdKeyboardArrowRight size={25} />
-                    <Link href="/">Hasil Tugas</Link>
+                    <Link href={route("tugas-guru.show",props.jawaban.tugas_id)}>Hasil Tugas</Link>
                     <MdKeyboardArrowRight size={25} />
                     <Link href="" className="text-[#F97316]">
                         Jawaban
