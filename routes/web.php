@@ -82,7 +82,7 @@ Route::group(['middleware' => 'role:guru'], function () {
             'tutorial-guru' => TutorialGuruController::class,
             'absen-guru' => AbsenGuruController::class,
         ]);
-        Route::get('tugas-guru/{tugas_id}/{tugas_user_id}', [TugasGuruController::class, 'detailJawaban']);
+        Route::get('tugas-guru/{tugas_id}/{tugas_user_id}', [TugasGuruController::class, 'detailJawaban'])->name('detail-jawaban.guru');
         Route::post('/update-status-tugas', [TugasGuruController::class, 'updateStatus'])->name('update-status.tugas');
         Route::post('/nilai-tugas', [TugasGuruController::class, 'updateNilai'])->name('update.nilai');
         Route::prefix('kuis')->group(function () {

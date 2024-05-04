@@ -15,7 +15,7 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Profile/Index', [
+        return Inertia::render('Siswa/Profile/Profile', [
             'user' => auth()->user(),
         ]);
     }
@@ -28,7 +28,7 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        return Inertia::render('Profile/Edit', [
+        return Inertia::render('Siswa/Profile/EditProfile', [
             'status' => session('status'),
             'user' => $user
         ]);

@@ -1,9 +1,9 @@
 import GuruLayout from "@/Layouts/GuruLayout";
 import { Link } from "@inertiajs/react";
 
-const NotfoundHasil = () => {
+const NotfoundHasil = (props) => {
     return (
-        <GuruLayout>
+        <GuruLayout auth={props.auth}>
             <div className="p-4 border-2 border-gray-200 flex items-center rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                 <div className="text-start w-2/3 py-5">
                     <h1 className="text-4xl font-bold">Hi, Guru 👋🏻</h1>

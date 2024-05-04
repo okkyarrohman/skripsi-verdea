@@ -5,6 +5,7 @@ import DataTable from "react-data-table-component";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import DeleteModal from "@/Components/Guru/Tugas/DeleteModal";
+import { Inertia } from "@inertiajs/inertia";
 
 const Tugas = (props) => {
     console.log(props);
@@ -27,12 +28,12 @@ const Tugas = (props) => {
         },
         {
             name: "Judul Tugas",
-            selector: (row) => row.nama,
+            selector: (row) => row.tugas.nama,
         },
         {
             name: "Tenggat Waktu",
             selector: (row) => {
-                const uploadDate = new Date(row.tenggat);
+                const uploadDate = new Date(row.tugas.tenggat);
                 const formattedDate = `${uploadDate.getDate()}/${
                     uploadDate.getMonth() + 1
                 }/${uploadDate.getFullYear()}`;
@@ -41,13 +42,13 @@ const Tugas = (props) => {
         },
         {
             name: "Siswa Mengumpulkan",
-            selector: (row) => row.total,
+            selector: (row) => row.totalMengumpulkan,
         },
         {
             name: "Hasil",
             selector: (row) => (
                 <Link
-                    href={route("tugas-guru.show", row.id)}
+                    href={route("tugas-guru.show", row.tugas.id)}
                     className="block  bg-[#F97316] text-white px-5 py-2 rounded-lg font-semibold"
                 >
                     Lihat Hasil
@@ -59,7 +60,7 @@ const Tugas = (props) => {
             cell: (row) => (
                 <div className="flex space-x-2">
                     <Link
-                        href={route("tugas-guru.edit", row.id)}
+                        href={route("tugas-guru.edit", row.tugas.id)}
                         className="text-white bg-[#FB8A3C] p-2 rounded-md"
                     >
                         <FiEdit size={17} />
@@ -79,15 +80,27 @@ const Tugas = (props) => {
     ];
 
     const handleDelete = () => {
-        console.log("Menghapus item dengan ID:", deleteItemId);
-        setModalIsOpen(false);
+        Inertia.delete(route("tugas-guru.destroy", deleteItemId))
+            .then(() => {
+                setModalIsOpen(false);
+                setDeleteItemId(null);
+                console.log("Menghapus item dengan ID:", deleteItemId);
+            })
+            .catch((error) => {
+                console.error("Error deleting materi:", error);
+            });
     };
-
     return (
-        <GuruLayout>
+        <GuruLayout auth={props.auth}>
             <div className="p-4 border-2 border-gray-200 flex items-center rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                 <div className="text-start w-1/2 py-5">
-                    <h1 className="text-4xl font-bold">Hi, Guru 👋🏻</h1>
+                    <h1 className="text-4xl font-bold">
+                        Hi,{" "}
+                        {props.auth.user.firstname +
+                            " " +
+                            props.auth.user.lastname}{" "}
+                        👋🏻
+                    </h1>
                     <p className="mt-1 text-4xl font-bold">
                         Jangan Lupa Kerjakan Kuis!
                     </p>

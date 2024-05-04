@@ -15,10 +15,16 @@ const Tugas = (props) => {
      };
     console.log(props);
     return (
-        <SiswaLayout>
+        <SiswaLayout auth={props.auth}>
             <div className="p-4 border-2 border-gray-200 flex items-center rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                 <div className="text-start w-1/2">
-                    <h1 className="text-4xl font-bold">Hi, Oky Anugrah 👋🏻</h1>
+                    <h1 className="text-4xl font-bold">
+                        Hi,{" "}
+                        {props.auth.user.firstname +
+                            " " +
+                            props.auth.user.lastname}{" "}
+                        👋🏻
+                    </h1>
                     <h1 className="text-4xl font-bold">
                         Jangan Lupa Kerjakan Tugasmu!
                     </h1>
@@ -64,14 +70,16 @@ const Tugas = (props) => {
                                     </h5>
                                 </Link>
                                 <div className="mt-3 text-gray-700 mb-5 flex flex-col gap-y-2 text-lg">
-                                    <p>Tenggat : {formatTenggat(tugas.tenggat)}</p>
+                                    <p>
+                                        Tenggat : {formatTenggat(tugas.tenggat)}
+                                    </p>
 
                                     <p>Nilai : 100</p>
                                     <p>Status : Selesai</p>
                                 </div>
                             </div>
                             <Link
-                                href="#"
+                                href={route("tugas.edit",tugas.id)}
                                 className="w-full bg-[#F97316] text-center py-2 text-white tracking-wide rounded-lg inline-flex items-center justify-center mt-auto"
                             >
                                 Detail Tugas{" "}

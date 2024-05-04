@@ -5,7 +5,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 const DetailReferensi = (props) => {
     const UrlBase = "http://localhost:8000";
     return (
-        <SiswaLayout>
+        <SiswaLayout auth={props.auth}>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                 <div className="flex gap-x-2 items-center text-[#64748B] my-3">
                     <Link href={route("referensi.index")}>Referensi</Link>

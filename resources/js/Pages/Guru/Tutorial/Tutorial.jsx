@@ -84,10 +84,16 @@ const Tutorial = (props) => {
     };
 
     return (
-        <GuruLayout>
+        <GuruLayout auth={props.auth}>
             <div className="p-4 border-2 border-gray-200 flex items-center rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                 <div className="text-start w-1/2 py-5">
-                    <h1 className="text-4xl font-bold">Hi, Guru 👋🏻</h1>
+                    <h1 className="text-4xl font-bold">
+                        Hi,{" "}
+                        {props.auth.user.firstname +
+                            " " +
+                            props.auth.user.lastname}
+                        👋🏻
+                    </h1>
                     <p className="mt-1 text-4xl font-bold">
                         Jangan Lupa Tambah Tutorial!
                     </p>
@@ -117,7 +123,11 @@ const Tutorial = (props) => {
             )}
             {props.tutorials.length > 0 && (
                 <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
-                    <DataTable columns={columns} data={props.tutorials} pagination/>
+                    <DataTable
+                        columns={columns}
+                        data={props.tutorials}
+                        pagination
+                    />
                 </div>
             )}
             <DeleteModal

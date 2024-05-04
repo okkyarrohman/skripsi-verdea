@@ -75,7 +75,7 @@ const Opsi = (props) => {
     };
 
     return (
-        <GuruLayout>
+        <GuruLayout auth={props.auth}>
             <div className="p-4 border-2 border-gray-200 flex items-center rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                 <div className="text-start w-1/2 py-5">
                     <h1 className="text-4xl font-bold">Hi, Guru 👋🏻</h1>
@@ -107,7 +107,11 @@ const Opsi = (props) => {
             )}
             {props.opsis.length > 0 && (
                 <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
-                    <DataTable columns={columns} data={props.opsis} pagination />
+                    <DataTable
+                        columns={columns}
+                        data={props.opsis}
+                        pagination
+                    />
                 </div>
             )}
             <DeleteModal
