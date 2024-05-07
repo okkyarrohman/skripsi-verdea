@@ -145,7 +145,7 @@ class TugasGuruController extends Controller
         $tugas = Tugas::findOrFail($tugas_id);
 
         // Mengambil informasi jawaban siswa tertentu untuk tugas tertentu
-        $jawaban = TugasUser::findOrFail($tugas_user_id);
+        $jawaban = TugasUser::with("user")->findOrFail($tugas_user_id);
 
         return Inertia::render('Guru/Tugas/DetailJawaban', [
             'tugas' => $tugas,
