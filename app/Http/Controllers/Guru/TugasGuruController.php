@@ -158,20 +158,22 @@ class TugasGuruController extends Controller
     {
         $tugasUser = TugasUser::find($request->id);
         $tugasUser->status = $request->status;
-        $tugasUser->save();
-
-        return redirect()->route('tugas-guru.index');
-    }
-
-
-
-    public function updateNilai(Request $request)
-    {
-        $tugasUser = TugasUser::find($request->id);
         $tugasUser->nilai = $request->nilai;
         $tugasUser->feedback = $request->feedback;
         $tugasUser->save();
 
         return redirect()->route('tugas-guru.index');
     }
+
+
+
+    // public function updateNilai(Request $request)
+    // {
+    //     $tugasUser = TugasUser::find($request->id);
+    //     $tugasUser->nilai = $request->nilai;
+    //     $tugasUser->feedback = $request->feedback;
+    //     $tugasUser->save();
+
+    //     return redirect()->route('tugas-guru.index');
+    // }
 }
