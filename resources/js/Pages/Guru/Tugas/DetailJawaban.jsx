@@ -2,72 +2,161 @@ import GuruLayout from "@/Layouts/GuruLayout";
 import { Link } from "@inertiajs/react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { FiDownload } from "react-icons/fi";
+import moment from "moment";
+import { useState } from "react";
+import { Inertia } from "@inertiajs/inertia";
 
 const DetailJawaban = (props) => {
-    console.log(props)
+    console.log(props);
+    moment.locale("id");
+    const [status, setStatus] = useState(props.jawaban.status);
+    const [nilai, setNilai] = useState(props.jawaban.nilai);
+    const [feedback, setFeedback] = useState(props.jawaban.feedback);
+
+    const tugasItems = [
+        {
+            label: "Deskripsi Tugas 1",
+            value: props.tugas.soal1,
+        },
+        {
+            label: "Tugas Siswa 1",
+            value: props.jawaban.tugas1,
+        },
+        {
+            label: "Deskripsi Tugas 2",
+            value: props.tugas.soal2,
+        },
+        {
+            label: "Tugas Siswa 2",
+            value: props.jawaban.tugas2,
+        },
+        {
+            label: "Deskripsi Tugas 3",
+            value: props.tugas.soal3,
+        },
+        {
+            label: "Tugas Siswa 3",
+            value: props.jawaban.tugas3,
+        },
+        {
+            label: "Deskripsi Tugas 4",
+            value: props.tugas.soal4,
+        },
+        {
+            label: "Tugas Siswa 4",
+            value: props.jawaban.tugas4,
+        },
+        {
+            label: "Deskripsi Tugas 5",
+            value: props.tugas.soal5,
+        },
+        {
+            label: "Tugas Siswa 5",
+            value: props.jawaban.tugas5,
+        },
+        {
+            label: "Deskripsi Tugas 6",
+            value: props.tugas.soal6,
+        },
+        {
+            label: "Tugas Siswa 6",
+            value: props.jawaban.tugas6,
+        },
+    ];
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append("status", status);
+        formData.append("nilai", nilai);
+        formData.append("feedback", feedback);
+
+        console.log(formData);
+        Inertia.post(route("update-status.tugas"), {
+            id: props.jawaban.id,
+            ...Object.fromEntries(formData),
+        });
+    };
+
     return (
         <GuruLayout auth={props.auth}>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                 <div className="flex gap-x-2 items-center text-[#64748B] my-3">
                     <Link href={route("tugas-guru.index")}>Tugas</Link>
                     <MdKeyboardArrowRight size={25} />
-                    <Link href={route("tugas-guru.show",props.jawaban.tugas_id)}>Hasil Tugas</Link>
+                    <Link
+                        href={route("tugas-guru.show", props.jawaban.tugas_id)}
+                    >
+                        Hasil Tugas
+                    </Link>
                     <MdKeyboardArrowRight size={25} />
                     <Link href="" className="text-[#F97316]">
                         Jawaban
                     </Link>
                 </div>
                 <h1 className="text-xl font-bold mb-3">
-                    Jawaban Tugas Agung Setia Abadi
+                    Jawaban Tugas{" "}
+                    {props.jawaban.user.firstname +
+                        " " +
+                        props.jawaban.user.lastname}
                 </h1>
             </div>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
-                <form action="" className="my-6">
+                <form action="" className="my-6" onSubmit={handleSubmit}>
                     <div className="my-5 flex flex-col gap-y-2">
                         <p className="font-semibold text-lg">Nama Siswa</p>
                         <p className="text-[#64748B] text-justify">
-                            Agung Setia Abadi
+                            {props.jawaban.user.firstname +
+                                " " +
+                                props.jawaban.user.lastname}
                         </p>
                     </div>
                     <div className="my-5 flex flex-col gap-y-2">
                         <p className="font-semibold text-lg">Tugas</p>
                         <p className="text-[#64748B] text-justify">
-                            Keamanan Jaringan dan Infrastruktur Komputer pada
-                            Lab
-                        </p>
-                    </div>
-                    <div className="my-5 flex flex-col gap-y-2">
-                        <p className="font-semibold text-lg">Deskripsi</p>
-                        <p className="text-[#64748B] text-justify">
-                            Figma ipsum component variant main layer. Effect
-                            boolean scrolling community plugin vertical select
-                            scale comment italic. Shadow edit team text list
-                            outline frame group bullet. Auto figma device
-                            boolean hand. Vector share bold background style
-                            layout. Bold flatten boolean comment ellipse
-                            comment. Ipsum draft move ipsum invite polygon
-                            shadow. Team outline draft flatten scrolling bold
-                            horizontal object shadow. Subtract union slice
-                            vector bullet group. Mask edit content overflow
-                            plugin invite layout layout content stroke.
+                            {props.tugas.nama}
                         </p>
                     </div>
                     <div className="my-5 flex flex-col gap-y-2">
                         <p className="font-semibold text-lg">Deadline</p>
-                        <p className="text-[#EF4444] text-justify">
-                            Sabtu, 32 Maret 2024 23.00
+                        <p className="text-red-500 text-justify">
+                            {moment(props.tugas.tenggat).format(
+                                "dddd, DD MMMM YYYY HH:mm"
+                            )}
                         </p>
                     </div>
-                    <div className="my-5 flex flex-col gap-y-2">
-                        <p className="font-semibold text-lg">Tugas Siswa</p>
-                        <div className="flex items-center gap-x-2">
-                            <button className="flex justify-start items-center gap-x-2 bg-[#FB8A3C] px-8 w-44 text-white font-semibold rounded-lg py-2.5">
-                                <FiDownload size={20} />
-                                <p>Unduh FIle</p>
-                            </button>
-                            <p>Nama_File.pdf</p>
-                        </div>
+                    <div className="my-5">
+                        {tugasItems.map((item, index) => (
+                            <div
+                                key={index}
+                                className="my-5 flex flex-col gap-y-2"
+                            >
+                                <p className="font-semibold text-lg">
+                                    {item.label}
+                                </p>
+                                <p className="text-[#64748B] text-justify">
+                                    {item.value}
+                                </p>
+                            </div>
+                        ))}
                     </div>
+                    <div className="my-5 flex flex-col gap-y-2">
+                        <p className="font-semibold text-lg">Status</p>
+                        <select
+                            value={status}
+                            onChange={(e) => setStatus(e.target.value)}
+                            className="border-2 rounded-lg border-[#D8DBDF] bg-[#FBFBFB]"
+                        >
+                            <option value="">Pilih Status</option>
+                            {props.statusTugas.map((status, index) => (
+                                <option key={index} value={status}>
+                                    {status}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
                     <div className="my-5 flex flex-col gap-y-2">
                         <label
                             htmlFor="nilai"
@@ -78,10 +167,13 @@ const DetailJawaban = (props) => {
                         <input
                             id="nilai"
                             type="number"
+                            value={nilai}
+                            onChange={(e) => setNilai(e.target.value)}
                             placeholder="Masukkan Nilai"
                             className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg"
                         />
                     </div>
+
                     <div className="my-5 flex flex-col gap-y-2">
                         <label
                             htmlFor="feedback"
@@ -91,10 +183,13 @@ const DetailJawaban = (props) => {
                         </label>
                         <textarea
                             id="feedback"
+                            value={feedback}
+                            onChange={(e) => setFeedback(e.target.value)}
                             placeholder="Masukkan Feedback Tugas"
                             className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg h-36"
                         ></textarea>
                     </div>
+
                     <div className="flex justify-end mt-6 gap-x-4">
                         <button
                             type="submit"
@@ -108,4 +203,5 @@ const DetailJawaban = (props) => {
         </GuruLayout>
     );
 };
+
 export default DetailJawaban;

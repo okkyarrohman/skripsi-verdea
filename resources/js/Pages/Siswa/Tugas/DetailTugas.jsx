@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SiswaLayout from "@/Layouts/SiswaLayout";
 import { Link } from "@inertiajs/react";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { Inertia } from "@inertiajs/inertia";
 
-const DetailTugas = ({ auth, tugasUser }) => {
+const DetailTugas = ({ auth, tugasUser, tugases }) => {
+
+    console.log(tugases)
     const steps = [
         { id: 1, nama: "Penentuan Proyek" },
         { id: 2, nama: "Menyusun Proyek" },
@@ -14,14 +17,42 @@ const DetailTugas = ({ auth, tugasUser }) => {
     ];
 
     const [activeStep, setActiveStep] = useState(1);
+    const [tugas, setTugas] = useState({});
+
+    useEffect(() => {
+        if (tugasUser) {
+            setTugas(tugasUser);
+        }
+    }, [tugasUser]);
 
     const handleStepClick = (stepId) => {
-        setActiveStep(stepId);
+        if (!isStepEmpty(stepId)) {
+            setActiveStep(stepId);
+        }
     };
 
-    console.log(tugasUser[`tugas${activeStep}`]);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setTugas((prevTugas) => ({
+            ...prevTugas,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        Inertia.post(route("tugas.store"), {
+            tugas_id: tugases.id,
+            ...tugas,
+        });
+    };
 
     const isLastStep = activeStep === steps.length;
+
+    const isStepEmpty = (stepId) => {
+        return !tugas[`tugas${stepId}`];
+    };
 
     return (
         <SiswaLayout auth={auth}>
@@ -43,7 +74,9 @@ const DetailTugas = ({ auth, tugasUser }) => {
                             className={`min-w-64 p-3 rounded-lg flex flex-col gap-y-1 ${
                                 step.id === activeStep
                                     ? "bg-[#F97316] cursor-pointer"
-                                    : "bg-gray-200 text-black cursor-pointer"
+                                    : isStepEmpty(step.id)
+                                    ? "bg-gray-200 text-black cursor-not-allowed"
+                                    : "bg-[#F97316] cursor-pointer"
                             }`}
                             onClick={() => handleStepClick(step.id)}
                         >
@@ -51,7 +84,9 @@ const DetailTugas = ({ auth, tugasUser }) => {
                                 className={`text-sm font-light ${
                                     step.id === activeStep
                                         ? "text-white"
-                                        : "text-gray-500"
+                                        : isStepEmpty(step.id)
+                                        ? "text-gray-500"
+                                        : "text-white"
                                 }`}
                             >
                                 Step {step.id}
@@ -60,7 +95,9 @@ const DetailTugas = ({ auth, tugasUser }) => {
                                 className={`font-medium ${
                                     step.id === activeStep
                                         ? "text-white"
-                                        : "text-black"
+                                        : isStepEmpty(step.id)
+                                        ? "text-black"
+                                        : "text-white"
                                 }`}
                             >
                                 {step.nama}
@@ -71,11 +108,11 @@ const DetailTugas = ({ auth, tugasUser }) => {
             </div>
 
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
-                <form action="" className="my-6">
+                <form onSubmit={handleSubmit} className="my-6">
                     <div className="my-5 flex flex-col gap-y-2">
                         <p className="font-semibold text-lg">Deskripsi Tugas</p>
                         <p className="text-[#64748B] text-justify">
-                            {tugasUser.tugas[`soal${activeStep}`]}
+                            {tugases[`soal${activeStep}`]}
                         </p>
                     </div>
                     <div className="my-5 flex flex-col gap-y-2">
@@ -83,21 +120,17 @@ const DetailTugas = ({ auth, tugasUser }) => {
                         <textarea
                             className=" text-justify h-48 rounded-lg border-2 border-gray-300"
                             placeholder="Masukkan jawaban anda"
-                            value={tugasUser[`tugas${activeStep}`]}
+                            name={`tugas${activeStep}`}
+                            value={tugas?.[`tugas${activeStep}`] || ""}
+                            onChange={handleChange}
                         ></textarea>
-                    </div>
-                    <div className="my-5 flex flex-col gap-y-2">
-                        <p className="font-semibold text-lg">Tugas Siswa</p>
-                        <input
-                            type="file"
-                            className="border-2 rounded-lg p-2"
-                        />
                     </div>
                     <div className="flex justify-end mt-6 gap-x-4">
                         {isLastStep ? (
                             <button
                                 type="submit"
                                 className="bg-[#F97316] px-8 py-2.5 rounded-lg text-white font-semibold"
+                                disabled={isStepEmpty(activeStep)}
                             >
                                 Kirim
                             </button>
@@ -106,6 +139,7 @@ const DetailTugas = ({ auth, tugasUser }) => {
                                 type="button"
                                 onClick={() => setActiveStep(activeStep + 1)}
                                 className="bg-[#F97316] px-8 py-2.5 rounded-lg text-white font-semibold"
+                                disabled={isStepEmpty(activeStep)}
                             >
                                 Selanjutnya
                             </button>

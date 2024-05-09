@@ -75,7 +75,7 @@ class TugasGuruController extends Controller
      */
     public function show(string $id)
     {
-        $tugasUser = TugasUser::where('tugas_id', $id)->with('tugas','user')->get();
+        $tugasUser = TugasUser::where('tugas_id', $id)->with('tugas', 'user')->get();
 
         return Inertia::render('Guru/Tugas/HasilTugas', [
             'tugasUser' => $tugasUser,
@@ -143,9 +143,7 @@ class TugasGuruController extends Controller
         ];
         // Mengambil informasi tugas
         $tugas = Tugas::findOrFail($tugas_id);
-
-        // Mengambil informasi jawaban siswa tertentu untuk tugas tertentu
-        $jawaban = TugasUser::findOrFail($tugas_user_id);
+        $jawaban = TugasUser::with("user")->where('tugas_id', $tugas->id)->where('user_id', $tugas_user_id)->firstOrFail();
 
         return Inertia::render('Guru/Tugas/DetailJawaban', [
             'tugas' => $tugas,
@@ -158,20 +156,22 @@ class TugasGuruController extends Controller
     {
         $tugasUser = TugasUser::find($request->id);
         $tugasUser->status = $request->status;
-        $tugasUser->save();
-
-        return redirect()->route('tugas-guru.index');
-    }
-
-
-
-    public function updateNilai(Request $request)
-    {
-        $tugasUser = TugasUser::find($request->id);
         $tugasUser->nilai = $request->nilai;
         $tugasUser->feedback = $request->feedback;
         $tugasUser->save();
 
         return redirect()->route('tugas-guru.index');
     }
+
+
+
+    // public function updateNilai(Request $request)
+    // {
+    //     $tugasUser = TugasUser::find($request->id);
+    //     $tugasUser->nilai = $request->nilai;
+    //     $tugasUser->feedback = $request->feedback;
+    //     $tugasUser->save();
+
+    //     return redirect()->route('tugas-guru.index');
+    // }
 }
