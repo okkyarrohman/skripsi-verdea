@@ -6,7 +6,7 @@ import { Inertia } from "@inertiajs/inertia";
 
 const DetailTugas = ({ auth, tugasUser, tugases }) => {
 
-    console.log(tugases)
+    console.log(tugasUser);
     const steps = [
         { id: 1, nama: "Penentuan Proyek" },
         { id: 2, nama: "Menyusun Proyek" },

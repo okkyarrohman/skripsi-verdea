@@ -69,7 +69,7 @@ class TugasSiswaController extends Controller
      */
     public function edit(string $id)
     {
-        $tugasUser = TugasUser::where('tugas_id', $id)->with('tugas')->first();
+        $tugasUser = TugasUser::where('user_id', auth()->user()->id)->where('tugas_id', $id)->with('tugas')->first();
         $tugas = Tugas::findOrFail($id);
 
         return Inertia::render('Siswa/Tugas/DetailTugas', [

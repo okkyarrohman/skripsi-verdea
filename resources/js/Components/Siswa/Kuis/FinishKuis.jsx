@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 
-const FinishKuis = ({ isOpen, onClose }) => {
+const FinishKuis = ({ isOpen, onClose, onFinish }) => {
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = "hidden";
@@ -12,6 +12,13 @@ const FinishKuis = ({ isOpen, onClose }) => {
             document.body.style.overflow = "auto";
         };
     }, [isOpen]);
+
+    const handleFinish = () => {
+        // Panggil fungsi onFinish untuk mengirim data kuis yang selesai
+        onFinish();
+        // Tutup modal setelah selesai
+        onClose();
+    };
     return (
         <>
             {isOpen && (
@@ -37,7 +44,7 @@ const FinishKuis = ({ isOpen, onClose }) => {
                         <div className="mt-4 flex justify-end">
                             <button
                                 className="bg-white text-[#F97316] border-2 border-[#F97316] px-4 py-2 rounded-lg mr-4"
-                                onClick={onClose}
+                                onClick={handleFinish}
                             >
                                 Batal
                             </button>

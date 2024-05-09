@@ -148,7 +148,10 @@ const Beranda = (props) => {
                             ))}
 
                             <div className="flex justify-center mt-4">
-                                <Link className="bg-[#F97316] text-white px-5 py-2.5 rounded-lg font-semibold flex items-center">
+                                <Link
+                                    href={route("materi.index")}
+                                    className="bg-[#F97316] text-white px-5 py-2.5 rounded-lg font-semibold flex items-center"
+                                >
                                     Lihat Semua Materi
                                     <FaArrowRightLong className="ml-2" />
                                 </Link>
