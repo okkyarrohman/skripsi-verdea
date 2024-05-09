@@ -9,9 +9,9 @@ import { Inertia } from "@inertiajs/inertia";
 const DetailJawaban = (props) => {
     console.log(props);
     moment.locale("id");
-    const [status, setStatus] = useState();
-    const [nilai, setNilai] = useState();
-    const [feedback, setFeedback] = useState();
+    const [status, setStatus] = useState(props.jawaban.status);
+    const [nilai, setNilai] = useState(props.jawaban.nilai);
+    const [feedback, setFeedback] = useState(props.jawaban.feedback);
 
     const tugasItems = [
         {
@@ -74,7 +74,7 @@ const DetailJawaban = (props) => {
 
         console.log(formData);
         Inertia.post(route("update-status.tugas"), {
-            id: props.tugas.id,
+            id: props.jawaban.id,
             ...Object.fromEntries(formData),
         });
     };
@@ -144,7 +144,7 @@ const DetailJawaban = (props) => {
                     <div className="my-5 flex flex-col gap-y-2">
                         <p className="font-semibold text-lg">Status</p>
                         <select
-                            value={props.jawaban.status}
+                            value={status}
                             onChange={(e) => setStatus(e.target.value)}
                             className="border-2 rounded-lg border-[#D8DBDF] bg-[#FBFBFB]"
                         >
@@ -167,7 +167,7 @@ const DetailJawaban = (props) => {
                         <input
                             id="nilai"
                             type="number"
-                            value={props.jawaban.nilai}
+                            value={nilai}
                             onChange={(e) => setNilai(e.target.value)}
                             placeholder="Masukkan Nilai"
                             className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg"
@@ -183,7 +183,7 @@ const DetailJawaban = (props) => {
                         </label>
                         <textarea
                             id="feedback"
-                            value={props.jawaban.feedback}
+                            value={feedback}
                             onChange={(e) => setFeedback(e.target.value)}
                             placeholder="Masukkan Feedback Tugas"
                             className="border-2 border-[#D8DBDF] bg-[#FBFBFB] rounded-lg h-36"
