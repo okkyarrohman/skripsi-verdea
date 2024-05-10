@@ -6,18 +6,17 @@ import { MdQuestionAnswer } from "react-icons/md";
 
 const Kuis = (props) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [kuisId, setKuisId] = useState(null); // Menambahkan state untuk menyimpan kuisId
 
-    console.log(props);
-
-    const handleQuizStart = () => {
-        // Tambahkan logika untuk memulai kuis di sini
-        console.log("Memulai kuis...");
+    const handleQuizStart = (categoryId) => {
+        // Menetapkan kuisId ke dalam state
+        setKuisId(categoryId);
         // Setelah memulai kuis, buka modal
         setModalIsOpen(true);
     };
 
     return (
-        <SiswaLayout>
+        <SiswaLayout auth={props.auth}>
             <div className="p-4 border-2 border-gray-200 flex items-center rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                 <div className="text-start w-1/2">
                     <h1 className="text-4xl font-bold">
@@ -64,7 +63,7 @@ const Kuis = (props) => {
                             </div>
                             <button
                                 className="w-full bg-[#F97316] text-center py-2 text-white tracking-wide rounded-lg inline-flex items-center justify-center mt-auto"
-                                onClick={handleQuizStart}
+                                onClick={() => handleQuizStart(category.id)} // Mengirimkan kuisId saat menekan tombol "Kerjakan"
                             >
                                 Kerjakan
                             </button>
@@ -88,6 +87,7 @@ const Kuis = (props) => {
             <StartKuis
                 isOpen={modalIsOpen}
                 onClose={() => setModalIsOpen(false)}
+                kuisId={kuisId} // Mengirimkan kuisId ke komponen StartKuis
             />
         </SiswaLayout>
     );

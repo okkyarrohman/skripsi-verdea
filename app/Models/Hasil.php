@@ -26,4 +26,9 @@ class Hasil extends Model
     {
         return $this->belongsToMany(User::class, 'user_id');
     }
+
+    public function soal()
+    {
+        return $this->belongsToMany(Soal::class)->withPivot('opsi_id');
+    }
 }

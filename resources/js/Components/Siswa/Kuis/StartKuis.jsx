@@ -1,7 +1,8 @@
+import { Inertia } from "@inertiajs/inertia";
 import React, { useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 
-const StartKuis = ({ isOpen, onClose }) => {
+const StartKuis = ({ isOpen, onClose, kuisId }) => {
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = "hidden";
@@ -12,6 +13,13 @@ const StartKuis = ({ isOpen, onClose }) => {
             document.body.style.overflow = "auto";
         };
     }, [isOpen]);
+
+    const handleStartQuiz = () => {
+        console.log("Memulai kuis...");
+        // Mengirimkan ID kuis sebagai parameter saat navigasi
+        Inertia.visit(route("kuis.show", { id: kuisId }));
+    };
+
     return (
         <>
             {isOpen && (
@@ -41,7 +49,10 @@ const StartKuis = ({ isOpen, onClose }) => {
                             >
                                 Batal
                             </button>
-                            <button className="bg-[#F97316] text-white px-4 py-2 rounded-lg">
+                            <button
+                                onClick={handleStartQuiz}
+                                className="bg-[#F97316] text-white px-4 py-2 rounded-lg"
+                            >
                                 Mulai
                             </button>
                         </div>
