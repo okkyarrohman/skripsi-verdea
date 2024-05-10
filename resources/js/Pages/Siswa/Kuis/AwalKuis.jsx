@@ -3,13 +3,14 @@ import SiswaLayout from "@/Layouts/SiswaLayout";
 // import { Link } from "@inertiajs/react";
 import FinishKuis from "@/Components/Siswa/Kuis/FinishKuis";
 import Countdown from "react-countdown";
+import { Inertia } from "@inertiajs/inertia";
 
 const AwalKuis = (props) => {
     console.log(props);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedOption, setSelectedOption] = useState(null);
     const [modalIsOpen, setModalIsOpen] = useState(false);
-     const [userAnswers, setUserAnswers] = useState({});
+    const [userAnswers, setUserAnswers] = useState({});
 
     const questionsFromLocalStorage = JSON.parse(
         localStorage.getItem("questions")
@@ -50,16 +51,36 @@ const AwalKuis = (props) => {
     }, [questions, currentQuestionIndex]);
 
     const handleFinishQuiz = () => {
-        console.log("Menyelesaikan kuis...");
         setModalIsOpen(true);
+        console.log("Menyelesaikan kuis...");
+
+        const userAnswersArray = questions.map((question) => ({
+            question_id: question.id,
+            option_id: localStorage.getItem(`question_${question.id}`),
+        }));
+        setUserAnswers(userAnswers);
+
+        console.log(userAnswers);
+
+        Inertia.post(route("kuis.store"), {
+            kategori_kuis_id: props.kategori[0].id,
+            soal: userAnswersArray,
+        });
+
+        localStorage.removeItem("endTime");
+        localStorage.removeItem("questions");
+        questions.forEach((question) => {
+            localStorage.removeItem(`question_${question.id}`);
+        });
     };
 
-  const handleOptionChange = (option) => {
-      localStorage.setItem(`question_${currentQuestion.id}`, option);
+    const handleOptionChange = (option) => {
+        localStorage.setItem(`question_${currentQuestion.id}`, option);
 
-      setSelectedOption(option);
-  };
+        setSelectedOption(option);
+    };
 
+    console.log(selectedOption);
 
     const handleNextQuestion = () => {
         if (currentQuestionIndex < questions.length - 1) {
@@ -79,8 +100,6 @@ const AwalKuis = (props) => {
             setSelectedOption(null);
         }
     };
-
-    console.log(currentQuestionIndex);
 
     const currentQuestion = questions[currentQuestionIndex];
     return (
@@ -129,7 +148,7 @@ const AwalKuis = (props) => {
                             <div
                                 key={index}
                                 className={`flex items-center border-2 rounded-xl p-3 ${
-                                    selectedOption === opsi.id
+                                    selectedOption == opsi.id
                                         ? "border-[#FB8A3C] text-[#FB8A3C]"
                                         : "border-white text-black"
                                 }`}
@@ -139,13 +158,24 @@ const AwalKuis = (props) => {
                                     id={`option${index + 1}`}
                                     name="options"
                                     value={opsi.id}
-                                    className="w-4 h-4 text-[#FB8A3C] focus:ring-[#FB8A3C] focus:border-[#FB8A3C]"
+                                    className="hidden" // Sembunyikan input radio
                                     onChange={() => handleOptionChange(opsi.id)}
                                 />
                                 <label
                                     htmlFor={`option${index + 1}`}
-                                    className="ms-2 font-medium"
+                                    className={`font-medium relative cursor-pointer ${
+                                        selectedOption == opsi.id
+                                            ? "text-[#FB8A3C]"
+                                            : ""
+                                    }`}
                                 >
+                                    <span
+                                        className={`w-4 h-4 inline-block rounded-full border border-solid mr-2 ${
+                                            selectedOption == opsi.id
+                                                ? "bg-[#FB8A3C] border-[#FB8A3C]"
+                                                : "bg-white border-black"
+                                        }`}
+                                    ></span>
                                     {opsi.opsi}
                                 </label>
                             </div>

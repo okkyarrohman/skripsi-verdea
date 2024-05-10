@@ -25,4 +25,8 @@ class Soal extends Model
     {
         return $this->hasMany(Opsi::class);
     }
+    public function hasil()
+    {
+        return $this->belongsToMany(Hasil::class)->withPivot('opsi_id');
+    }
 }

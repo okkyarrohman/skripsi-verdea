@@ -40,7 +40,8 @@ class SoalGuruController extends Controller
      */
     public function store(Request $request)
     {
-        // Request column input type file
+        $gambarName = null;
+
         if ($request->hasFile('gambar')) {
             $gambar = $request->file('gambar');
             $extension = $gambar->getClientOriginalName();
@@ -48,11 +49,18 @@ class SoalGuruController extends Controller
             $gambar->move(storage_path('app/public/soal/gambar/'), $gambarName);
         }
 
-        Soal::create([
-            'kategori_kuis_id' => $request->input('kategori_kuis_id'),
-            'soal' => $request->input('soal'),
-            'gambar' => $gambarName
-        ]);
+        if ($gambarName !== null) {
+            Soal::create([
+                'kategori_kuis_id' => $request->input('kategori_kuis_id'),
+                'soal' => $request->input('soal'),
+                'gambar' => $gambarName
+            ]);
+        } else {
+            Soal::create([
+                'kategori_kuis_id' => $request->input('kategori_kuis_id'),
+                'soal' => $request->input('soal')
+            ]);
+        }
 
         return redirect()->route('soal.index');
     }

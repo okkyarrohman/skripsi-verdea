@@ -42,13 +42,13 @@ const FinishKuis = ({ isOpen, onClose, onFinish }) => {
                             Apakah Anda yakin ingin menyelesaikan kuis Anda?
                         </p>
                         <div className="mt-4 flex justify-end">
-                            <button
-                                className="bg-white text-[#F97316] border-2 border-[#F97316] px-4 py-2 rounded-lg mr-4"
-                                onClick={handleFinish}
-                            >
+                            <button className="bg-white text-[#F97316] border-2 border-[#F97316] px-4 py-2 rounded-lg mr-4">
                                 Batal
                             </button>
-                            <button className="bg-[#F97316] text-white px-4 py-2 rounded-lg">
+                            <button
+                                onClick={handleFinish}
+                                className="bg-[#F97316] text-white px-4 py-2 rounded-lg"
+                            >
                                 Selesai
                             </button>
                         </div>
