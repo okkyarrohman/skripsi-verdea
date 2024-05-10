@@ -1,10 +1,10 @@
 import SiswaLayout from "@/Layouts/SiswaLayout";
 import { Link } from "@inertiajs/react";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { UrlBase } from "@/config/config";
 
 const DetailMateri = (props) => {
     console.log(props.materis);
-    const UrlBase = "http://localhost:8000";
     return (
         <SiswaLayout auth={props.auth}>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
