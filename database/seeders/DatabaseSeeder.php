@@ -28,17 +28,17 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
 
 
-        User::factory(30)->create();
-        Absen::factory(5)->create();
-        AbsenUser::factory(30)->create();
-        Materi::factory(3)->create();
-        Tugas::factory(3)->create();
-        Referensi::factory(5)->create();
-        Tutorial::factory(5)->create();
-        KategoriKuis::factory(2)->create();
-        Soal::factory(10)->create();
-        Opsi::factory(50)->create();
-        Hasil::factory(10)->create();
-        TugasUser::factory(30)->create();
+        // User::factory(30)->create();
+        // Absen::factory(5)->create();
+        // AbsenUser::factory(30)->create();
+        // Materi::factory(3)->create();
+        // Tugas::factory(3)->create();
+        // Referensi::factory(5)->create();
+        // Tutorial::factory(5)->create();
+        // KategoriKuis::factory(2)->create();
+        // Soal::factory(10)->create();
+        // Opsi::factory(50)->create();
+        // Hasil::factory(10)->create();
+        // TugasUser::factory(30)->create();
     }
 }

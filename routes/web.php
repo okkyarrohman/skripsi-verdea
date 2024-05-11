@@ -19,6 +19,7 @@ use App\Http\Controllers\Siswa\TutorialSiswaController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -119,7 +120,9 @@ Route::group(['middleware' => 'role:siswa'], function () {
     });
 });
 
-
+Route::get('/foo', function () {
+    Artisan::call('storage:link');
+});
 
 
 require __DIR__ . '/auth.php';
