@@ -3,6 +3,7 @@ import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import { Inertia } from "@inertiajs/inertia";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import moment from "moment";
 
 const TambahAbsensi = (props) => {
     const [pertemuan, setPertemuan] = useState("");
@@ -12,10 +13,13 @@ const TambahAbsensi = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        const formattedTanggal = moment(tanggal).format('DD/MM/YYYY');
+        const formattedTenggat = moment(tenggat).format('DD/MM/YYYY');
+
         const formData = new FormData();
         formData.append("pertemuan", pertemuan);
-        formData.append("tanggal", tanggal);
-        formData.append("tenggat", tenggat);
+        formData.append("tanggal", formattedTanggal);
+        formData.append("tenggat", formattedTenggat);
 
         Inertia.post(route("absen-guru.store"), formData);
     };

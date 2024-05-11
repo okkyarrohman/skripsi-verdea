@@ -102,7 +102,7 @@ Route::group(['middleware' => 'role:siswa'], function () {
         // Route Siswa Start Here
         Route::get('/dashboard', [DashboardController::class, 'siswa'])->name('dashbboard.siswa');
         Route::post('/dashboard/hadirAbsen', [DashboardController::class, 'hadirAbsen'])->name('hadirAbsen.dahsboard');
-        Route::post('/absen', [DashboardController::class, 'absen'])->name('absen.dahsboard');
+        Route::get('/absen', [DashboardController::class, 'absen'])->name('absen.dahsboard');
 
         Route::resources([
             'materi' => MateriSiswaController::class,

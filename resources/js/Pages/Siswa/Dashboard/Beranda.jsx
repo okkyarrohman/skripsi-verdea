@@ -4,41 +4,60 @@ import { LuBookOpen } from "react-icons/lu";
 import SiswaLayout from "@/Layouts/SiswaLayout";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaChevronRight } from "react-icons/fa";
+import { Inertia } from "@inertiajs/inertia";
+import { useState } from "react";
 
 const Beranda = (props) => {
     console.log(props);
+    const [absenId, setAbsenId] = useState(props.absensTerakhir[0].id);
+       const isAlreadyHadir = props.absenUser.some(
+           (absen) => absen.absen_id === absenId && absen.status === "Hadir"
+       );
     const columnabsen = [
         {
             name: "Pertemuan",
             selector: "pertemuan",
-            cell: (row) => <span className="font-bold">{row.pertemuan}</span>,
+            cell: (row) => {
+                const uploadDate = new Date(row.tenggat);
+                const formattedDate = `${uploadDate.getDate()}/${
+                    uploadDate.getMonth() + 1
+                }/${uploadDate.getFullYear()}`;
+                return (
+                    <div>
+                        <p className="font-bold text-lg">
+                            Pertemuan {row.pertemuan}
+                        </p>
+                        <p className="font-normal">{formattedDate}</p>
+                    </div>
+                );
+            },
         },
-        {
-            name: "Kehadiran",
-            selector: "status",
-            cell: (row) => (
-                <span
-                    className={`inline-flex items-center ${
-                        row.status === "Hadir"
-                            ? "bg-green-100 text-green-800 border border-green-600"
-                            : row.status === "Belum Absen"
-                            ? "bg-gray-100 text-gray-800 border border-gray-600"
-                            : "bg-red-100 text-red-800 border border-red-600"
-                    } text-xs font-medium px-5 py-1 rounded-full`}
-                >
-                    <span
-                        className={`h-2 w-2 rounded-full mr-2 ${
-                            row.status === "Hadir"
-                                ? "bg-green-500"
-                                : row.status === "Belum Absen"
-                                ? "bg-gray-500"
-                                : "bg-red-500"
-                        }`}
-                    ></span>
-                    {row.status}
-                </span>
-            ),
-        },
+        // {
+        //     name: "Kehadiran",
+        //     selector: "status",
+        //     cell: (row) => (
+        //         <span
+        //             className={`inline-flex items-center ${
+        //                 row.status === "Hadir"
+        //                     ? "bg-green-100 text-green-800 border border-green-600"
+        //                     : row.status === "Belum Absen"
+        //                     ? "bg-gray-100 text-gray-800 border border-gray-600"
+        //                     : "bg-red-100 text-red-800 border border-red-600"
+        //             } text-xs font-medium px-5 py-1 rounded-full`}
+        //         >
+        //             <span
+        //                 className={`h-2 w-2 rounded-full mr-2 ${
+        //                     row.status === "Hadir"
+        //                         ? "bg-green-500"
+        //                         : row.status === "Belum Absen"
+        //                         ? "bg-gray-500"
+        //                         : "bg-red-500"
+        //                 }`}
+        //             ></span>
+        //             {row.status}
+        //         </span>
+        //     ),
+        // },
     ];
 
     const dataabsen = [
@@ -77,6 +96,13 @@ const Beranda = (props) => {
         },
     ];
 
+        const handleSubmit = (e) => {
+            e.preventDefault();
+            Inertia.post(route("hadirAbsen.dahsboard"), { absen_id: absenId });
+            console.log("SUBMIT")
+        };
+
+
     return (
         <>
             <SiswaLayout auth={props.auth}>
@@ -104,18 +130,38 @@ const Beranda = (props) => {
                             <h2 className="text-2xl font-bold tracking-wide">
                                 Absensi
                             </h2>
-                            <Link className="bg-[#F97316] text-white px-5 py-3 rounded-lg font-semibold">
-                                Saya Hadir!
-                            </Link>
+                            {isAlreadyHadir ? (
+                                <div className="bg-gray-400 text-white px-5 py-3 rounded-lg font-semibold cursor-not-allowed">
+                                    <p>Sudah Hadir</p>
+                                </div>
+                            ) : (
+                                <form
+                                    onSubmit={handleSubmit}
+                                    className="bg-[#F97316] text-white px-5 py-3 rounded-lg font-semibold"
+                                >
+                                    <input
+                                        type="hidden"
+                                        name="absen_id"
+                                        value={absenId}
+                                        onChange={(e) =>
+                                            setAbsenId(e.target.value)
+                                        }
+                                    />
+                                    <button type="submit">Saya Hadir!</button>
+                                </form>
+                            )}
                         </div>
                         <DataTable
                             columns={columnabsen}
-                            data={dataabsen}
+                            data={props.absenLampau}
                             className="mt-5"
                             noTableHead
                         ></DataTable>
                         <div className="flex justify-center mt-8">
-                            <Link className="bg-[#F97316] text-white px-5 py-2.5 rounded-lg font-semibold flex items-center">
+                            <Link
+                                href={route("absen.dahsboard")}
+                                className="bg-[#F97316] text-white px-5 py-2.5 rounded-lg font-semibold flex items-center"
+                            >
                                 Lihat Semua Pertemuan
                                 <FaArrowRightLong className="ml-2" />
                             </Link>

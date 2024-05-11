@@ -83,7 +83,7 @@ class AbsenGuruController extends Controller
     {
         Absen::create([
             'pertemuan' => $request->input('pertemuan'),
-            'tanggal' => $request->input('tanggal')->format('d/m/Y'),
+            'tanggal' => $request->input('tanggal'),
             'tenggat' => Carbon::now()->subDays(1),
         ]);
 
@@ -95,7 +95,7 @@ class AbsenGuruController extends Controller
      */
     public function show(string $id)
     {
-        $absens = AbsenUser::where('absen_id', $id)->with('absen')->get();
+        $absens = AbsenUser::where('absen_id', $id)->with('absen','user')->get();
 
         return Inertia::render('Guru/Dashboard/DetailAbsensiPerhari', [
             'absens' => $absens
