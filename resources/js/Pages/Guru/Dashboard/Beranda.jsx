@@ -183,15 +183,16 @@ const Beranda = (props) => {
                             <h3>
                                 Tenggat : {formatTenggat(tugass[0].tenggat)}
                             </h3>
-                            <h3>Status : Belum Selesai</h3>
                             <h3>Pengumpulan : </h3>
 
                             <div className="w-full bg-[#D9D9D9] rounded-full mt-2 mb-4 ">
                                 <div
                                     className="bg-[#F97316] text-xs font-medium text-blue-100 text-center p-1 leading-none rounded-full"
-                                    style={{ width: "45%" }}
+                                    style={{
+                                        width: `${props.outputProgressbar}%`,
+                                    }}
                                 >
-                                    45%
+                                    {props.outputProgressbar}%
                                 </div>
                             </div>
                             <div className="flex justify-center mt-7">
