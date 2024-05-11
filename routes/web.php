@@ -120,9 +120,12 @@ Route::group(['middleware' => 'role:siswa'], function () {
     });
 });
 
-Route::get('/foo', function () {
-    Artisan::call('storage:link');
-});
 
+
+Route::get('/link', function () {
+    $target = '/home/eduhouse/eduhouse/storage/app/public';
+    $shortcut = '/home/eduhouse/public_html/storage';
+    symlink($target, $shortcut);
+});
 
 require __DIR__ . '/auth.php';
