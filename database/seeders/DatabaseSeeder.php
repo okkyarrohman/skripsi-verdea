@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
 
         // User::factory(30)->create();
-        // Absen::factory(5)->create();
+        Absen::factory(1)->create();
         // AbsenUser::factory(30)->create();
         // Materi::factory(3)->create();
         // Tugas::factory(3)->create();
