@@ -8,6 +8,11 @@ const Kuis = (props) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [kuisId, setKuisId] = useState(null); // Menambahkan state untuk menyimpan kuisId
 
+    const hasilKuisUser = props.hasilKuis.filter(
+        (hasil) => hasil.user_id === props.auth.user.id
+    );
+    console.log(hasilKuisUser);
+
     const handleQuizStart = (categoryId) => {
         // Menetapkan kuisId ke dalam state
         setKuisId(categoryId);
@@ -50,20 +55,51 @@ const Kuis = (props) => {
                                 <span>Kuis</span>
                             </h3>
                             <div className="">
-                                <Link href="#">
+                                <p >
                                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
                                         {category.nama}
                                     </h5>
-                                </Link>
+                                </p>
                                 <div className="mt-3 text-gray-700 mb-5 flex flex-col gap-y-2 text-lg">
                                     <p>Soal : {category.soal.length}</p>
                                     <p>Waktu : {category.durasi} Menit</p>
-                                    <p>Nilai : 100</p>
+                                    {hasilKuisUser.some(
+                                        (hasil) =>
+                                            hasil.kategori_kuis_id ===
+                                            category.id
+                                    ) && (
+                                        <p>
+                                            Nilai :{" "}
+                                            {hasilKuisUser
+                                                .filter(
+                                                    (hasil) =>
+                                                        hasil.kategori_kuis_id ===
+                                                        category.id
+                                                )
+                                                .map(
+                                                    (hasil) =>
+                                                        hasil.total_points
+                                                )
+                                                .reduce((a, b) => a + b, 0)}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                             <button
-                                className="w-full bg-[#F97316] text-center py-2 text-white tracking-wide rounded-lg inline-flex items-center justify-center mt-auto"
+                                className={`w-full bg-[#F97316] text-center py-2 text-white tracking-wide rounded-lg inline-flex items-center justify-center mt-auto ${
+                                    hasilKuisUser.some(
+                                        (hasil) =>
+                                            hasil.kategori_kuis_id ===
+                                            category.id
+                                    )
+                                        ? "cursor-not-allowed opacity-50 disabled"
+                                        : ""
+                                }`}
                                 onClick={() => handleQuizStart(category.id)} // Mengirimkan kuisId saat menekan tombol "Kerjakan"
+                                disabled={hasilKuisUser.some(
+                                    (hasil) =>
+                                        hasil.kategori_kuis_id === category.id
+                                )} // Menonaktifkan tombol jika pengguna telah mengerjakan kuis
                             >
                                 Kerjakan
                             </button>

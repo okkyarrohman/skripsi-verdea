@@ -5,6 +5,17 @@ import DataTable from "react-data-table-component";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 const DetailAbsensi = (props) => {
+    console.log(props.absens);
+
+     const formatTanggal = (tenggat) => {
+         const date = new Date(tenggat);
+         const day = date.getDate().toString().padStart(2, "0");
+         const month = (date.getMonth() + 1).toString().padStart(2, "0");
+         const year = date.getFullYear().toString();
+         const hours = date.getHours().toString().padStart(2, "0");
+         const minutes = date.getMinutes().toString().padStart(2, "0");
+         return `${day}/${month}/${year} | ${hours}.${minutes}`;
+     };
     const columnabsen = [
         {
             name: "No",
@@ -12,11 +23,11 @@ const DetailAbsensi = (props) => {
         },
         {
             name: "Pertemuan",
-            selector: (row) => row.nama,
+            selector: (row) => "Pertemuan " + row.absen.pertemuan,
         },
         {
             name: "Waktu",
-            selector: (row) => row.waktu,
+            selector: (row) => formatTanggal(row.waktu),
         },
         {
             name: "Status",
@@ -53,7 +64,7 @@ const DetailAbsensi = (props) => {
         <SiswaLayout auth={props.auth}>
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                 <div className="flex gap-x-2 items-center text-[#64748B] my-3">
-                    <Link href="/">Dashboard</Link>
+                    <Link href={route("dashbboard.siswa")}>Dashboard</Link>
                     <MdKeyboardArrowRight size={25} />
                     <Link href="" className="text-[#F97316]">
                         Detail Absensi
@@ -66,7 +77,8 @@ const DetailAbsensi = (props) => {
             <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
                 <DataTable
                     columns={columnabsen}
-                    data={dataabsen}
+                    data={props.absens}
+                    pagination
                     className="mt-5"
                 />
             </div>

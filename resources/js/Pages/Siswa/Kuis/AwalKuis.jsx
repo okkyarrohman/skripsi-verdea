@@ -51,7 +51,7 @@ const AwalKuis = (props) => {
     }, [questions, currentQuestionIndex]);
 
     const handleFinishQuiz = () => {
-        setModalIsOpen(true);
+        // setModalIsOpen(true);
         console.log("Menyelesaikan kuis...");
 
         const userAnswersArray = questions.map((question) => ({
@@ -60,17 +60,16 @@ const AwalKuis = (props) => {
         }));
         setUserAnswers(userAnswers);
 
+        questions.forEach((question) => {
+            localStorage.removeItem(`question_${question.id}`);
+            localStorage.removeItem("endTime");
+            localStorage.removeItem("questions");
+        });
         console.log(userAnswers);
 
         Inertia.post(route("kuis.store"), {
             kategori_kuis_id: props.kategori[0].id,
             soal: userAnswersArray,
-        });
-
-        localStorage.removeItem("endTime");
-        localStorage.removeItem("questions");
-        questions.forEach((question) => {
-            localStorage.removeItem(`question_${question.id}`);
         });
     };
 

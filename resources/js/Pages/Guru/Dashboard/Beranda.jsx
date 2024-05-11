@@ -6,35 +6,41 @@ import GuruLayout from "@/Layouts/GuruLayout";
 
 const Beranda = (props) => {
     const dataSiswa = props.dataSiswa;
-    const absens = props.absens;
     const tugass = props.tugases;
     console.log(props);
     const columnabsen = [
         {
             name: "Pertemuan",
-            selector: (row) => row.pertemuan,
+            selector: (row) => "Pertemuan " + row.pertemuan,
         },
         {
             name: "Tanggal",
-            selector: (row) => row.tanggal,
+            selector: (row) => formatTanggal(row.tanggal),
         },
         {
             name: "Kehadiran",
-            selector: (row) => row.kehadiran,
             cell: (row) => (
                 <div>
                     <div className="flex items-center">
                         <span className="h-2 w-2 rounded-full bg-green-500 mr-2"></span>
-                        {getAttendanceNumber(row.kehadiran)} Siswa Hadir
+                        {row.hadir} Siswa Hadir
                     </div>
                     <div className="flex items-center">
                         <span className="h-2 w-2 rounded-full bg-red-500 mr-2"></span>
-                        {getAlphaNumber(row.kehadiran)} Siswa Alpha
+                        {row.alpha} Siswa Alpha
                     </div>
                 </div>
             ),
         },
     ];
+
+    const formatTanggal = (tenggat) => {
+        const date = new Date(tenggat);
+        const day = date.getDate().toString().padStart(2, "0");
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const year = date.getFullYear().toString();
+        return `${day}/${month}/${year}`;
+    };
     const formatTenggat = (tenggat) => {
         const date = new Date(tenggat);
         const day = date.getDate().toString().padStart(2, "0");
@@ -160,7 +166,7 @@ const Beranda = (props) => {
                         </div>
                         <DataTable
                             columns={columnabsen}
-                            data={dataabsen}
+                            data={props.infoPertemuan}
                             className="mt-5"
                         ></DataTable>
                     </div>

@@ -42,6 +42,7 @@ class DashboardController extends Controller
             $infoPertemuan[] = [
                 'pertemuan' => $absen->pertemuan,
                 'hadir' => $counterHadir,
+                'tanggal' => $absen->tanggal, 
                 'alpha' => $counterAlpha
             ];
         }
@@ -72,13 +73,15 @@ class DashboardController extends Controller
     public function siswa()
     {
         $materis = Materi::latest()->take(3)->get();
-        $absensTerakhir = Absen::latest()->get();
+        $absensTerakhir = Absen::latest()->take(1)->get();
         $absenLampau = Absen::latest()->take(3)->get();
 
+        $absenUser = AbsenUser::with("absen")->where("user_id", auth()->user()->id)->get();
         return Inertia::render('Siswa/Dashboard/Beranda', [
             'materis' => $materis,
             'absensTerakhir' => $absensTerakhir,
-            'absenLampau' => $absenLampau
+            'absenLampau' => $absenLampau,
+            'absenUser' => $absenUser,
         ]);
     }
 
@@ -91,7 +94,7 @@ class DashboardController extends Controller
             'status' => "Hadir"
         ]);
 
-        return redirect()->route('dashboard.siswa');
+        return redirect()->route('dashbboard.siswa');
     }
 
     public function absen()
@@ -102,7 +105,7 @@ class DashboardController extends Controller
             ->with('absen')
             ->get();
 
-        return Inertia::render('', [
+        return Inertia::render('Siswa/Dashboard/DetailAbsensi', [
             'absens' => $absens
         ]);
     }

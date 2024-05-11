@@ -129,7 +129,11 @@ const Tugas = (props) => {
             )}
             {props.tugases.length > 0 && (
                 <div className="p-4 border-2 border-gray-200 rounded-xl px-5 md:px-8 lg:px-11 xl:px-14 bg-white mt-3">
-                    <DataTable columns={columns} data={props.tugases} />
+                    <DataTable
+                        columns={columns}
+                        data={props.tugases}
+                        pagination
+                    />
                 </div>
             )}
 
