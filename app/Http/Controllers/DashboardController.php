@@ -42,7 +42,7 @@ class DashboardController extends Controller
             $infoPertemuan[] = [
                 'pertemuan' => $absen->pertemuan,
                 'hadir' => $counterHadir,
-                'tanggal' => $absen->tanggal, 
+                'tanggal' => $absen->tanggal,
                 'alpha' => $counterAlpha
             ];
         }
@@ -53,12 +53,19 @@ class DashboardController extends Controller
         $tugases = Tugas::latest()->get();
         $tugasesId = $tugases->pluck('id')->toArray();
 
+
         // Menghitung berapa banyak siswa yang mengumpulkan tugas terbaru
         $totalAssign = TugasUser::whereIn('tugas_id', $tugasesId)->count();
-
         // Memasukkan nilai dalam progress bar
-        $progressMentah = 100 / $totalAssign;
-        $outputProgressbar = round($progressMentah, 2);
+        if ($totalAssign > 0) {
+            $progressMentah = 100 / $totalAssign;
+            $outputProgressbar = round($progressMentah, 2);
+        } else {
+            // Jika tidak ada siswa yang mengumpulkan tugas, maka progress bar diatur menjadi 0
+            $outputProgressbar = 0;
+        }
+
+
 
         return Inertia::render('Guru/Dashboard/Beranda', [
             'absens' => $absens,
