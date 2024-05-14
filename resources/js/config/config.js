@@ -1,3 +1,3 @@
-const UrlBase = "http://eduhouse.cloud";
+const UrlBase = "https://eduhouse.cloud";
 
 export { UrlBase };
