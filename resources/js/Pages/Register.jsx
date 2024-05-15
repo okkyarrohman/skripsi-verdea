@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 const Register = () => {
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: "",
+        firstname: "",
         email: "",
         password: "",
         kelas: "",
@@ -64,13 +64,13 @@ const Register = () => {
                                     />
                                     <input
                                         type="text"
-                                        id="name"
+                                        id="firstname"
                                         placeholder="Masukkan nama anda"
-                                        name="name"
-                                        value={data.name}
+                                        name="firstname"
+                                        value={data.firstname}
                                         className="rounded-md border-2 border-[#D8DBDF] bg-[#FBFBFB] focus:border-gray-300 pl-10 pr-2 h-8 xl:h-10 w-full"
                                         onChange={(e) =>
-                                            setData("name", e.target.value)
+                                            setData("firstname", e.target.value)
                                         }
                                         required
                                     />
