@@ -12,7 +12,6 @@ const Register = () => {
         password: "",
         kelas: "",
         absen: "",
-     
     });
 
     useEffect(() => {
