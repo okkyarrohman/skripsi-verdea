@@ -38,10 +38,12 @@ class OpsiGuruController extends Controller
      */
     public function store(Request $request)
     {
+        $point = $request->input('point') ?? 0;
+
         Opsi::create([
             'soal_id' => $request->input('soal_id'),
             'opsi' => $request->input('opsi'),
-            'point' => $request->input('point'),
+            'point' => $point,
         ]);
 
         return redirect()->route('opsi.index');
