@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(Hasil::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Soal::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Opsi::class)->nullable()->constrained()->cascadeOnDelete();
-            $table->integer('point');
+            $table->integer('point')->nullable();
             $table->timestamps();
         });
     }
