@@ -22,7 +22,7 @@ const DetailHasil = (props) => {
         },
         {
             name: "Nama",
-            selector: (row) => row.nama,
+            selector: (row) => row.user.firstname,
         },
         {
             name: "Point",
