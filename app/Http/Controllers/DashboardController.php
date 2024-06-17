@@ -120,8 +120,14 @@ class DashboardController extends Controller
 
     public function paduanGuru()
     {
-        $paduan = public_path('PanduanGuru.pdf');
+        $filePath = public_path('PanduanGuru.pdf');
 
-        return response()->download($paduan);
+        if (file_exists($filePath)) {
+            return response()->download($filePath, 'PanduanGuru.pdf', [
+                'Content-Type' => 'application/pdf'
+            ]);
+        } else {
+            return response()->json(['message' => 'File not found.'], 404);
+        }
     }
 }

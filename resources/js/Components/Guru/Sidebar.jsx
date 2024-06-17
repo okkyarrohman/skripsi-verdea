@@ -81,7 +81,7 @@ const Sidebar = ({ isOpen }) => {
         {
             icon: <MdOutlineVideoSettings size={20} className="mr-4" />,
             text: "Panduan",
-            url: route("download-paduan.guru"),
+            url: '/guru/download-paduan',  // Ensure the URL matches the route defined in Laravel
             isDownloadLink: true, // Custom attribute to identify download links
         },
     ];
