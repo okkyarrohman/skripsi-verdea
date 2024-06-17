@@ -49,26 +49,44 @@ const Sidebar = ({ isOpen }) => {
             text: "Tutorial",
             url: route("tutorial.index"),
         },
+        {
+            icon: <MdOutlineVideoSettings size={20} className="mr-4" />,
+            text: "Panduan",
+            url: route("download-paduan.siswa"),
+            isDownloadLink: true,
+        },
     ];
 
     return (
-        <>
-            <aside
-                id="logo-sidebar"
-                className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${
-                    isOpen ? "" : "-translate-x-full"
-                } bg-white border-r border-gray-200 sm:translate-x-0`}
-                aria-label="Sidebar"
-            >
-                <div className="h-full px-3 pb-4 overflow-y-auto bg-white ">
-                    <ul className="space-y-2 font-medium">
-                        {menuItems.map((menuItem, index) => (
-                            <li
-                                key={index}
-                                className={`relative ${
-                                    index === activeMenuIndex ? "z-50" : ""
-                                }`}
-                            >
+        <aside
+            id="logo-sidebar"
+            className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${
+                isOpen ? "" : "-translate-x-full"
+            } bg-white border-r border-gray-200 sm:translate-x-0`}
+            aria-label="Sidebar"
+        >
+            <div className="h-full px-3 pb-4 overflow-y-auto bg-white ">
+                <ul className="space-y-2 font-medium">
+                    {menuItems.map((menuItem, index) => (
+                        <li
+                            key={index}
+                            className={`relative ${
+                                index === activeMenuIndex ? "z-50" : ""
+                            }`}
+                        >
+                            {menuItem.isDownloadLink ? (
+                                <a
+                                    href={menuItem.url}
+                                    className="flex items-center p-2 text-[#64748B] rounded-lg hover:bg-gray-100 group"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {menuItem.icon}
+                                    <span className="flex-1 ms-2 whitespace-nowrap">
+                                        {menuItem.text}
+                                    </span>
+                                </a>
+                            ) : (
                                 <Link
                                     href={menuItem.url}
                                     className="flex items-center p-2 text-[#64748B] rounded-lg hover:bg-gray-100 group"
@@ -91,39 +109,37 @@ const Sidebar = ({ isOpen }) => {
                                         />
                                     )}
                                 </Link>
-                                {menuItem.submenu &&
-                                    index === activeMenuIndex && (
-                                        <ul className="pl-10">
-                                            {menuItem.submenu.map(
-                                                (subMenuItem, subIndex) => (
-                                                    <li
-                                                        key={subIndex}
-                                                        className="relative"
+                            )}
+                            {menuItem.submenu &&
+                                index === activeMenuIndex && (
+                                    <ul className="pl-10">
+                                        {menuItem.submenu.map(
+                                            (subMenuItem, subIndex) => (
+                                                <li
+                                                    key={subIndex}
+                                                    className="relative"
+                                                >
+                                                    <Link
+                                                        href={subMenuItem.url}
+                                                        className="flex items-center p-2 text-base text-[#64748B] transition duration-200 rounded-lg group hover:bg-gray-100"
                                                     >
-                                                        <Link
-                                                            href={
-                                                                subMenuItem.url
+                                                        {subMenuItem.icon}
+                                                        <span className="flex-1 ms-2 whitespace-nowrap">
+                                                            {
+                                                                subMenuItem.text
                                                             }
-                                                            className="flex items-center p-2 text-base text-[#64748B] transition duration-200 rounded-lg group hover:bg-gray-100"
-                                                        >
-                                                            {subMenuItem.icon}
-                                                            <span className="flex-1 ms-2 whitespace-nowrap">
-                                                                {
-                                                                    subMenuItem.text
-                                                                }
-                                                            </span>
-                                                        </Link>
-                                                    </li>
-                                                )
-                                            )}
-                                        </ul>
-                                    )}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </aside>
-        </>
+                                                        </span>
+                                                    </Link>
+                                                </li>
+                                            )
+                                        )}
+                                    </ul>
+                                )}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </aside>
     );
 };
 
