@@ -116,4 +116,12 @@ class DashboardController extends Controller
             'absens' => $absens
         ]);
     }
+
+
+    public function paduanGuru()
+    {
+        $paduan = public_path('PanduanGuru.pdf');
+
+        return response()->download($paduan);
+    }
 }

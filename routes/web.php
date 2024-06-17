@@ -94,6 +94,7 @@ Route::group(['middleware' => 'role:guru'], function () {
                 'hasil' => HasilGuruController::class,
             ]);
         });
+        Route::get('/download-paduan', [DashboardController::class, 'paduanGuru'])->name('download-paduan.guru');
     });
 });
 
@@ -117,6 +118,7 @@ Route::group(['middleware' => 'role:siswa'], function () {
             Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
             Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
         });
+        Route::get('/download/paduan', [DashboardController::class, 'paduanSiswa'])->name('download-paduan.siswa');
     });
 });
 

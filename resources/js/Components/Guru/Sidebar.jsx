@@ -78,6 +78,12 @@ const Sidebar = ({ isOpen }) => {
             text: "Tutorial",
             url: route("tutorial-guru.index"),
         },
+        {
+            icon: <MdOutlineVideoSettings size={20} className="mr-4" />,
+            text: "Panduan",
+            url: route("download-paduan.guru"),
+            isDownloadLink: true, // Custom attribute to identify download links
+        },
     ];
 
     return (
@@ -100,7 +106,7 @@ const Sidebar = ({ isOpen }) => {
                             >
                                 {menuItem.submenu ? (
                                     <div
-                                        className={`flex items-center p-2 text-[#64748B] rounded-lg group hover:bg-gray-50 
+                                        className={`flex items-center p-2 text-[#64748B] rounded-lg group hover:bg-gray-50
                                         `}
                                         onClick={() => {
                                             toggleMainMenu(index);
@@ -121,6 +127,18 @@ const Sidebar = ({ isOpen }) => {
                                             />
                                         )}
                                     </div>
+                                ) : menuItem.isDownloadLink ? (
+                                    <a
+                                        href={menuItem.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center p-2 text-base text-[#64748B] transition duration-200 rounded-lg group hover:bg-gray-100"
+                                    >
+                                        {menuItem.icon}
+                                        <span className="flex-1 ms-2 whitespace-nowrap">
+                                            {menuItem.text}
+                                        </span>
+                                    </a>
                                 ) : (
                                     <Link
                                         href={menuItem.url}
